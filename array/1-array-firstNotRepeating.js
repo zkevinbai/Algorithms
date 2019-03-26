@@ -21,14 +21,10 @@ function firstNotRepeatingCharacter(s) {
             } else {
                 unresolved = false;
             }
-        }
-
-        if (pointerA === s.length - 1) {
+        } else if (pointerA === s.length - 1) {
             unresolved = false;
             noUniques = true;
-        }
-
-        if (s[pointerB] === s[pointerA]) {
+        } else if (s[pointerB] === s[pointerA]) {
             settingSun.add(s[pointerA]);
             pointerA += 1;
             pointerB = pointerA;
@@ -39,5 +35,5 @@ function firstNotRepeatingCharacter(s) {
     return s[pointerA];
 }
 
-let s = "zzz";
-firstNotRepeatingCharacter(s);
+// let s = "bccyb";
+// firstNotRepeatingCharacter(s);
