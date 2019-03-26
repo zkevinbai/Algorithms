@@ -14,14 +14,13 @@ function firstNotRepeatingCharacter(s) {
     while (unresolved) {
         pointerB += 1;
 
-        if (pointerB === s.length - 1) {
+        if (pointerB === s.length - 1 && s[pointerB] !== s[pointerA]) {
             if (settingSun.has(s[pointerA])) {
                 pointerA += 1;
                 pointerB = pointerA;
             } else {
                 unresolved = false;
             }
-            // unresolved = false;
         }
 
         if (pointerA === s.length - 1) {
@@ -40,5 +39,5 @@ function firstNotRepeatingCharacter(s) {
     return s[pointerA];
 }
 
-let s = "bcccccccb";
+let s = "zzz";
 firstNotRepeatingCharacter(s);
