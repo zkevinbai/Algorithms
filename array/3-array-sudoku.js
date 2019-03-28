@@ -5,18 +5,41 @@
 // Output: boolean determining if this is a valid sudoku puzzle
 
 function sudoku2(grid) {
-    let rowChecker = new Set();
-    let columnChecker = new Set();;
-    let subGridChecker;
+    let columns = new Array( 9 );
+
+    for (let i = 0; i < columns.length; i++) {
+        columns[i] = [];
+    }
 
     for (let i = 0; i < grid.length; i++) {
-        const row = array[i];
+        const row = grid[i];
+        if (!rowChecker(row)) return false;
 
-        
+        for (let j = 0; j < row.length; j++) {
+            columns[j].push( row[i] )
+        }
     }
+
+    for (let i = 0; i < columns.length; i++) {
+        const row = columns[i];
+        if (!rowChecker(row)) return false;
+    }  
+
 }
 
-func
+function rowChecker(rowArr) {
+    let rowSet = new Set();
+    for (let i = 0; i < rowArr.length; i++) {
+        const number = rowArr[i];
+        
+        if (rowSet.has(number)) return false;
+
+        rowSet.add(number)
+    }
+    return true;
+}
+
+
 
 grid = [
     ['.', '.', '.', '1', '4', '.', '.', '2', '.'],
