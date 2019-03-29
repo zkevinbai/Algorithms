@@ -25,7 +25,14 @@ function sudoku2(grid) {
         if (!rowChecker(row)) return false;
     }  
 
-    return sudokuChecker(grid);
+    let subgrids = subGrids(grid);
+
+    for (let i = 0; i < subgrids.length; i++) {
+        const row = subgrids[i];
+        if (!rowChecker(row)) return false;
+    }
+
+    return true;
 }
 
 function rowChecker(rowArr) {
