@@ -46,22 +46,32 @@ function sudokuChecker(grid) {
 
     let topThree = [[], [], []];
     for (let i = 0; i < 3; i++) {
-        const row = array[i];
+        const row = grid[i];
         for (let j = 0; j < 3; j++) {
-            topThree[j].push(row.slice(j*3, j*3+2))
+            topThree[j].push(row.slice(j * 3, j * 3 + 3))
         }
     }
+    subgrids = subgrids.concat(topThree);
 
-    for (let i = 0; i < 6; i++) {
-        const row = array[i];
-        
+    let midThree = [[], [], []];
+    for (let i = 3; i < 6; i++) {
+        const row = grid[i];
+        for (let j = 0; j < 3; j++) {
+            midThree[j].push(row.slice(j * 3, j * 3 + 3))
+        }
     }
+    subgrids = subgrids.concat(midThree);
 
-    for (let i = 0; i < 9; i++) {
-        const row = array[i];
-        
+    let bottomThree = [[], [], []];
+    for (let i = 6; i < 9; i++) {
+        const row = grid[i];
+        for (let j = 0; j < 3; j++) {
+            bottomThree[j].push(row.slice(j * 3, j * 3 + 3))
+        }
     }
+    subgrids = subgrids.concat(bottomThree);
 
+    return subgrids;
 }
 
 // After
