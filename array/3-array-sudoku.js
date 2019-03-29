@@ -40,7 +40,7 @@ function rowChecker(rowArr) {
     return true;
 }
 
-function sudokuChecker(grid) {
+function subGrids(grid) {
 
     let subgrids = [];
 
@@ -48,7 +48,7 @@ function sudokuChecker(grid) {
     for (let i = 0; i < 3; i++) {
         const row = grid[i];
         for (let j = 0; j < 3; j++) {
-            topThree[j].push(row.slice(j * 3, j * 3 + 3))
+            topThree[j] = topThree[j].concat(row.slice(j * 3, j * 3 + 3))
         }
     }
     subgrids = subgrids.concat(topThree);
@@ -57,7 +57,7 @@ function sudokuChecker(grid) {
     for (let i = 3; i < 6; i++) {
         const row = grid[i];
         for (let j = 0; j < 3; j++) {
-            midThree[j].push(row.slice(j * 3, j * 3 + 3))
+            midThree[j] = midThree[j].concat(row.slice(j * 3, j * 3 + 3))
         }
     }
     subgrids = subgrids.concat(midThree);
@@ -66,13 +66,48 @@ function sudokuChecker(grid) {
     for (let i = 6; i < 9; i++) {
         const row = grid[i];
         for (let j = 0; j < 3; j++) {
-            bottomThree[j].push(row.slice(j * 3, j * 3 + 3))
+            bottomThree[j] = bottomThree[j].concat(row.slice(j * 3, j * 3 + 3))
         }
     }
     subgrids = subgrids.concat(bottomThree);
 
     return subgrids;
 }
+
+// Gets all grids
+// function sudokuChecker(grid) {
+
+//     let subgrids = [];
+
+//     let topThree = [[], [], []];
+//     for (let i = 0; i < 3; i++) {
+//         const row = grid[i];
+//         for (let j = 0; j < 3; j++) {
+//             topThree[j].push(row.slice(j * 3, j * 3 + 3))
+//         }
+//     }
+//     subgrids = subgrids.concat(topThree);
+
+//     let midThree = [[], [], []];
+//     for (let i = 3; i < 6; i++) {
+//         const row = grid[i];
+//         for (let j = 0; j < 3; j++) {
+//             midThree[j].push(row.slice(j * 3, j * 3 + 3))
+//         }
+//     }
+//     subgrids = subgrids.concat(midThree);
+
+//     let bottomThree = [[], [], []];
+//     for (let i = 6; i < 9; i++) {
+//         const row = grid[i];
+//         for (let j = 0; j < 3; j++) {
+//             bottomThree[j].push(row.slice(j * 3, j * 3 + 3))
+//         }
+//     }
+//     subgrids = subgrids.concat(bottomThree);
+
+//     return subgrids;
+// }
 
 // After
 0: 0: [0, 1, 2],   1: [0, 1, 2],   2: [0, 1, 2],]
@@ -101,11 +136,7 @@ function sudokuChecker(grid) {
 8: [0, 1, 2,    3, 4, 5,    6, 7, 8]
 
 
-
-
-
-
-grid = [
+const grid = [
     ['.', '.', '.', '1', '4', '.', '.', '2', '.'],
     ['.', '.', '6', '.', '.', '.', '.', '.', '.'],
     ['.', '.', '.', '.', '.', '.', '.', '.', '.'],
@@ -117,18 +148,18 @@ grid = [
     ['.', '.', '.', '5', '.', '.', '.', '7', '.']
 ]
 
-function sudokuChecker(grid) {
+// function sudokuChecker(grid) {
 
-    let subgrids = [];
+//     let subgrids = [];
 
-    let topThree = [[], [], []];
-    for (let i = 0; i < 3; i++) {
-        const row = grid[i];
-        for (let j = 0; j < 3; j++) {
-            topThree[j].push(row.slice(j * 3, j * 3 + 3))
-        }
-    }
-    subgrids.push(topThree);
+//     let topThree = [[], [], []];
+//     for (let i = 0; i < 3; i++) {
+//         const row = grid[i];
+//         for (let j = 0; j < 3; j++) {
+//             topThree[j].push(row.slice(j * 3, j * 3 + 3))
+//         }
+//     }
+//     subgrids.push(topThree);
 
-    return subgrids;
-}
+//     return subgrids;
+// }
