@@ -40,7 +40,7 @@ function rowChecker(rowArr) {
     for (let i = 0; i < rowArr.length; i++) {
         const number = rowArr[i];
 
-        if (rowSet.has(number)) return false;
+        if (rowSet.has(number) && number !== ".") return false;
 
         rowSet.add(number)
     }
