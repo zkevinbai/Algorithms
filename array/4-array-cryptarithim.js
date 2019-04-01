@@ -25,15 +25,15 @@ function dictionaryMaker(array) {
     return dictionary;
 }
 
-function encrypt(array, solution) {
+function encrypt(crypt, solution) {
     let dictionary = dictionaryMaker(solution);
 
     let encrypted = [];
 
-    array.forEach(word => {
+    crypt.forEach(word => {
         let encryptedWord = "";
         for (let i = 0; i < word.length; i++) {
-            const letter = array[i];
+            const letter = word[i];
             encryptedWord += dictionary[letter];
         }
         encrypted.push(encryptedWord);
