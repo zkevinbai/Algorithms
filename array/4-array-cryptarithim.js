@@ -7,7 +7,7 @@ function isCryptSolution(crypt, solution) {
 
     for (let i = 0; i < encrypted.length; i++) {
         const encryptedWord = encrypted[i];
-        if (encryptedWord[0] === "0") return false;
+        if (encryptedWord[0] === "0" && encryptedWord.length !== 1 ) return false;
 
         encrypted[i] = parseInt(encryptedWord);
     }
