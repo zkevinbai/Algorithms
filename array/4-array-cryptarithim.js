@@ -6,7 +6,7 @@ function isCryptSolution(crypt, solution) {
     let encrypted = encrypt(crypt, solution);
 
     for (let i = 0; i < encrypted.length; i++) {
-        const encryptedWord = array[i];
+        const encryptedWord = encrypted[i];
         if (encryptedWord[0] === "0") return false;
 
         encrypted[i] = parseInt(encryptedWord);
@@ -19,7 +19,7 @@ function dictionaryMaker(array) {
     let dictionary = {};
 
     array.forEach(subArray => {
-        dictionary[subArray[0]] = dictionary[subArray[1]]
+        dictionary[subArray[0]] = subArray[1];
     });
 
     return dictionary;
@@ -41,3 +41,16 @@ function encrypt(array, solution) {
 
     return encrypted;
 }
+
+let crypt = ["SEND", "MORE", "MONEY"]
+
+let solution = [
+    ["O", "0"],
+    ["M", "1"],
+    ["Y", "2"],
+    ["E", "5"],
+    ["N", "6"],
+    ["D", "7"],
+    ["R", "8"],
+    ["S", "9"]
+]
