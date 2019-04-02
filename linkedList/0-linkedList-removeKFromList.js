@@ -31,6 +31,10 @@ function removeKFromList(list, kDelete) {
         }
     }
 
+    if (pointerA.value === kDelete && !pointerA.next) {
+        return [];
+    }
+
     return head;
 }
 
