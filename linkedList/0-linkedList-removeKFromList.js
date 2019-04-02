@@ -9,12 +9,21 @@ function removeKFromList(list, kDelete) {
     let pointerA = list;
     let pointerB = list.next;
 
-    if (pointerA.value === kDelete) {
-        head = pointerB;
-        pointerA.next = null;
+    let continuePointerA = true;
 
-        pointerA = head;
-        pointerB = pointerA.next;
+    while(continuePointerA) {
+        if (pointerA.value === kDelete && !pointerA.next) {
+            return [];
+        } else if (pointerA.value === kDelete) {
+            head = pointerB;
+            pointerA.next = null;
+
+            pointerA = head;
+            pointerB = pointerA.next;
+            continuePointerA = true;
+        } else {
+            continuePointerA = false;
+        }
     }
 
     while(pointerB){
@@ -31,9 +40,7 @@ function removeKFromList(list, kDelete) {
         }
     }
 
-    if (pointerA.value === kDelete && !pointerA.next) {
-        return [];
-    }
+
 
     return head;
 }
