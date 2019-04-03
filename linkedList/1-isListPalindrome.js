@@ -10,8 +10,11 @@
     // reverse the first half of the list in place
     // 2 iterations to check if values are equal
 
+// needs
+    // account for even and odd; 
+
 function isListPalindrome(list) {
-    if (!list) return array;
+    if (!list) return [];
     let node = list;
     let listLength = 0;
 
@@ -25,12 +28,18 @@ function isListPalindrome(list) {
 
     let lead = list.next; //b (.next is c)
     let trail = list;   //a (.next is b)
+
+    let halfMinusOne = Math.floor(listLength / 2) - 1;
+
     for (let i = 0; i < Math.floor(listLength / 2); i++) {
-        if (i === Math.floor(listLength / 2) - 1) {
+        if (i === halfMinusOne && listLength % 2 === 0) {
             firstHalfHead = trail;
             secondHalfHead = lead;
+        } else if (i === halfMinusOne && listLength % 2 !== 0){
+            firstHalfHead = trail;
+            secondHalfHead = lead.next;
         } else {
-            trail.next = null;
+            // trail.next = null;
             let temp = lead.next; //c
             lead.next = trail; //b.next = a
             trail = lead;   //b
@@ -40,7 +49,6 @@ function isListPalindrome(list) {
 
     let pointerA = firstHalfHead;
     let pointerB = secondHalfHead;
-    return [pointerA, pointerB]
     for (let i = 0; i <= Math.floor(listLength / 2); i++) {
         if (pointerA.value !== pointerB.value) {
             return false;
