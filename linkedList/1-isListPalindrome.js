@@ -14,7 +14,8 @@
     // account for even and odd; 
 
 function isListPalindrome(list) {
-    if (!list) return [];
+    if (!list) return false;
+    if (!list.next) return true;
     let node = list;
     let listLength = 0;
 
@@ -35,21 +36,26 @@ function isListPalindrome(list) {
         if (i === halfMinusOne && listLength % 2 === 0) {
             firstHalfHead = trail;
             secondHalfHead = lead;
-        } else if (i === halfMinusOne && listLength % 2 !== 0){
-            firstHalfHead = trail;
+        } else if (i === halfMinusOne && listLength % 2 === 1) {
+            // return "odd";
+            firstHalfHead = lead;
             secondHalfHead = lead.next;
         } else {
-            // trail.next = null;
-            let temp = lead.next; //c
-            lead.next = trail; //b.next = a
-            trail = lead;   //b
-            lead = temp;    //c
+            trail.next = null;
+            let temp = lead.next;   //c
+            lead.next = trail;      //b.next = a
+            trail = lead;           //b
+            lead = temp;            //c
         }
     }
 
     let pointerA = firstHalfHead;
     let pointerB = secondHalfHead;
-    for (let i = 0; i <= Math.floor(listLength / 2); i++) {
+
+    for (let i = 0; i < Math.floor(listLength / 2); i++) {
+        if (!pointerA || !pointerB) break;
+        // if(!pointerB) return "no A";
+        // if(!pointerB) return "no B";
         if (pointerA.value !== pointerB.value) {
             return false;
         }
