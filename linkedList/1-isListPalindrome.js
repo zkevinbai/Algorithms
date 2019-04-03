@@ -5,18 +5,23 @@
     
 // Restrictions O(n) time, using O(1) space
 
+// strategy
+    // get the length, and know where half is
+    // create a stack
+
 function isListPalindrome(list) {
     let array = [];
-    if(!list) return array;
+    if (!list) return array;
     let node = list;
-    while(node) {
+    let listLength = 0;
+
+    while (node) {
         array.push(node.value);
         node = node.next;
+        listLength += 1;
     }
 
-    let rev = array;
+    let rev = array.slice();
     rev = rev.reverse();
-    return [arr, rev];
-    return array === rev;
+    return array.toString() === rev.toString();
 }
-
