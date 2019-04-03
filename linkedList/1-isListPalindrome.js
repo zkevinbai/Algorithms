@@ -10,11 +10,8 @@
     // reverse the first half of the list in place
     // 2 iterations to check if values are equal
 
-// needs
-    // account for even and odd; 
-
 function isListPalindrome(list) {
-    if (!list) return false;
+    if (!list) return true;
     if (!list.next) return true;
     let node = list;
     let listLength = 0;
@@ -38,8 +35,9 @@ function isListPalindrome(list) {
             secondHalfHead = lead;
         } else if (i === halfMinusOne && listLength % 2 === 1) {
             // return "odd";
-            firstHalfHead = lead;
+            firstHalfHead = trail;
             secondHalfHead = lead.next;
+            // return [firstHalfHead,secondHalfHead]
         } else {
             trail.next = null;
             let temp = lead.next;   //c
