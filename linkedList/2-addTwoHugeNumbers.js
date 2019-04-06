@@ -70,21 +70,21 @@ function addTwoHugeNumbers(a, b) {
 
 function longest(a, b) {
     let i = 1;
-    let node = a;
+    let nodeA = a;
 
-    while(node) {
+    while (nodeA) {
         i += 1;
 
-        node = node.next;
+        nodeA = nodeA.next;
     }
 
     let j = 1;
-    node = b;
+    let nodeB = b;
 
-    while(node) {
-        i += 1;
+    while (nodeB) {
+        j += 1;
 
-        node = node.next;
+        nodeB = nodeB.next;
     }
 
     if (i > j) {
