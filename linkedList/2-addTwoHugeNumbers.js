@@ -2,7 +2,8 @@ function addTwoHugeNumbers(a, b) {
     let aValue = getValue(a);
     let bValue = getValue(b);
 
-    let newValue = aValue + bValue;
+    let newValue = aValue + bValue + "";
+    return newValue;
 }
 
 function getValue(linkList) {
