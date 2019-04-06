@@ -2,7 +2,7 @@ function addTwoHugeNumbers(a, b) {
     let aValue = getValue(a);
     let bValue = getValue(b);
 
-    return aValue + bValue;
+    let newValue = aValue + bValue;
 }
 
 function getValue(linkList) {
@@ -11,7 +11,7 @@ function getValue(linkList) {
     let node = linkList;
 
     while( node ) {
-        let nodeV = toString(node.value);
+        let nodeV = node.value + "";
 
         while(nodeV.length < 4) {
             nodeV = "0" + nodeV;
