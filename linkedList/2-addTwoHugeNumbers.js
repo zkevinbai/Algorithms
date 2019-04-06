@@ -5,13 +5,19 @@ function addTwoHugeNumbers(a, b) {
     return aValue + bValue;
 }
 
-function geValue(linkList) {
+function getValue(linkList) {
     let value = "";
 
     let node = linkList;
 
-    while( node.next ) {
-        value += node.value;
+    while( node ) {
+        let nodeV = toString(node.value);
+
+        while(nodeV.length < 4) {
+            nodeV = "0" + nodeV;
+        }
+
+        value += nodeV;
 
         node = node.next;
     }
