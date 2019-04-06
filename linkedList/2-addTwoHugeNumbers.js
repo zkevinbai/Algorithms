@@ -15,15 +15,39 @@ function addTwoHugeNumbers(a, b) {
 
         let newValueLength = newValue.length;
 
+        let startShave = newValueLength - 4;
+        if (startShave < 0) {
+            startShave = 0;
+        }
+
         fourSplit.unshift(
-            shaveLeadingZeros(newValue.slice(newValueLength - 4, newValueLength))
+            shaveLeadingZeros(newValue.slice(startShave, newValueLength))
         );
 
-        newValue = newValue.slice(0, newValueLength - 4);
+        newValue = newValue.slice(0, startShave);
     }
 
-    return fourSplit;
+    return fourSplit
+    return fourSplit.map(element => parseInt(element));
 }
+
+function linkedListMaker(array){
+    let shift = array.shift();
+    let node = ListNode(parseInt(shift));
+
+    while(array.length) {
+        shift = array.shift();
+
+        let temp = ListNode(parseInt(shift));
+
+        node.next = temp;
+
+        node = temp;
+    }
+
+    return node;
+}
+
 
 function shaveLeadingZeros(string) {
     while (string[0] === "0") {
