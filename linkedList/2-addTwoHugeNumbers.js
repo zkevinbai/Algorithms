@@ -54,24 +54,44 @@ function addTwoHugeNumbers(a, b) {
         newValue = newValue.slice(0, startShave);
     }
 
-    return fourSplit.map(element => parseInt(element));
-}
+    let newValueArray = fourSplit.map(element => parseInt(element));
 
-function linkedListMaker(array) {
-    let shift = array.shift();
-    let node = ListNode(parseInt(shift));
+    let longerList = longest(a, b);
 
-    while (array.length) {
-        shift = array.shift();
+    let node = longerList;
+    while(node) {
+        node.value = newValueArray.shift();
 
-        let temp = ListNode(parseInt(shift));
-
-        node.next = temp;
-
-        node = temp;
+        node = node.next;
     }
 
-    return node;
+    return longerList;
+}
+
+function longest(a, b) {
+    let i = 1;
+    let node = a;
+
+    while(node) {
+        i += 1;
+
+        node = node.next;
+    }
+
+    let j = 1;
+    node = b;
+
+    while(node) {
+        i += 1;
+
+        node = node.next;
+    }
+
+    if (i > j) {
+        return a;
+    } else {
+        return b;
+    }
 }
 
 function shaveLeadingZeros(string) {
