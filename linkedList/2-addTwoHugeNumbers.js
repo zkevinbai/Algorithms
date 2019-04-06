@@ -57,15 +57,47 @@ function addTwoHugeNumbers(a, b) {
     let newValueArray = fourSplit.map(element => parseInt(element));
 
     let longerList = longest(a, b);
+    let shorterList = shortest(a, b);;
 
     let node = longerList;
     while(node) {
         node.value = newValueArray.shift();
 
-        node = node.next;
+        if (!node.next && newValueArray.length) {
+            node.next = shorterList;
+            node = shorterList;
+        } else {
+            node = node.next;
+        }
     }
 
     return longerList;
+}
+
+function shortest(a, b) {
+    let i = 1;
+    let nodeA = a;
+
+    while (nodeA) {
+        i += 1;
+
+        nodeA = nodeA.next;
+    }
+
+    let j = 1;
+    let nodeB = b;
+
+    while (nodeB) {
+        j += 1;
+
+        nodeB = nodeB.next;
+    }
+
+    if (i < j) {
+        return a;
+    } else {
+        return b;
+    }
 }
 
 function longest(a, b) {
