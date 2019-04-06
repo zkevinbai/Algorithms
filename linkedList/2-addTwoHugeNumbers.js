@@ -71,6 +71,17 @@ function addTwoHugeNumbers(a, b) {
         }
     }
 
+    node = longerList;
+    let counter = 0;
+
+    while(node){
+        counter += 1;
+        if (counter > fourSplit.length) {
+            node.next = null;
+            node = node.next;
+        }
+    }
+
     return longerList;
 }
 
