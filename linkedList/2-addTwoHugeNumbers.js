@@ -11,12 +11,15 @@ function addTwoHugeNumbers(a, b) {
 
     let fourSplit = [];
 
-    while(newValue.length) {
-        fourSplit.push(
-            shaveLeadingZeros(newValue.slice(0,4))
+    while (newValue.length) {
+
+        let newValueLength = newValue.length;
+
+        fourSplit.unshift(
+            shaveLeadingZeros(newValue.slice(newValueLength - 4, newValueLength))
         );
 
-        newValue = newValue.slice(4);
+        newValue = newValue.slice(0, newValueLength - 4);
     }
 
     return fourSplit;
@@ -37,10 +40,10 @@ function getValue(linkList) {
 
     let node = linkList;
 
-    while( node ) {
+    while (node) {
         let nodeV = node.value + "";
 
-        while(nodeV.length < 4) {
+        while (nodeV.length < 4) {
             nodeV = "0" + nodeV;
         }
 
