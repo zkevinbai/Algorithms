@@ -14,7 +14,7 @@ function mergeTwoLinkedLists(l1, l2) {
     let listTwo = l2;
 
     if (!listOne) return listTwo;
-    if (!listTwo) return list;
+    if (!listTwo) return listOne;
 
     let node;
     if (listOne.value < listTwo.value) {
