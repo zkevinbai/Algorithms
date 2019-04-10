@@ -13,6 +13,9 @@ function mergeTwoLinkedLists(l1, l2) {
     let listOne = l1;
     let listTwo = l2;
 
+    if (!listOne) return listTwo;
+    if (!listTwo) return list;
+
     let node;
     if (listOne.value < listTwo.value) {
         node = new ListNode(listOne.value);
@@ -26,7 +29,7 @@ function mergeTwoLinkedLists(l1, l2) {
 
     while (listOne && listTwo) {
         if (listOne.value < listTwo.value) {
-            node.next = listOne.value;
+            node.next = new ListNode(listOne.value);
             if (!listOne.next) {
                 listOne = null
             } else {
@@ -34,9 +37,7 @@ function mergeTwoLinkedLists(l1, l2) {
             }
 
         } else {
-            node.next = listTwo.value;
-            listTwo = listTwo.next;
-
+            node.next = new ListNode(listTwo.value);
             if (!listTwo.next) {
                 listTwo = null
             } else {
