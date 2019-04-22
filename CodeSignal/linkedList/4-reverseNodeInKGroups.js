@@ -25,40 +25,47 @@
 // strategy
     // [x] create function to reverse any linked list
     // [x] create function to segment a list into k sections
-    // [] create function to determine the length of a linked list;
+    // [x] create function to determine the length of a linked list;
     // [] build reversed linked list using the function
+
 
 function reverseNodesInKGroups(l, k) {
     // base case
-    if(k < 2) return l;
+    if (k < 2) return l;
 
     // build segments of linked list
     let segments = segmentLinkedList(l, k);
 
-    // build new linked list, reverse only if sub linked list is of k length;
-
-    if (linkedListLength(segments[0]) === k){
-        let head = linkedListReverse(segments[0]);
-        return head;
-    }
-
+    // reverse segments if they are at k length;       
     for (let i = 0; i < segments.length; i++) {
         const segment = segments[i];
 
         if (linkedListLength(segment) === k) {
-
+            segments[i] = linkedListReverse(segment);
         }
-        
     }
 
+    // join segments; 
+    let head = segments.shift();
 
+    let node = head;
+
+    while(segments.length !== 0) {
+        while(node.next !== null) {
+            node = node.next;
+        }
+
+        node.next = segments.shift();
+    }
+    
+    return head;
 }
 
 // length of linked list
 function linkedListLength(l) {
     let length = 0;
     let node = l;
-    while(node){
+    while (node) {
         length += 1;
         node = node.next;
     }
@@ -106,7 +113,7 @@ function segmentLinkedList(l, k) {
 function linkedListReverse(l) {
     let prev = null;
     let current = l;
-    let next = current.next;
+    let next = null;
 
     let newHead;
 
@@ -117,7 +124,7 @@ function linkedListReverse(l) {
         current = next;
 
         if (!current) {
-            newHead = current;
+            newHead = prev;
         }
     }
 
