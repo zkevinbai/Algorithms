@@ -25,13 +25,18 @@
 // strategy
     // create function to reverse any linked list
     // create function to segment a list into k sections
+    // build reversed linked list using the function
 
 function reverseNodesInKGroups(l, k) {
     // base case
     if(k < 2) return l;
 
-    // reverse entire linked list;
+    // build segments of linked list
+    segmentLinkedList(l, k)
+}
 
+// reverse entire linked list;
+function linkedListReverse(l) {
     let prev = null;
     let current = l;
     let next = current.next;
@@ -50,4 +55,22 @@ function reverseNodesInKGroups(l, k) {
     }
 
     return newHead;
+}
+
+function segmentLinkedList(l, k) {
+    let segments = [];
+    let node = l;
+    let counter = 0;
+
+    while (node) {
+        if (counter === 0) {
+            segments.push(node);
+            counter = k;
+        }
+
+        counter -= 1;
+        node = node.next;
+    }
+
+    return segments;
 }
