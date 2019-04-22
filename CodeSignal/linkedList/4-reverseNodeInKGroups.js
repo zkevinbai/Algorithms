@@ -26,7 +26,7 @@
     // [x] create function to reverse any linked list
     // [x] create function to segment a list into k sections
     // [x] create function to determine the length of a linked list;
-    // [] build reversed linked list using the function
+    // [x] build reversed linked list using the reversed segments
 
 
 function reverseNodesInKGroups(l, k) {
@@ -36,7 +36,7 @@ function reverseNodesInKGroups(l, k) {
     // build segments of linked list
     let segments = segmentLinkedList(l, k);
 
-    // reverse segments if they are at k length;       
+    // reverse segments if they are k length;       
     for (let i = 0; i < segments.length; i++) {
         const segment = segments[i];
 
@@ -47,7 +47,6 @@ function reverseNodesInKGroups(l, k) {
 
     // join segments; 
     let head = segments.shift();
-
     let node = head;
 
     while(segments.length !== 0) {
