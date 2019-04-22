@@ -37,10 +37,20 @@ function reverseNodesInKGroups(l, k) {
 
     // build new linked list, reverse only if sub linked list is of k length;
 
-
 }
 
-// segment linked list
+// length of linked list
+function linkedListLength(l) {
+    let length = 0;
+    let node = l;
+    while(node){
+        length += 1;
+        node = node.next;
+    }
+    return length;
+}
+
+// segment linked list by integer k
 function segmentLinkedList(l, k) {
     let segments = [];
     let node = l;
