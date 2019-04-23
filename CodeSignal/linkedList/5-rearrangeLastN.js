@@ -20,3 +20,13 @@
 function rearrangeLastN(l, n) {
 
 }
+
+function linkedListLength(l) {
+    let length = 0;
+    let node = l;
+    while (node) {
+        length += 1;
+        node = node.next;
+    }
+    return length;
+}
