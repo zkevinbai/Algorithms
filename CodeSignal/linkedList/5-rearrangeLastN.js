@@ -35,6 +35,10 @@ function rearrangeLastN(l, n) {
 
     let length = linkedListLength(l);
 
+    if (n === 0 || n === length){
+        return l;
+    }
+
     let counter = length - 1;
     let nCounter = length - n - 1;
     let node = l;
