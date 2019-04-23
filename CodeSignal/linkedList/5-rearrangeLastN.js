@@ -17,8 +17,45 @@
     // i: [0,1,2,3,4], 2
     // o: [3, 4, 0,1,2]
 
-function rearrangeLastN(l, n) {
+// Strategy
+    // define 4 variables
+        // head
+        // nSubOneTail
+        // nHead
+        // tail
+    // assign nsubOneTail.next = null;
+    // assign tail.next = head;
+    // return nHead;
 
+function rearrangeLastN(l, n) {
+    let head = l;
+    let nsubOneTail;
+    let nHead;
+    let tail;
+
+    let length = linkedListLength(l);
+
+    let counter = length - 1;
+    let nCounter = length - n - 1;
+    let node = l;
+
+    while(counter > 0) {
+        if(nCounter === 0){
+            nsubOneTail = node;
+            nHead = node.next;
+        }
+        node = node.next;
+
+        counter -= 1;
+        nCounter -= 1;
+    }
+
+    tail = node;
+
+    nsubOneTail.next = null;
+    tail.next = head;
+
+    return nHead;
 }
 
 function linkedListLength(l) {
