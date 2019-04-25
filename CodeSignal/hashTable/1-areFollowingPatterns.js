@@ -10,6 +10,8 @@
         // confirm that the boolean result of that equality matches
         // the input string
 
+
+        // ITERATION ONE
 // function areFollowingPatterns(strings, patterns) {
 //     let indices = [];
 
@@ -45,28 +47,62 @@
 // }   
 
 
+        // ITERATION TWO
+// function areFollowingPatterns(strings, patterns) {
+//     let indices = [];
+
+//     for (let i = 0; i < patterns.length; i++) {
+//         for (let j = i + 1; j < patterns.length; j++) {
+//             let pattern = false;
+
+//             if (patterns[i] === patterns[j]){
+//                 pattern = true;
+//             }
+
+//             let stringPattern = false;
+
+//             if (strings[i] === strings[j]) {
+//                 stringPattern = true;
+//             }
+
+//             if (stringPattern !== pattern){
+//                 return false;
+//             }
+//         }
+//     }
+
+//     return true;
+// }   
+
+        // ITERATION THREE
 function areFollowingPatterns(strings, patterns) {
-    let indices = [];
+    let stringHash = {};
+    let a = [];
+    let i = 0;
+    for (let index = 0; index < strings.length; index++) {
+        const character = strings[index];
 
-    for (let i = 0; i < patterns.length; i++) {
-        for (let j = i + 1; j < patterns.length; j++) {
-            let pattern = false;
-
-            if (patterns[i] === patterns[j]){
-                pattern = true;
-            }
-
-            let stringPattern = false;
-
-            if (strings[i] === strings[j]) {
-                stringPattern = true;
-            }
-
-            if (stringPattern !== pattern){
-                return false;
-            }
+        if (!stringHash[character]) {
+            i += 1;
+            stringHash[character] = i;
         }
+
+        a.push(stringHash[character]);
     }
 
-    return true;
+    let patternHash = {};
+    let b = [];
+    let j = 0;
+    for (let index = 0; index < patterns.length; index++) {
+        const character = patterns[index];
+
+        if (!patternHash[character]) {
+            j += 1;
+            patternHash[character] = j;
+        }
+
+        b.push(patternHash[character]);
+    }
+
+    return (a + "") === (b + "");
 }   
