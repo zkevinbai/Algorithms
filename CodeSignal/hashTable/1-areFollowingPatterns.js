@@ -1,12 +1,14 @@
 // input
-// an array of strings, an array of patterns
+    // an array of strings, an array of patterns
+
 // output
-// a boolean determining if the strings array follows the patterns array
+    // a boolean determining if the strings array follows the patterns array
+
 // strategy
-// generate all combinations of index positions
-// check for equality in the pattern string
-// confirm that the boolean result of that equality matches
-// the input string
+    // generate all combinations of index positions
+    // check for equality in the pattern string
+        // confirm that the boolean result of that equality matches
+        // the input string
 
 function areFollowingPatterns(strings, patterns) {
     let indices = [];
@@ -22,21 +24,17 @@ function areFollowingPatterns(strings, patterns) {
         let indexLeft = indexArray[0];
         let indexRight = indexArray[1];
 
-        let patternsBoolean;
+        let patternsBoolean = false;
 
         if (patterns[indexLeft] === patterns[indexRight]) {
             patternsBoolean = true;
-        } else {
-            patternsBoolean = false;
-        }
+        } 
 
-        let stringsBoolean;
+        let stringsBoolean = false;
 
         if (strings[indexLeft] === strings[indexRight]) {
             stringsBoolean = true;
-        } else {
-            stringsBoolean = false;
-        }
+        } 
 
         if (stringsBoolean !== patternsBoolean) {
             return false;
