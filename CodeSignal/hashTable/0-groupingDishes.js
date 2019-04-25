@@ -32,7 +32,7 @@ function groupingDishes(dishes) {
         let ingredientArray = ingredients[key];
         
         if(ingredientArray.length > 1){
-            groupedDishes.push( [key].concat(ingredientArray) )
+            groupedDishes.push( [key].concat(ingredientArray.sort()) )
         }
     }
 
