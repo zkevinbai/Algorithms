@@ -2,7 +2,7 @@
     // array of integers nums, integer k
 
 // output
-    // boolean indicating there is a pair of key value pairs (i, j)
+    // boolean indicating whether there is a pair of key value pairs (i, j)
         // where nums[i] = nums[j] and
         // the difference between i and j is less than or equal to k
 
@@ -21,5 +21,14 @@ function containsCloseNums(nums, k) {
         }
     }
 
-    return indices;
+    for (let index = 0; index < indices.length; index++) {
+        const i = indices[index][0];
+        const j = indices[index][1];
+
+        if (nums[i] === nums[j]){
+            return true;
+        }
+    }
+
+    return false;
 }
