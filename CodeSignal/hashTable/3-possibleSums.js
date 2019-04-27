@@ -6,8 +6,9 @@
 
 // strategy
     // create a trueCount where each coin is represented n times, n being the coin count
+    // generate all unique combinations of truecount sums using a set
 
-function possibleSums(coins, quantity) {
+const possibleSums = (coins, quantity) => {
     let trueCount = [];
     while (quantity.length) {
         let shift = quantity.shift();
@@ -18,5 +19,18 @@ function possibleSums(coins, quantity) {
         }
     }
 
-    return trueCount;
+    let set = new Set();
+
+    for (let i = 0; i < trueCount.length; i++) {
+        let coinI = trueCount[i];
+        let sum = coinI;
+        for (let j = i + 1; j < trueCount.length; j++) {
+            set.add(sum);
+            let coinJ = trueCount[j];
+            sum += coinJ;
+        }
+        set.add(sum);
+    }
+
+    return set.size;
 }
