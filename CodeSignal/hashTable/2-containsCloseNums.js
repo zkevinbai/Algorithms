@@ -16,14 +16,14 @@ function containsCloseNums(nums, k) {
         for (let j = i + 1; j < nums.length; j++) {
             let difference = j - i;
             if (difference <= k){
-                indices.push([i, j])
+                indices.push([i, j]);
             }
         }
     }
 
     for (let index = 0; index < indices.length; index++) {
-        const i = indices[index][0];
-        const j = indices[index][1];
+        let i = indices[index][0];
+        let j = indices[index][1];
 
         if (nums[i] === nums[j]){
             return true;
