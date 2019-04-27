@@ -8,34 +8,35 @@
     // create a trueCount where each coin is represented n times, n being the coin count
     // generate all unique combinations of truecount sums using a set
 
-const possibleSums = (coins, quantity) => {
-    let trueCount = [];
-    while (quantity.length) {
-        let shift = quantity.shift();
-        let coinShift = coins.shift();
+    // SOLUTION ONE
+// const possibleSums = (coins, quantity) => {
+//     let trueCount = [];
+//     while (quantity.length) {
+//         let shift = quantity.shift();
+//         let coinShift = coins.shift();
 
-        for (let i = 0; i < shift; i++) {
-            trueCount.push(coinShift);
-        }
-    }
+//         for (let i = 0; i < shift; i++) {
+//             trueCount.push(coinShift);
+//         }
+//     }
 
-    let set = new Set();
+//     let set = new Set();
 
-    for (let i = 0; i < trueCount.length; i++) {
-        let coinI = trueCount[i];
-        let sum = coinI;
-        for (let j = i + 1; j < trueCount.length; j++) {
-            set.add(sum);
-            let coinJ = trueCount[j];
-            sum += coinJ;
-        }
-        set.add(sum);
-    }
+//     for (let i = 0; i < trueCount.length; i++) {
+//         let coinI = trueCount[i];
+//         let sum = coinI;
+//         for (let j = i + 1; j < trueCount.length; j++) {
+//             set.add(sum);
+//             let coinJ = trueCount[j];
+//             sum += coinJ;
+//         }
+//         set.add(sum);
+//     }
 
-    return set.size;
-}
+//     return set.size;
+// }
 
-
+    // SOLUTION TWO
 const possibleSums = (coins, quantity) => {
     const uniqueSums = new Set([0]);
 
