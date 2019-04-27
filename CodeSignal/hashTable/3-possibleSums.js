@@ -34,3 +34,23 @@ const possibleSums = (coins, quantity) => {
 
     return set.size;
 }
+
+
+const possibleSums = (coins, quantity) => {
+    const uniqueSums = new Set([0]);
+
+    for (let i = 0; i < coins.length; i++) {
+        const currentSums = new Set();
+        for (let j = 1; j <= quantity[i]; j++) {
+            for (let sum of uniqueSums) {
+                currentSums.add((coins[i] * j) + sum);
+            }
+        }
+        console.log(currentSums);
+        for (let sum of currentSums) {
+            uniqueSums.add(sum);
+        }
+    }
+
+    return uniqueSums.size - 1;
+}
