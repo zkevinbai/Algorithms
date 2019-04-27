@@ -39,9 +39,9 @@
 // strategy
     // store all index positions of numbers in hashmap
     // check if the index positions are length > 2, and the distance
+        // using pointers
 
-// SOLUTION TWO
-
+// SOLUTION TWO O(n^3)
 function containsCloseNums(nums, k) {
     let numbers = {};
 
@@ -54,5 +54,32 @@ function containsCloseNums(nums, k) {
         }
     }
 
+    let keys = Object.keys(numbers);
+    let queue = [];
+
+    for (let index = 0; index < keys.length; index++) {
+        let key = keys[index];
+
+        if (numbers[key].length > 1){
+            queue.push(numbers[key]);
+        }
+    }
     
+    while(queue.length){
+        let shift = queue.shift();
+
+        for (let i = 0; i < shift.length; i++) {
+            for (let j = i+1; j < shift.length; j++) {
+                
+                let difference = shift[j] - shift[i];
+                
+                if (difference <= k){
+                    return true;
+                }
+            }
+        }
+
+    }
+
+    return false;
 }
