@@ -22,6 +22,7 @@
         // make those changes, and return that as the answer
 
 function swapLexOrder(str, pairs) {
+    debugger;
     let normalOrder = new Array();
     let set = new Set();
     for (let i = 0; i < pairs.length; i++) {
@@ -41,7 +42,7 @@ function swapLexOrder(str, pairs) {
     }
 
     normalOrder = normalOrder.sort();
-    let reverseOrder = normalOrder.reverse();
+    let reverseOrder = normalOrder.slice(0).reverse();
 
     for (let index = 0; index < normalOrder.length; index++) {
         const normalIdx = normalOrder[index];
@@ -56,3 +57,8 @@ function swapLexOrder(str, pairs) {
 
     return str;
 }
+
+let str = "abdc";
+let pairs = [[1, 4],[3, 4]];
+
+swapLexOrder(str, pairs);
