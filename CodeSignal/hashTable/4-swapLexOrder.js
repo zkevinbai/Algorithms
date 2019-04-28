@@ -134,62 +134,54 @@
 // let str = "abdc";
 // let pairs = [[1, 4],[3, 4]];
 
-// Strategy 3 - Someone else's code
+// Strategy 3 - Someone else's code (jraghon)
+
+//Basic idea: the sets of letters that can swap with
+//  each other form a decomposition of the string.
+//Since letters that cannot swap belong to unique pieces,
+//  they will always go back to their starting position.
+//Otherwise, we put pieces back in their sorted order.
+//
+//The complexity of this algorithm is O(n log n + m) worst case,
+//  where n is the length of str and m is the length of pairs.
+
 function swapLexOrder(str, pairs) {
-    const charMap = {};
-    let mostConnections = 1;
-
-    // function to store connections between indices
-    const mapNum = (index1, index2) => {
-        if (!charMap[index1]) {
-            charMap[index1] = { [index1]: null, [index2]: null };
-            charMap[index1].connections = 1;
-        } else {
-            charMap[index1][index2] = null;
-            charMap[index1].connections++;
-        }
-        // iterations required to store all the connections
-        charMap[index1].connections > mostConnections ? mostConnections = charMap[index1].connections : null;
+    //Turn pairs into edge lists: O(n+m)
+    var graph = new Array(str.length).fill(0).map(e => []);
+    for (var pair of pairs) {
+        graph[pair[0] - 1].push(pair[1] - 1);
+        graph[pair[1] - 1].push(pair[0] - 1);
     }
 
-    pairs.forEach(pair => {
-        mapNum(pair[0], pair[1]);
-        mapNum(pair[1], pair[0])
-    })
-
-    while (mostConnections > 0) {
-        for (let index1 in charMap) {
-            delete charMap[index1].connections
-            for (let index2 in charMap[index1]) {
-                Object.keys(charMap[index1]).forEach(index => {
-                    charMap[index2][index] = null;
-                })
-            }
-        }
-        mostConnections--;
-    }
-
-    // will need to delete available chars but preserve connections
-    const linkMap = JSON.parse(JSON.stringify(charMap));
-
-    let largestStr = '';
-
-    for (let i = 1; i < str.length + 1; i++) {
-        if (charMap[i]) {
-            // list of available chars - [char, index]
-            var chain = Object.keys(charMap[i]).map(num => {
-                return [str[num - 1], num];
-            }).sort();
-            largestStr += chain[chain.length - 1][0];
-            // remove char from available chars
-            Object.keys(linkMap[chain[chain.length - 1][1]]).forEach(num => {
-                delete charMap[num][chain[chain.length - 1][1]];
-            })
-        } else {
-            // if no pair for this index, use existing char
-            largestStr += str[i - 1];
+    //Build all the ccs with dfs: O(n+m)
+    var ccs = [], ccnum = 0;
+    for (var c in str) {
+        if (ccs[c])
+            continue;
+        ccs[c] = ++ccnum;
+        var dfs = [...graph[c]];
+        while (dfs.length) {
+            var d = dfs.shift();
+            if (ccs[d])
+                continue;
+            ccs[d] = ccnum;
+            dfs.push(...graph[d]);
         }
     }
 
-    return largestStr;
+    //Group words by ccs: O(n)
+    var ccWords = new Array(ccnum).fill(0).map(e => []);
+    for (var c in str) {
+        ccWords[ccs[c] - 1].push(str[c]);
+    }
+
+    //Sort all words: O(n log n)
+    ccWords.map(e => e.sort());
+
+    //Build the new string: O(n)
+    var output = "";
+    for (var c in str) {
+        output += ccWords[ccs[c] - 1].pop();
+    }
+    return output;
 }
