@@ -43,21 +43,30 @@ function swapLexOrder(str, pairs) {
     }
 
     normalOrder = normalOrder.sort();
-    let reverseOrder = normalOrder.slice(0).reverse();
+    let lexOrder = normalOrder.slice(0).sort(lexSort);
 
     let dupArray = str.split("");
     for (let index = 0; index < normalOrder.length; index++) {
         const normalIdx = normalOrder[index];
         const normalChar = str[normalIdx];
 
-        const reverseIdx = reverseOrder[index];
-        const reverseChar = str[reverseIdx];
+        const lexIdx = lexOrder[index];
+        const lexChar = str[lexIdx];
         
-        dupArray[normalIdx] = reverseChar;
-        dupArray[reverseIdx] = normalChar;
+        dupArray[normalIdx] = lexChar;
+        dupArray[lexIdx] = normalChar;
     }
 
     return dupArray.join("");
+}
+
+function lexSort(a, b) {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+
+    let indexA = alphabet.indexOf(a);
+    let indexB = alphabet.indexOf(b);
+
+    return indexB - indexA;
 }
 
 let str = "abdc";
