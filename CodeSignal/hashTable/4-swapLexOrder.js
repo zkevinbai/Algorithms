@@ -17,9 +17,8 @@
     // using an updating largest value, compare all string indices
 
 function swapLexOrder(str, pairs) {
-    let perms = {
-        str: lexValue(str)
-    }
+    let perms = new Object();
+    perms[str] = lexValue(str);
 
     for (let i = 0; i < pairs; i++) {
         const pair = pairs[i];
@@ -74,57 +73,57 @@ function lexValue(str){
         // Expected Output:
             // "dbcaefhg"
 
-function swapLexOrder(str, pairs) {
-    // generate normal order
-    let normalOrder = new Array();
-    let set = new Set();
-    for (let i = 0; i < pairs.length; i++) {
-        const pair = pairs[i];
+// function swapLexOrder(str, pairs) {
+//     // generate normal order
+//     let normalOrder = new Array();
+//     let set = new Set();
+//     for (let i = 0; i < pairs.length; i++) {
+//         const pair = pairs[i];
 
-        let j = pair[0];
-        if (!set.has(j)){
-            set.add(j);
-            normalOrder.push(j - 1);
-        }
+//         let j = pair[0];
+//         if (!set.has(j)){
+//             set.add(j);
+//             normalOrder.push(j - 1);
+//         }
 
-        let k = pair[1];
-        if (!set.has(k)){
-            set.add(k);
-            normalOrder.push(k - 1);
-        }
-    }
+//         let k = pair[1];
+//         if (!set.has(k)){
+//             set.add(k);
+//             normalOrder.push(k - 1);
+//         }
+//     }
 
-    normalOrder = normalOrder.sort(); 
+//     normalOrder = normalOrder.sort(); 
     
-    // generate normal chars
-    let normalChars = [];
-    for (let index = 0; index < normalOrder.length; index++) {
-        const char = str[normalOrder[index]];
-        normalChars.push(char);
-    }
+//     // generate normal chars
+//     let normalChars = [];
+//     for (let index = 0; index < normalOrder.length; index++) {
+//         const char = str[normalOrder[index]];
+//         normalChars.push(char);
+//     }
 
-    // generate lexicographical chars
-    let lexOrderChars = normalChars.slice(0).sort(lexSort);
+//     // generate lexicographical chars
+//     let lexOrderChars = normalChars.slice(0).sort(lexSort);
 
-    let dupArray = str.split("");
-    for (let index = 0; index < normalOrder.length; index++) {
-        const normalIdx = normalOrder[index];
-        const lexChar = lexOrderChars[index];
+//     let dupArray = str.split("");
+//     for (let index = 0; index < normalOrder.length; index++) {
+//         const normalIdx = normalOrder[index];
+//         const lexChar = lexOrderChars[index];
 
-        dupArray[normalIdx] = lexChar;
-    }
+//         dupArray[normalIdx] = lexChar;
+//     }
 
-    return dupArray.join("");
-}
+//     return dupArray.join("");
+// }
 
-function lexSort(a, b) {
-    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+// function lexSort(a, b) {
+//     const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
-    let indexA = alphabet.indexOf(a);
-    let indexB = alphabet.indexOf(b);
+//     let indexA = alphabet.indexOf(a);
+//     let indexB = alphabet.indexOf(b);
 
-    return indexB - indexA;
-}
+//     return indexB - indexA;
+// }
 
 let str = "abdc";
 let pairs = [[1, 4],[3, 4]];
