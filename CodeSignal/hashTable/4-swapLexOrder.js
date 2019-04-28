@@ -11,9 +11,52 @@
         // dbcd > abcd because d comes after a in the alphabet
 
 // strategy 1
-    // create a hash of the alphabet, thus allowing lexicographical comparision of letters
+    // [x] create helper to get lexicographic value
+    // [] generate all the pairs and store in perms object
     // generate all possible orderings of the string
     // using an updating largest value, compare all string indices
+
+function swapLexOrder(str, pairs) {
+    let perms = {
+        str: lexValue(str)
+    }
+
+    for (let i = 0; i < pairs; i++) {
+        const pair = pairs[i];
+        
+        let keys = Object.keys(perms);
+
+        for (let j = 0; j < keys.length; j++) {
+            let dup = keys[i].split("");
+
+            let pairZeroValue = dup[pair[0]];
+            let pairOneValue = dup[pair[1]];
+
+            dup[pair[0]] = pairOneValue;
+            dup[pair[1]] = pairZeroValue;
+    
+            dup = dup.join("");
+
+            if(!perms[dup]){
+                perms[dup] = lexValue(dup);
+            }
+        }
+    }
+
+    return perms;
+}
+
+function lexValue(str){
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    let array = str.split("");
+
+    function lexReduce(accumulator, currentValue) {
+        return alphabet.indexOf(accumulator) - alphabet.indexOf(currentValue);
+    }
+
+    return array.reduce(lexReduce);
+}
+
     
 // strategy 2
     // create a sorted array of all unique numbers provided in the pairs
