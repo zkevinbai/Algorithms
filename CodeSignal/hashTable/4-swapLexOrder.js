@@ -16,6 +16,10 @@
     // generate all possible orderings of the string
     // using an updating largest value, compare all string indices
 
+
+    // this strategy fails to generate all possible swap results
+        // how do I account for infinite swaps?
+
 function swapLexOrder(str, pairs) {
     let perms = new Object(); debugger;
     perms[str] = lexValue(str);
@@ -129,6 +133,6 @@ let str = "abdc";
 let pairs = [[1, 4],[3, 4]];
 
 // need these pairs to work
-// let pairs = [[1, 4],[3, 4], [1, 3]];
+// let pairs = [[1, 4],[3, 4],[1, 3]];
 
 swapLexOrder(str, pairs);
