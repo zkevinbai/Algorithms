@@ -17,22 +17,22 @@
     // using an updating largest value, compare all string indices
 
 function swapLexOrder(str, pairs) {
-    let perms = new Object();
+    let perms = new Object(); debugger;
     perms[str] = lexValue(str);
 
-    for (let i = 0; i < pairs; i++) {
+    for (let i = 0; i < pairs.length; i++) {
         const pair = pairs[i];
         
         let keys = Object.keys(perms);
 
         for (let j = 0; j < keys.length; j++) {
-            let dup = keys[i].split("");
+            let dup = keys[j].split("");
 
-            let pairZeroValue = dup[pair[0]];
-            let pairOneValue = dup[pair[1]];
+            let pairZeroValue = dup[pair[0] - 1];
+            let pairOneValue = dup[pair[1] - 1];
 
-            dup[pair[0]] = pairOneValue;
-            dup[pair[1]] = pairZeroValue;
+            dup[pair[0] - 1] = pairOneValue;
+            dup[pair[1] - 1] = pairZeroValue;
     
             dup = dup.join("");
 
@@ -127,5 +127,8 @@ function lexValue(str){
 
 let str = "abdc";
 let pairs = [[1, 4],[3, 4]];
+
+// need these pairs to work
+// let pairs = [[1, 4],[3, 4], [1, 3]];
 
 swapLexOrder(str, pairs);
