@@ -17,8 +17,9 @@
     
 // strategy 2
     // create a sorted array of all unique numbers provided in the pairs
-        // create default sorted order 1, 2, 3
-        // create a dup of reversed order 3, 2, 1
+        // create default order 1, 2, 3 
+        // create a dup of sorted lexicographical order 3, 2, 1
+            // [] DO THIS
         // make those changes, and return that as the answer
 
 function swapLexOrder(str, pairs) {
@@ -44,6 +45,7 @@ function swapLexOrder(str, pairs) {
     normalOrder = normalOrder.sort();
     let reverseOrder = normalOrder.slice(0).reverse();
 
+    let dupArray = str.split("");
     for (let index = 0; index < normalOrder.length; index++) {
         const normalIdx = normalOrder[index];
         const normalChar = str[normalIdx];
@@ -51,11 +53,11 @@ function swapLexOrder(str, pairs) {
         const reverseIdx = reverseOrder[index];
         const reverseChar = str[reverseIdx];
         
-        str[normalIdx] = reverseChar;
-        str[reverseIdx] = normalChar;
+        dupArray[normalIdx] = reverseChar;
+        dupArray[reverseIdx] = normalChar;
     }
 
-    return str;
+    return dupArray.join("");
 }
 
 let str = "abdc";
