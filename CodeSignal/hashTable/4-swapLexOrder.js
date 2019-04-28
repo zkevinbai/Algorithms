@@ -18,9 +18,18 @@
 // strategy 2
     // create a sorted array of all unique numbers provided in the pairs
         // create default order 1, 2, 3 
-        // create a dup of sorted lexicographical order 3, 2, 1
-            // [] DO THIS
-        // make those changes, and return that as the answer
+            // get the chars in that order
+        // create a dup of the chars in lexicographical order 
+        // swap all chars for those in lexicographical order
+
+    // this strategy fails when you have separated values
+        // str: "abcdefgh"
+        // pairs: [[1, 4],[7, 8]]
+
+        // Output:
+            // "hbcgefda"
+        // Expected Output:
+            // "dbcaefhg"
 
 function swapLexOrder(str, pairs) {
     // generate normal order
