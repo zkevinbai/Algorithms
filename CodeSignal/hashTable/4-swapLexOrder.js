@@ -30,19 +30,29 @@ function swapLexOrder(str, pairs) {
         let j = pair[0];
         if (!set.has(j)){
             set.add(j);
-            normalOrder.push(j);
+            normalOrder.push(j - 1);
         }
 
         let k = pair[1];
         if (!set.has(k)){
             set.add(k);
-            normalOrder.push(k);
+            normalOrder.push(k - 1);
         }
     }
-    
-    normalOrder = normalOrder.sort();
 
+    normalOrder = normalOrder.sort();
     let reverseOrder = normalOrder.reverse();
 
-    return reverseOrder;
+    for (let index = 0; index < normalOrder.length; index++) {
+        const normalIdx = normalOrder[index];
+        const normalChar = str[normalIdx];
+
+        const reverseIdx = reverseOrder[index];
+        const reverseChar = str[reverseIdx];
+        
+        str[normalIdx] = reverseChar;
+        str[reverseIdx] = normalChar;
+    }
+
+    return str;
 }
