@@ -19,48 +19,48 @@
     // this strategy fails to generate all possible swap results
         // how do I account for infinite swaps?
 
-function swapLexOrder(str, pairs) {
-    if (str.length < 2) {
-        return str;
-    }
-    let perms = new Object(); debugger;
-    perms[str] = lexValue(str);
+// function swapLexOrder(str, pairs) {
+//     if (str.length < 2) {
+//         return str;
+//     }
+//     let perms = new Object(); debugger;
+//     perms[str] = lexValue(str);
 
-    for (let i = 0; i < pairs.length; i++) {
-        const pair = pairs[i];
+//     for (let i = 0; i < pairs.length; i++) {
+//         const pair = pairs[i];
         
-        let keys = Object.keys(perms);
+//         let keys = Object.keys(perms);
 
-        for (let j = 0; j < keys.length; j++) {
-            let dup = keys[j].split("");
+//         for (let j = 0; j < keys.length; j++) {
+//             let dup = keys[j].split("");
 
-            let pairZeroValue = dup[pair[0] - 1];
-            let pairOneValue = dup[pair[1] - 1];
+//             let pairZeroValue = dup[pair[0] - 1];
+//             let pairOneValue = dup[pair[1] - 1];
 
-            dup[pair[0] - 1] = pairOneValue;
-            dup[pair[1] - 1] = pairZeroValue;
+//             dup[pair[0] - 1] = pairOneValue;
+//             dup[pair[1] - 1] = pairZeroValue;
     
-            dup = dup.join("");
+//             dup = dup.join("");
 
-            if(!perms[dup]){
-                perms[dup] = lexValue(dup);
-            }
-        }
-    }
+//             if(!perms[dup]){
+//                 perms[dup] = lexValue(dup);
+//             }
+//         }
+//     }
 
-    return perms;
-}
+//     return perms;
+// }
 
-function lexValue(str){
-    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-    let array = str.split("");
+// function lexValue(str){
+//     const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+//     let array = str.split("");
 
-    function lexReduce(accumulator, currentValue) {
-        return alphabet.indexOf(accumulator) - alphabet.indexOf(currentValue);
-    }
+//     function lexReduce(accumulator, currentValue) {
+//         return alphabet.indexOf(accumulator) - alphabet.indexOf(currentValue);
+//     }
 
-    return array.reduce(lexReduce);
-}
+//     return array.reduce(lexReduce);
+// }
 
     
 // strategy 2
@@ -131,10 +131,65 @@ function lexValue(str){
 //     return indexB - indexA;
 // }
 
-let str = "abdc";
-let pairs = [[1, 4],[3, 4]];
+// let str = "abdc";
+// let pairs = [[1, 4],[3, 4]];
 
-// need these pairs to work
-// let pairs = [[1, 4],[3, 4],[1, 3]];
+// Strategy 3 - Someone else's code
+function swapLexOrder(str, pairs) {
+    const charMap = {};
+    let mostConnections = 1;
 
-swapLexOrder(str, pairs);
+    // function to store connections between indices
+    const mapNum = (index1, index2) => {
+        if (!charMap[index1]) {
+            charMap[index1] = { [index1]: null, [index2]: null };
+            charMap[index1].connections = 1;
+        } else {
+            charMap[index1][index2] = null;
+            charMap[index1].connections++;
+        }
+        // iterations required to store all the connections
+        charMap[index1].connections > mostConnections ? mostConnections = charMap[index1].connections : null;
+    }
+
+    pairs.forEach(pair => {
+        mapNum(pair[0], pair[1]);
+        mapNum(pair[1], pair[0])
+    })
+
+    while (mostConnections > 0) {
+        for (let index1 in charMap) {
+            delete charMap[index1].connections
+            for (let index2 in charMap[index1]) {
+                Object.keys(charMap[index1]).forEach(index => {
+                    charMap[index2][index] = null;
+                })
+            }
+        }
+        mostConnections--;
+    }
+
+    // will need to delete available chars but preserve connections
+    const linkMap = JSON.parse(JSON.stringify(charMap));
+
+    let largestStr = '';
+
+    for (let i = 1; i < str.length + 1; i++) {
+        if (charMap[i]) {
+            // list of available chars - [char, index]
+            var chain = Object.keys(charMap[i]).map(num => {
+                return [str[num - 1], num];
+            }).sort();
+            largestStr += chain[chain.length - 1][0];
+            // remove char from available chars
+            Object.keys(linkMap[chain[chain.length - 1][1]]).forEach(num => {
+                delete charMap[num][chain[chain.length - 1][1]];
+            })
+        } else {
+            // if no pair for this index, use existing char
+            largestStr += str[i - 1];
+        }
+    }
+
+    return largestStr;
+}
