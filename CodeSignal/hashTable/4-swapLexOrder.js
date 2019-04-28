@@ -24,6 +24,8 @@
 
 function swapLexOrder(str, pairs) {
     debugger;
+
+    // generate normal order
     let normalOrder = new Array();
     let set = new Set();
     for (let i = 0; i < pairs.length; i++) {
@@ -42,19 +44,38 @@ function swapLexOrder(str, pairs) {
         }
     }
 
-    normalOrder = normalOrder.sort();
-    let lexOrder = normalOrder.slice(0).sort(lexSort);
+    normalOrder = normalOrder.sort(); 
+    
+    // generate normal chars
+    let normalChars = [];
+    for (let index = 0; index < normalOrder.length; index++) {
+        const char = str[index];
+        normalChars.push(char);
+    }
+
+    // generate lexicographical chars
+    let lexOrderChars = normalChars.slice(0).sort(lexSort);
+
+    debugger;
+    // generate lexicographical order
+        // let lexOrder = [];
+        // for (let index = 0; index < lexOrderChars.length; index++) {
+        //     lexOrder.push(str.indexOf(lexOrderChars[index]));
+        // }
 
     let dupArray = str.split("");
     for (let index = 0; index < normalOrder.length; index++) {
         const normalIdx = normalOrder[index];
-        const normalChar = str[normalIdx];
+        // const normalChar = str[normalIdx];
 
-        const lexIdx = lexOrder[index];
-        const lexChar = str[lexIdx];
+        // const lexIdx = lexOrder[index];
+        // const lexChar = str[lexIdx];
+        const lexChar = lexOrderChars[index];
         
+        // dupArray[normalIdx] = lexChar;
+        // dupArray[lexIdx] = normalChar;
+
         dupArray[normalIdx] = lexChar;
-        dupArray[lexIdx] = normalChar;
     }
 
     return dupArray.join("");
