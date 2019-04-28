@@ -23,8 +23,6 @@
         // make those changes, and return that as the answer
 
 function swapLexOrder(str, pairs) {
-    debugger;
-
     // generate normal order
     let normalOrder = new Array();
     let set = new Set();
@@ -49,31 +47,17 @@ function swapLexOrder(str, pairs) {
     // generate normal chars
     let normalChars = [];
     for (let index = 0; index < normalOrder.length; index++) {
-        const char = str[index];
+        const char = str[normalOrder[index]];
         normalChars.push(char);
     }
 
     // generate lexicographical chars
     let lexOrderChars = normalChars.slice(0).sort(lexSort);
 
-    debugger;
-    // generate lexicographical order
-        // let lexOrder = [];
-        // for (let index = 0; index < lexOrderChars.length; index++) {
-        //     lexOrder.push(str.indexOf(lexOrderChars[index]));
-        // }
-
     let dupArray = str.split("");
     for (let index = 0; index < normalOrder.length; index++) {
         const normalIdx = normalOrder[index];
-        // const normalChar = str[normalIdx];
-
-        // const lexIdx = lexOrder[index];
-        // const lexChar = str[lexIdx];
         const lexChar = lexOrderChars[index];
-        
-        // dupArray[normalIdx] = lexChar;
-        // dupArray[lexIdx] = normalChar;
 
         dupArray[normalIdx] = lexChar;
     }
