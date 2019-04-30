@@ -24,19 +24,20 @@ function hashMap(queryType, query) {
         const queryLeft = query[index][0];
         const queryRight = query[index][1];
 
-        let keys = Object.keys(hash);
-        let values = Object.values(hash);
-
         if(operation === "get"){
             querySum += hash[queryLeft];
         } else if (operation === "insert") {
             hash[queryLeft] = queryRight;
         } else if (operation === "addToValue") {
+            let keys = Object.keys(hash);
             for (let index = 0; index < keys.length; index++) {
                 const key = keys[index];
                 hash[key] += queryLeft;
             }
         } else if (operation === "addToKey") {
+            let keys = Object.keys(hash);
+            let values = Object.values(hash);
+
             let newHash = {};
             for (let index = 0; index < keys.length; index++) {
                 const key = parseInt(keys[index]) + queryLeft;
