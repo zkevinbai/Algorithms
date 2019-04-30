@@ -6,6 +6,7 @@
     // each group should have the index of the array
     // return answer as array of arrays;
 
+// solved; poor 9/14
 
 function meanGroups(a) {
     let averages = {};

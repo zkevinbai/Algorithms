@@ -7,6 +7,8 @@
         // iterating through array a from left to right
         // iterating through b from right to left
         // to be tiny, the concatenation xy is less than k
+
+// solved; 30/30
     
 function countTinyPairs(a, b, k) {
     let revB = b.reverse();

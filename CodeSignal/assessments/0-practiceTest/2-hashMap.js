@@ -12,6 +12,8 @@
         // require creating a new object;
     // addToValue(y) - add y to all values in map.
 
+// solved; almost 28/30
+
 function hashMap(queryType, query) {
     debugger;
     let querySum = 0;
