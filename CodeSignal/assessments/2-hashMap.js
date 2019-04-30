@@ -36,12 +36,11 @@ function hashMap(queryType, query) {
             }
         } else if (operation === "addToKey") {
             let keys = Object.keys(hash);
-            let values = Object.values(hash);
 
             let newHash = {};
             for (let index = 0; index < keys.length; index++) {
                 const key = parseInt(keys[index]) + queryLeft;
-                const value = values[index];
+                const value = hash[keys[index]];
                 newHash[key] = value;
             }
             hash = newHash;
