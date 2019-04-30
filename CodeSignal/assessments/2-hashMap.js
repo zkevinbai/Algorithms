@@ -13,6 +13,7 @@
     // addToValue(y) - add y to all values in map.
 
 function hashMap(queryType, query) {
+    debugger;
     let querySum = 0;
 
     let hash = {};
@@ -35,10 +36,10 @@ function hashMap(queryType, query) {
                 const key = keys[index];
                 hash[key] += queryLeft;
             }
-        } else if (operation === "addToValue") {
+        } else if (operation === "addToKey") {
             let newHash = {};
             for (let index = 0; index < keys.length; index++) {
-                const key = keys[index] + queryLeft;
+                const key = parseInt(keys[index]) + queryLeft;
                 const value = values[index];
                 newHash[key] = value;
             }
@@ -48,3 +49,15 @@ function hashMap(queryType, query) {
 
     return querySum;
 }
+
+let queryType = ["insert",
+    "insert",
+    "addToValue",
+    "addToKey",
+    "get"]
+
+let query = [[1, 2],
+[2, 3],
+[2],
+[1],
+[3]]
