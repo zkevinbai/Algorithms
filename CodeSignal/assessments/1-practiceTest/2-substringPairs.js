@@ -15,3 +15,5 @@ function substringPairs(s, k) {
 
     return subs;
 }
+
+function diff 

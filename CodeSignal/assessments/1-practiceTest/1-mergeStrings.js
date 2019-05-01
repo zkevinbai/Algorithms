@@ -1,3 +1,8 @@
+// merge 
+    // smaller comes before larger
+        // rank smaller by frequency in substring
+        // then rank by lexicographical frequency 
+
 function mergeStrings(s1, s2) {
     let s1Frequency = {};
     let s2Frequency = {};
