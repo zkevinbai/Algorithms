@@ -15,15 +15,16 @@
 
 function alternatingSort(a) {
     let b = [];
-    let countDown = a.length;
+    let countUp = 0;
+    let countDown = a.length - 1;
     for (let index = 0; index < a.length; index++) {
-        let currentNumber = a[index];
         if (index % 2 === 0){
-            b.push(currentNumber);
+            b.push(a[countUp]);
+            countUp += 1;
         } else {
             b.push(a[countDown]);
+            countDown -= 1;
         }
-        countDown -= 1;
     }
 
     return b;
