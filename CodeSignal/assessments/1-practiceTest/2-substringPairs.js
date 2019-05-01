@@ -1,6 +1,4 @@
 function mergeStrings(s1, s2) {
-    let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-
     let s1Frequency = {}; 
     let s2Frequency = {};
 
@@ -44,13 +42,11 @@ function mergeStrings(s1, s2) {
             combined.push(s1Shift);
         } else if (s1Freq === s2Freq) {
             // compare by alphabet
-            let s1Index = alphabet.indexOf(s1Shift);
-            let s2Index = alphabet.indexOf(s2Shift);
 
-            if (s1Index <= s2Index) {
+            if (s1Shift < s2Shift) {
                 combined.push(s1Shift);
                 combined.push(s2Shift);
-            } else if (s2Index < s1Index) {
+            } else if (s2Shift < s1Shift) {
                 combined.push(s2Shift);
                 combined.push(s1Shift);
             }
