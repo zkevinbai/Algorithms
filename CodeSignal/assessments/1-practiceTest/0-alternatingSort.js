@@ -27,7 +27,17 @@ function alternatingSort(a) {
         }
     }
 
-    return b;
+    let past = b[0];
+    for (let index = 1; index < b.length; index++) {
+        let current = b[index];
+        
+        if (past >= current) {
+            return false;
+        }
+        past = current;
+    }
+
+    return true;
 }
 
 
