@@ -1,3 +1,10 @@
+// generate all substrings
+
+// check all of them to see for almost pairings
+
+// check all almost pairings to see if their point of difference is a k 
+    // return this count
+
 function substringPairs(s, k) {
     let subs = [];
 
@@ -16,7 +23,9 @@ function substringPairs(s, k) {
     return subs;
 }
 
-function diff 
+function offByOne(string1, string2) {
+
+} 
 
 
 // You're creating a new programming language with some exciting new features! Any programming language can check if two strings are matching, but you'd like yours to be able to check if they're almost matching. More specifically, we'll say two strings are almost matching if they're equal in length and all of their corresponding characters are the same except for one. For example, "cat" and "bat" are almost matching, but "cat" and "dog" are not.
