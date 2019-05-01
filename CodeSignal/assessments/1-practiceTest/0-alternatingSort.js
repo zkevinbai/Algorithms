@@ -13,39 +13,57 @@
 // a 0 1 2 3
 // b 0 3 2 1
 
+function alternatingSort(a) {
+    let b = [];
+    let countDown = a.length;
+    for (let index = 0; index < a.length; index++) {
+        let currentNumber = a[index];
+        if (index % 2 === 0){
+            b.push(currentNumber);
+        } else {
+            b.push(a[countDown]);
+        }
+        countDown -= 1;
+    }
+
+    return b;
+}
+
+
+
 // strategy
     // create an array of all evens
     // create an array of all odds
     // reverse the odds array
     // create array b and check along the way
 
-function alternatingSort(a) {
-    // fill both arrays
-    let evens = [];
-    let odds = [];
+// function alternatingSort(a) {
+//     // fill both arrays
+//     let evens = [];
+//     let odds = [];
 
-    for (let index = 0; index < a.length; index++) {
-        let number = a[index];
-        if (index % 2 === 0){
-            evens.push(number);
-        } else {
-            odds.push(number);
-        }
-    }
+//     for (let index = 0; index < a.length; index++) {
+//         let number = a[index];
+//         if (index % 2 === 0){
+//             evens.push(number);
+//         } else {
+//             odds.push(number);
+//         }
+//     }
 
-    // reverse odds
-    odds = odds.reverse();
+//     // reverse odds
+//     odds = odds.reverse();
 
-    // create b
-    let b = [];
+//     // create b
+//     let b = [];
 
-    while(evens.length && odds.length) {
-        b.push(evens.shift());
-        b.push(odds.shift());
-    }
+//     while(evens.length && odds.length) {
+//         b.push(evens.shift());
+//         b.push(odds.shift());
+//     }
 
-    b = b.concat(evens, odds);
+//     b = b.concat(evens, odds);
 
-    // check b against strictly ascending
-    return b.toString() === b.sort().toString();
-}
+//     // check b against strictly ascending
+//     return b.toString() === b.sort().toString();
+// }
