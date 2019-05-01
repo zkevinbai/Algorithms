@@ -24,5 +24,31 @@ function mergeStrings(s1, s2) {
         }
     }
 
+    let stringOne = s1.split("");
+    let stringTwo = s2.split("");
+    let combined = [];
 
+    while (stringOne.length && stringTwo.length) {
+        let s1Shift = stringOne.shift();
+        let s2Shift = stringTwo.shift();
+
+        // compare by frequency
+        let s1Freq = s1Frequency[s1Shift];
+        let s2Freq = s2Frequency[s2Shift];
+
+        if (s1Freq < s2Freq) {
+            combined.push(s1Shift);
+            combined.push(s2Shift);
+        } else if (s2Freq < s1Freq) {
+            combined.push(s2Shift);
+            combined.push(s1Shift);
+        } else if (s1Freq === s2Freq) {
+            // compare by alphabet
+
+        }
+    }
+
+    combined = combined.concat(stringOne, stringTwo);
+
+    return combined.join("");
 }
