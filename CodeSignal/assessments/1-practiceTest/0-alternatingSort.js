@@ -20,10 +20,10 @@
     // create array b and check along the way
 
 function alternatingSort(a) {
+    // fill both arrays
     let evens = [];
     let odds = [];
 
-    // fill both arrays
     for (let index = 0; index < a.length; index++) {
         let number = a[index];
         if (index % 2 === 0){
@@ -33,6 +33,19 @@ function alternatingSort(a) {
         }
     }
 
-    odds = 
+    // reverse odds
+    odds = odds.reverse();
 
+    // create b
+    let b = [];
+
+    while(evens.length && odds.length) {
+        b.push(evens.shift());
+        b.push(odds.shift());
+    }
+
+    b = b.concat(evens, odds);
+
+    // check b against strictly ascending
+    return b.toString() === b.sort().toString();
 }
