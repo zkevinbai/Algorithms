@@ -1,3 +1,5 @@
+// solved but was too slow
+
 function concatenationsSum(a) {
     let allNumbers = [];
 

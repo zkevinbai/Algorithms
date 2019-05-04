@@ -1,3 +1,5 @@
+// could not solve
+
 // select a range of strings that has k different things in it
 
 function upToKDifferences(str, k) {
@@ -7,7 +9,7 @@ function upToKDifferences(str, k) {
 
     for (let i = 0; i < array.length; i++) {
         let slice = new Set([array[i]])
-        
+
         for (let j = i + 1; j < array.length; j++) {
             slice.add(array[j]);
 

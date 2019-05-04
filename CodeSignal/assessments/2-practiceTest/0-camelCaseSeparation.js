@@ -1,3 +1,5 @@
+// solved
+
 function camelCaseSeparation(words, variableName) {
     let allWords = words.slice();debugger
 
