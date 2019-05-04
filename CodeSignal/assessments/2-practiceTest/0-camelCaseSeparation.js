@@ -9,6 +9,8 @@ function camelCaseSeparation(words, variableName) {
         allWords.push(newWord.join(""))
     }
 
+    allWords.sort((a,b) => b.length - a.length);
+
     let dupVariable = variableName
 
     allWords.forEach(word => {
@@ -23,3 +25,16 @@ function camelCaseSeparation(words, variableName) {
         return true;
     }
 }
+
+words = ["ayrtu",
+    "ceinm",
+    "nbcyjsghf",
+    "ukw",
+    "in",
+    "noiobkq",
+    "eqlpggfocl",
+    "cri",
+    "ikgtzxc",
+    "oll"]
+
+variableName = "InCeinm"
