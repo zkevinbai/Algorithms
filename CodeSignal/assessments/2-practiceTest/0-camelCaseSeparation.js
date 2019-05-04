@@ -12,20 +12,10 @@ function camelCaseSeparation(words, variableName) {
     let dupVariable = variableName
 
     allWords.forEach(word => {
-        dupVariable = dupVariable.replace(word, "")
+        while(dupVariable.includes(word)){
+            dupVariable = dupVariable.replace(word, "")
+        }
     });
-
-    // let dupVariable = variableName.split("");
-
-    // for (let i = 0; i < dupVariable.length; i++) {
-    //     for (let j = i + 1; j < dupVariable.length; j++) {
-    //         let slice = dupVariable.slice(i, j).join("");
-
-    //         if (allWords.includes(slice)){
-    //             dupVariable = dupVariable.slice(j);
-    //         }
-    //     }
-    // }
 
     if(dupVariable.length){
         return false;
@@ -33,8 +23,3 @@ function camelCaseSeparation(words, variableName) {
         return true;
     }
 }
-
-// let words = ["is",
-//     "valid",
-//     "right"]
-// let variableName = "isValid"
