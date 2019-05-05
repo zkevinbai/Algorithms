@@ -1,3 +1,39 @@
+// stage 3 failed simultaneous movement
+
+// let nums = [-1, 0, 1, 2, -1, -4]
+
+// function threeSum(nums) {
+//     debugger;
+//     let sorted = nums.sort();
+
+//     let object = {};
+
+//     for (let a = 0; a < sorted.length - 1; a++) {
+//         const elementA = sorted[a];
+        
+//         let cCounter = sorted.length - 1;
+
+//         for (let b = a + 1; b < sorted.length; b++) {
+//             let elementB = sorted[b];
+//             let elementC = sorted[cCounter];
+
+//             if (elementA + elementB + elementC === 0 && b !== cCounter) {
+//                 let zeroes = [elementA, elementB, elementC];
+
+//                 let subArray = zeroes.sort();
+//                 let stringSub = subArray + "";
+
+//                 if (!object[stringSub]) {
+//                     object[stringSub] = subArray;
+//                 }
+//             }
+
+//             cCounter -= 1;
+//         }
+//     }
+
+//     return Object.values(object).sort();
+// };
 
 // stage 2 brute force 311/313
 function threeSum(nums) {
@@ -17,7 +53,9 @@ function threeSum(nums) {
                     let subArray = zeroes.sort();
                     let stringSub = subArray + "";
 
-                    object[stringSub] = subArray;
+                    if (!object[stringSub]){
+                        object[stringSub] = subArray;
+                    }
                 }
             }
         }
