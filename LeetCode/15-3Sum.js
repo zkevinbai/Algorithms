@@ -13,13 +13,14 @@ function threeSum(nums) {
 
         let hash = {};
 
+        // use negatives as target for 2 sum
         for (let j = 0; j < dup.length; j++) {
             let element = dup[j];
 
             if(hash[element] !== undefined){
                 let negativeTarget = -1 * target;
                 let originalNumber = dup[hash[element]];
-                let zeroes = [negativeTarget, element, originalNumber];
+                let zeroes = [negativeTarget, originalNumber, element];
 
                 let subArray = zeroes.sort();
                 let stringSub = subArray + "";
