@@ -26,7 +26,7 @@ function threeSum(nums) {
     return Object.values(object).sort();
 };
 
-// stage 1 extreme brute force 133/313
+// stage 1 extreme brute force 114/313
 // function iterativeSubsets(array) {
 //     let res = [[]];
 
