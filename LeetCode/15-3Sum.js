@@ -1,7 +1,7 @@
 function threeSum(nums) {
     let sorted = nums.sort();
 
-    let zeroes = [];
+    let object = [];
 
     for (let a = 0; a < sorted.length - 2; a++) {
         const elementA = sorted[a];
@@ -10,20 +10,15 @@ function threeSum(nums) {
             for (let c = b + 1; c < sorted.length; c++) {
                 const elementC = sorted[c];
                 if (elementA + elementB + elementC === 0) {
-                    zeroes.push([elementA, elementB, elementC]);
+                    let zeroes = [elementA, elementB, elementC];
+
+                    let subArray = zeroes.sort();
+                    let stringSub = subArray + "";
+
+                    object[stringSub] = subArray;
                 }
             }
         }
-    }
-
-    // make unique
-    let object = {};
-
-    for (let index = 0; index < zeroes.length; index++) {
-        let subArray = zeroes[index].sort();
-        let stringSub = subArray + "";
-
-        object[stringSub] = subArray;
     }
 
     return Object.values(object).sort();
