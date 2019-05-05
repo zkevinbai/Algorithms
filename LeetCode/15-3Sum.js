@@ -1,4 +1,4 @@
-// stage 4 a + b = -c; 311/313
+// stage 4 a + b = -c; 311/313 O(n^2)
 function threeSum(nums) {
     // create negatives
     let sorted = nums.sort();
@@ -81,7 +81,7 @@ function threeSum(nums) {
 //     return Object.values(object).sort();
 // };
 
-// stage 2 brute force 311/313
+// stage 2 brute force 311/313 O(n^3)
 function threeSum(nums) {
     let sorted = nums.sort();
 
