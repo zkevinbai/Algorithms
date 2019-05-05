@@ -1,3 +1,5 @@
+
+// stage 2 brute force 311/313
 function threeSum(nums) {
     let sorted = nums.sort();
 
@@ -24,7 +26,7 @@ function threeSum(nums) {
     return Object.values(object).sort();
 };
 
-
+// stage 1 extreme brute force 133/313
 // function iterativeSubsets(array) {
 //     let res = [[]];
 
@@ -41,10 +43,12 @@ function threeSum(nums) {
 // }
 
 // function threeSum (nums) {
+//     // get all subsets
 //     let subSets = iterativeSubsets(nums);
 
 //     let response = [];
 
+//     // filter for length 3
 //     for (let index = 0; index < subSets.length; index++) {
 //         const subArray = subSets[index];
         
@@ -53,6 +57,7 @@ function threeSum(nums) {
 //         }
 //     }
 
+//     // filter for unique and sort
 //     let object = {};
 
 //     for (let index = 0; index < response.length; index++) {
