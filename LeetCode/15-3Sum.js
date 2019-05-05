@@ -1,10 +1,10 @@
-// stage 4 a + b = -c;
+// stage 4 a + b = -c; 311/313
 function threeSum(nums) {
     // create negatives
     let sorted = nums.sort();
     let negatives = sorted.map( el => el * -1 );
 
-    let answer = [];
+    let object = {};
 
     for (let index = 0; index < negatives.length; index++) {
         const target = negatives[index];
@@ -21,7 +21,12 @@ function threeSum(nums) {
                 let originalNumber = dup[hash[element]];
                 let zeroes = [negativeTarget, element, originalNumber];
 
-                answer.push(zeroes);
+                let subArray = zeroes.sort();
+                let stringSub = subArray + "";
+
+                if (!object[stringSub]) {
+                    object[stringSub] = subArray;
+                }
             }
 
             if(hash[target - element] === undefined) {
@@ -31,7 +36,7 @@ function threeSum(nums) {
 
     }
 
-    return answer;
+    return Object.values(object).sort();
 };
 
 // function twoSum(target, nums){
