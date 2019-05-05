@@ -1,3 +1,43 @@
+// stage 4 a + b = -c;
+function threeSum(nums) {
+    // create negatives
+    let sorted = nums.sort();
+    let negatives = sorted.map( el => el * -1 );
+
+    let answer = [];
+
+    for (let index = 0; index < negatives.length; index++) {
+        const target = negatives[index];
+        let dup = sorted.slice(0);
+        dup.splice(index, 1);
+
+        let hash = {};
+
+        for (let j = 0; j < dup.length; j++) {
+            let element = dup[j];
+
+            if(hash[element] !== undefined){
+                let negativeTarget = -1 * target;
+                let originalNumber = dup[hash[element]];
+                let zeroes = [negativeTarget, element, originalNumber];
+
+                answer.push(zeroes);
+            }
+
+            if(hash[target - element] === undefined) {
+                hash[target - element] = j;
+            }
+        }
+
+    }
+
+    return answer;
+};
+
+// function twoSum(target, nums){
+//     hash[target - element] = index;
+// };
+
 // stage 3 failed simultaneous movement
 
 // let nums = [-1, 0, 1, 2, -1, -4]
