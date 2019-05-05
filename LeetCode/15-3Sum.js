@@ -3,7 +3,7 @@
 function threeSum(nums) {
     let sorted = nums.sort();
 
-    let object = [];
+    let object = {};
 
     for (let a = 0; a < sorted.length - 2; a++) {
         const elementA = sorted[a];
