@@ -25,6 +25,25 @@
     // at target level
         // key in with n -1 
 
+// Phase 3 someone else's code
+function findProfession(level, pos) {
+    if (level == 1) {
+        return "Engineer"
+    }
+    if (pos % 2 == 0) {
+        if (findProfession(level - 1, pos / 2) == "Doctor") {
+            return "Engineer"
+        } else {
+            return "Doctor"
+        }
+    } else {
+        // console.log(findProfession(level-1, pos+1/2))
+        // console.log(findProfession(level-1, pos+1/2))
+        return findProfession(level - 1, (pos + 1) / 2)
+    }
+}
+
+// Phase 2, still too much storage
 function findProfession(level, pos) {
     if (level === 1) return "Engineer";
 
@@ -54,6 +73,7 @@ function findProfession(level, pos) {
     return "Doctor";
 }
 
+// Phase 1 too much storage
 // function findProfession(level, pos) {
 //     debugger;
 //     if(level === 1)return "Engineer";
