@@ -28,14 +28,10 @@ function treeTraversal(tree, direction) {
 
         if (direction === "left") {
             if (shift.left) queue.push(shift.left);
-            // if (!shift.left) array.push("noLeft");
             if (shift.right) queue.push(shift.right);
-            // if (!shift.right) array.push("noRight");
         } else if (direction === "right") {
             if (shift.right) queue.push(shift.right);
-            // if (!shift.right) array.push("noRight");
             if (shift.left) queue.push(shift.left);
-            // if (!shift.left) array.push("noLeft");
         }
     }
 
