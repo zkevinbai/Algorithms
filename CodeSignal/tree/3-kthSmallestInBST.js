@@ -32,5 +32,5 @@ function kthSmallestInBST(t, k) {
         }
     }
 
-    return values.sort()[k-1];
+    return values.sort((a, b) => a - b)[k-1];
 }
