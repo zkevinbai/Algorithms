@@ -26,6 +26,7 @@
         // key in with n -1 
 
 function findProfession(level, pos) {
+    debugger;
     if(level === 1)return "Engineer";
 
     let counter = 1;
