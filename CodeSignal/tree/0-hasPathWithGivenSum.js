@@ -7,26 +7,20 @@
 // }
 
 function hasPathWithGivenSum(t, s) {
-    let queue = [t];
-    let paths = [];
-
-    while(queue.length){
-        let shift = queue.shift();
-
-        let newArray = [];
-        
-        paths.forEach( path => newArray.push(path.push(shift.value)) )
-
-        paths = newArray;
-
-        if(shift.left){
-            queue.push(shift.left);
-        }
-
-        if(shift.right){
-            queue.push(shift.right);
-        }
-    }
-
-    return paths;
+    if (!t) return s === 0;
+    s -= t.value;
+    return hasPathWithGivenSum(t.left, s) ||
+        hasPathWithGivenSum(t.right, s);
 }
+
+// function hasPathWithGivenSum(t, s) {
+//     let stack = [t];
+//     let paths = [];
+
+//     let path = [];
+//     while(stack.length){
+//         if()
+//     }
+
+//     return paths;
+// }
