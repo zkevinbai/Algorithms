@@ -47,6 +47,7 @@ function findProfession(level, pos) {
         }
 
         currentLevel = nextLevel;
+        counter += 1;
     }
 
     return currentLevel[pos - 1];
