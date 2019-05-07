@@ -11,13 +11,14 @@ function isTreeSymmetric(t) {
     let leftTree = true;
     let rightTree = true;
 
-    if (t.left) leftTree = treeTraversal(t.left);
-    if (t.right) rightTree = treeTraversal(t.right);
+    if (t.left) leftTree = treeTraversal(t.left, "left");
+    if (t.right) rightTree = treeTraversal(t.right, "right");
 
+    console.log([leftTree, rightTree])
     return leftTree + "" === rightTree + "";
 }
 
-function treeTraversal(tree) {
+function treeTraversal(tree, direction) {
     let array = [];
     let queue = [tree];
 
@@ -25,8 +26,17 @@ function treeTraversal(tree) {
         let shift = queue.shift();
         array.push(shift.value);
 
-        if (shift.left) queue.push(shift.left);
-        if (shift.right) queue.push(shift.right);
+        if (direction === "left") {
+            if (shift.left) queue.push(shift.left);
+            // if (!shift.left) array.push("noLeft");
+            if (shift.right) queue.push(shift.right);
+            // if (!shift.right) array.push("noRight");
+        } else if (direction === "right") {
+            if (shift.right) queue.push(shift.right);
+            // if (!shift.right) array.push("noRight");
+            if (shift.left) queue.push(shift.left);
+            // if (!shift.left) array.push("noLeft");
+        }
     }
 
     return array;
