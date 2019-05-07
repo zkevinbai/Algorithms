@@ -9,8 +9,7 @@
 function hasPathWithGivenSum(t, s) {
     if (!t) return s === 0;
     s -= t.value;
-    return hasPathWithGivenSum(t.left, s) ||
-        hasPathWithGivenSum(t.right, s);
+    return hasPathWithGivenSum(t.left, s) || hasPathWithGivenSum(t.right, s);
 }
 
 // function hasPathWithGivenSum(t, s) {
