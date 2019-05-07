@@ -26,24 +26,23 @@
         // key in with n -1 
 
 function findProfession(level, pos) {
-    debugger;
-    if(level === 1)return "Engineer";
+    if (level === 1) return "Engineer";
 
     let counter = 1;
-    let currentLevel = ["Engineer", "Doctor"];
+    let currentLevel = [1, 0];
 
-    while(counter < level){
+    while (counter < level) {
         let nextLevel = [];
 
         for (let i = 0; i < currentLevel.length; i++) {
             let profession = currentLevel[i];
 
-            if (profession === "Engineer"){
-                nextLevel.push("Engineer");
-                nextLevel.push("Doctor");
-            } else if (profession === "Doctor") {
-                nextLevel.push("Doctor");
-                nextLevel.push("Engineer");
+            if (profession === 1) {
+                nextLevel.push(1);
+                nextLevel.push(0);
+            } else if (profession === 0) {
+                nextLevel.push(0);
+                nextLevel.push(1);
             }
         }
 
@@ -51,5 +50,35 @@ function findProfession(level, pos) {
         counter += 1;
     }
 
-    return currentLevel[pos - 1];
+    if(currentLevel[pos - 1]) return "Engineer";
+    return "Doctor";
 }
+
+// function findProfession(level, pos) {
+//     debugger;
+//     if(level === 1)return "Engineer";
+
+//     let counter = 1;
+//     let currentLevel = ["Engineer", "Doctor"];
+
+//     while(counter < level){
+//         let nextLevel = [];
+
+//         for (let i = 0; i < currentLevel.length; i++) {
+//             let profession = currentLevel[i];
+
+//             if (profession === "Engineer"){
+//                 nextLevel.push("Engineer");
+//                 nextLevel.push("Doctor");
+//             } else if (profession === "Doctor") {
+//                 nextLevel.push("Doctor");
+//                 nextLevel.push("Engineer");
+//             }
+//         }
+
+//         currentLevel = nextLevel;
+//         counter += 1;
+//     }
+
+//     return currentLevel[pos - 1];
+// }
