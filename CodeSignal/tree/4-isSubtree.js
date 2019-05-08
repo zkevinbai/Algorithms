@@ -6,6 +6,11 @@
 //   this.right = null;
 // }
 
+// Phase 3 - code golf
+// function isSubtree(t1, t2) {
+//     return JSON.stringify(t1).indexOf(JSON.stringify(t2)) !== -1
+// }
+
 // Phase 2 - someone else's code
 
 function isSubtree(t1, t2) {
