@@ -16,7 +16,7 @@
 
 
 function isSubtree(t1, t2) {
-    if (!t1 && !t2) return true;
+    if (!t1 && !!t2) return false;
     if (!t2) return true;
 
     let values = [];
