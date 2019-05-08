@@ -9,8 +9,8 @@
 // strategy
     // bfs the big tree
         // when a node's value is the same as the sub tree's root value
-            // run a double bfs traversal
-            // if full traversal, return true
+            // run a double bfs traversal on node and sub root
+            // if node and sub root are the same, return true
 
     // return false at the end
 
