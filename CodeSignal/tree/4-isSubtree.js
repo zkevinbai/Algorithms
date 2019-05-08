@@ -16,6 +16,8 @@
 
 
 function isSubtree(t1, t2) {
+    if (!t2) return true;
+
     let values = [];
 
     let queue = [t1];
