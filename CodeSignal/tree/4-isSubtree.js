@@ -16,14 +16,26 @@
 
 
 function isSubtree(t1, t2) {
-    let queue = [t];
+    let values = [];
+
+    let queue = [t1];
 
     while (queue.length) {
         let shift = queue.shift();
 
-        if (shift.value === t2.value) {
-            return shift;
+        if(shift.value === t2.value){
+            if(compareTwoTrees(shift, t2)){
+                return true;
+            }
+        }
+        
+        if (shift.left) {
+            queue.push(shift.left)
+        }
+        if (shift.right) {
+            queue.push(shift.right)
         }
     }
 
+    return false;
 }
