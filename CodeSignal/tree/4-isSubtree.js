@@ -19,14 +19,12 @@ function isSubtree(t1, t2) {
     if (!t1 && !!t2) return false;
     if (!t2) return true;
 
-    let values = [];
-
     let queue = [t1];
 
     while (queue.length) {
         let shift = queue.shift();
 
-        if(shift.value === t2.value){
+        if (shift.value === t2.value && shift.left === t2.left && shift.right === t2.right){
             if(compareTwoTrees(shift, t2)){
                 return true;
             }
@@ -50,7 +48,7 @@ function compareTwoTrees(treeOne, treeTwo){
     return traverseOne + "" === traverseTwo + "";
 }
 
-function treeTraversal(tree, direction) {
+function treeTraversal(tree) {
     let array = [];
     let queue = [tree];
 
