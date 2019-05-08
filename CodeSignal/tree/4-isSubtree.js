@@ -39,3 +39,34 @@ function isSubtree(t1, t2) {
 
     return false;
 }
+
+function compareTwoTrees(treeOne, treeTwo){
+    let traverseOne = treeTraversal(treeOne);
+    let traverseTwo = treeTraversal(treeTwo);
+
+    return traverseOne + "" === traverseTwo + "";
+}
+
+function treeTraversal(tree, direction) {
+    let array = [];
+    let queue = [tree];
+
+    while (queue.length) {
+        let shift = queue.shift();
+        array.push(shift.value);
+
+        if (shift.left) {
+            queue.push(shift.left);
+        } else {
+            array.push("noLeft")
+        }
+
+        if (shift.right) {
+            queue.push(shift.right);
+        } else {
+            array.push("noRight")
+        }
+    }
+
+    return array;
+}
