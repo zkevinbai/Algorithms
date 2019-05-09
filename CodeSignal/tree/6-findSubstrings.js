@@ -31,7 +31,7 @@ function findSubstrings(words, parts) {
         let firstHalf = word.split("").slice(0, startingIndex).push("[");
         let secondHalf = word.split("").slice(endingIndex).unshift("]");
 
-        let newWord = firstHalf.join("") + secondHalffirstHalf.join("");
+        let newWord = firstHalf.join("") + secondHalf.join("");
         response.push(newWord);
     }
 
