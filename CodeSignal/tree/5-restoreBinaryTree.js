@@ -7,10 +7,10 @@
 // }
 
 function restoreBinaryTree(inorder, preorder) {
-    if (!inorder.length || !preorder.length) return null;
+    if (!inorder.length) return null;
 
     let shift = preorder.shift();
-    let root = Tree(shift);
+    let root = new Tree(shift);
 
     let inorderRootIndex = inorder.indexOf(shift);
 
