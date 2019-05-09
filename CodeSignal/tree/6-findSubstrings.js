@@ -26,7 +26,7 @@ function findSubstrings(words, parts) {
         }
 
         let startingIndex = word.indexOf(largestFirstPart);
-        let endingIndex = startingIndex + largestFirstPart.length - 1;
+        let endingIndex = startingIndex + largestFirstPart.length;
 
         let wordArr = word.split("");
 
