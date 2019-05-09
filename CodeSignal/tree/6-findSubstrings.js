@@ -20,7 +20,7 @@ function findSubstrings(words, parts) {
         for (let j = 0; j < parts.length; j++) {
             let part = parts[j];
 
-            if (word.includes(part) && part.length > largestFirstPart) {
+            if (word.includes(part) && part.length > largestFirstPart.length) {
                 largestFirstPart = part;
             }
         }
