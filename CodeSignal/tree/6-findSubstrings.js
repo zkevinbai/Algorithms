@@ -28,8 +28,10 @@ function findSubstrings(words, parts) {
         let startingIndex = word.indexOf(largestFirstPart);
         let endingIndex = startingIndex + largestFirstPart.length - 1;
 
-        let firstHalf = word.split("").slice(0, startingIndex).push("[");
-        let secondHalf = word.split("").slice(endingIndex).unshift("]");
+        let firstHalf = word.split("").slice(0, startingIndex);
+            firstHalf.push("[");
+        let secondHalf = word.split("").slice(endingIndex)
+            secondHalf.unshift("]");
 
         let newWord = firstHalf.join("") + secondHalf.join("");
         response.push(newWord);
