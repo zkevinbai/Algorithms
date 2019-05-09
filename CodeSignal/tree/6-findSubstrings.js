@@ -23,6 +23,10 @@ function findSubstrings(words, parts) {
             if (word.includes(part) && part.length > largestFirstPart.length) {
                 largestFirstPart = part;
             }
+
+            if (word.includes(part) && part.length === largestFirstPart.length && word.indexOf(part) < word.indexOf(largestFirstPart)) {
+                largestFirstPart = part;
+            }
         }
 
         if (largestFirstPart.length) {
