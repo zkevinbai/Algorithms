@@ -16,7 +16,7 @@ function findSubstrings(words, parts) {
     for(let i=0; i<words.length; i++){
         let word = words[i];
 
-        let largestFirstPart = "";
+        let largestFirstPart;
         for (let j = 0; j < parts.length; j++) {
             let part = parts[j];
             
@@ -25,20 +25,24 @@ function findSubstrings(words, parts) {
             }
         }
 
-        let startingIndex = word.indexOf(largestFirstPart);
-        let endingIndex = startingIndex + largestFirstPart.length;
+        if (largestFirstPart){
+            let startingIndex = word.indexOf(largestFirstPart);
+            let endingIndex = startingIndex + largestFirstPart.length;
 
-        let wordArr = word.split("");
+            let wordArr = word.split("");
 
-        let left = wordArr.slice(0, startingIndex);
-        let mid = wordArr.slice(startingIndex, endingIndex);
-        let right = wordArr.slice(endingIndex);
+            let left = wordArr.slice(0, startingIndex);
+            let mid = wordArr.slice(startingIndex, endingIndex);
+            let right = wordArr.slice(endingIndex);
 
-        left.push("[");
-        mid.push("]");
+            left.push("[");
+            mid.push("]");
 
-        let newWord = left.join("") + mid.join("") + right.join("");
-        response.push(newWord);
+            let newWord = left.join("") + mid.join("") + right.join("");
+            response.push(newWord);
+        } else {
+            response.push(word);
+        }
     }
 
     return response;
