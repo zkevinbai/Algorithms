@@ -1,31 +1,31 @@
 // input
-    // array of words
-    // array of parts
+// array of words
+// array of parts
 // output
-    // array of words, with the first/ longest part surrounded by brackets
+// array of words, with the first/ longest part surrounded by brackets
 
 // strategy
-    // for each word, iterate through the parts, if it includes
-        // find first index of
-        // slice into 3
-        // add brackets
+// for each word, iterate through the parts, if it includes
+// find first index of
+// slice into 3
+// add brackets
 
 function findSubstrings(words, parts) {
     let response = [];
 
-    for(let i=0; i<words.length; i++){
+    for (let i = 0; i < words.length; i++) {
         let word = words[i];
 
-        let largestFirstPart;
+        let largestFirstPart = "";
         for (let j = 0; j < parts.length; j++) {
             let part = parts[j];
-            
-            if(word.includes(part) && part.length > largestFirstPart) {
+
+            if (word.includes(part) && part.length > largestFirstPart) {
                 largestFirstPart = part;
             }
         }
 
-        if (largestFirstPart){
+        if (largestFirstPart.length) {
             let startingIndex = word.indexOf(largestFirstPart);
             let endingIndex = startingIndex + largestFirstPart.length;
 
