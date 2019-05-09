@@ -28,12 +28,16 @@ function findSubstrings(words, parts) {
         let startingIndex = word.indexOf(largestFirstPart);
         let endingIndex = startingIndex + largestFirstPart.length - 1;
 
-        let firstHalf = word.split("").slice(0, startingIndex);
-            firstHalf.push("[");
-        let secondHalf = word.split("").slice(endingIndex)
-            secondHalf.unshift("]");
+        let wordArr = word.split("");
 
-        let newWord = firstHalf.join("") + secondHalf.join("");
+        let left = word.split("").slice(0, startingIndex - 1);
+        let mid = word.split("").slice(startingIndex, endingIndex);
+        let right = word.split("").slice(endingIndex);
+
+        left.push("[");
+        mid.push("]");
+
+        let newWord = left.join("") + mid.join("") + right.join("");
         response.push(newWord);
     }
 
