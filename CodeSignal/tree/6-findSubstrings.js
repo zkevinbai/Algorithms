@@ -30,9 +30,9 @@ function findSubstrings(words, parts) {
 
         let wordArr = word.split("");
 
-        let left = word.split("").slice(0, startingIndex);
-        let mid = word.split("").slice(startingIndex, endingIndex);
-        let right = word.split("").slice(endingIndex);
+        let left = wordArr.slice(0, startingIndex);
+        let mid = wordArr.slice(startingIndex, endingIndex);
+        let right = wordArr.slice(endingIndex);
 
         left.push("[");
         mid.push("]");
