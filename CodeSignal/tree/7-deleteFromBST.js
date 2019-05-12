@@ -35,8 +35,18 @@ function deleteFromBST(t, queries) {
             }
         }
         
+        // delete the node from the BST
         if(foundNode){
-            return foundNode;
+            // find the right most node of its left side
+
+            let nodeLeft = foundNode.left;
+            let rightMost = nodeLeft;
+
+            while(rightMost.right){
+                rightMost = rightMost.right;
+            }
+
+            // rebase the found node at the rightMost/ replace found Node
         }
     }
 
