@@ -6,25 +6,38 @@
 //   this.right = null;
 // }
 
-function deleteFromBST(t, queries) {
-    for (let i = 0; i < queries.length; i++) {
-        let query = queries[i];
-
-        let foundNode;
-        let queue = [t];
-
-        while(queue.length){
-            let shift = queue.shift();
-            if(shift.value === query){
-                foundNode = shift;
-            }
-        }
-        
-    }
-}
-
 // search BST
 
 // find the element
 
 // run deletion algorithm
+
+function deleteFromBST(t, queries) {
+    let queries2 = [];
+    for (let i = 0; i < queries.length; i++) {
+        let query = queries[i];
+
+        let foundNode = false;
+        let queue = [t];
+
+        // find the target node using BFS
+        while(queue.length || foundNode){
+            let shift = queue.shift();
+            if(shift.value === query){
+                foundNode = shift;
+            } else {
+                if(shift.left){
+                    queue.push(shift.left)
+                }
+                if(shift.right){
+                    queue.push(shift.right)
+                }
+            }
+        }
+        
+        if(foundNode){
+            return foundNode;
+        }
+    }
+
+}
