@@ -8,6 +8,65 @@
 
 // strategy 2 - someone else's code
 
+//
+// Definition for binary tree:
+// function Tree(x) {
+//   this.value = x;
+//   this.left = null;
+//   this.right = null;
+// }
+function deleteFromBST(t, queries) {
+    for (var i = 0; i < queries.length; i++) {
+        t = deleteNode(t, queries[i]);
+    }
+    return t;
+}
+
+function getRightmost(t) {
+    if (!t) {
+        return null;
+    }
+
+    while (t.right) {
+        t = t.right;
+    }
+
+    return t;
+}
+
+function removeRightmost(t) {
+    if (!t) {
+        return null;
+    }
+
+    if (!t.right)
+        return t.left;
+    t.right = removeRightmost(t.right);
+    return t;
+}
+
+function deleteNode(t, query) {
+    if (t == null)
+        return t;
+
+    if (t.value == query) {
+        if (!t.left) {
+            return t.right;
+        } else {
+            t.value = getRightmost(t.left).value;
+            t.left = removeRightmost(t.left);
+        }
+    } else if (t.value > query) {
+        t.left = deleteNode(t.left, query);
+    } else {
+        t.right = deleteNode(t.right, query);
+    }
+
+    return t;
+}
+
+// strategy 2 
+
 function deleteFromBST(t, queries){
 
     for (let index = 0; index < queries.length; index++) {
