@@ -1,3 +1,5 @@
+
+// strategy 1 - sorting and indexing O(n)
 function kthLargestElement(nums, k) {
     nums = nums.sort((a, b) => a > b);
 
