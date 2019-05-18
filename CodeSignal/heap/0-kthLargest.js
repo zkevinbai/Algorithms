@@ -1,5 +1,5 @@
 function kthLargestElement(nums, k) {
-    nums = nums.sort();
+    nums = nums.sort((a, b) => a > b);
 
     let kleIndex = nums.length - k;
 
