@@ -9,11 +9,12 @@ var reverseString = function (s) {
             let memoS = s[start];
             let memoE = s[end];
 
-            s[start], s[end] = memoE, memoS;
+            s[start] = memoE;
+            s[end] = memoS;
         }
 
-        start -= 1;
-        end += 1;
+        start += 1;
+        end -= 1;
         counter -= 1;
     }
 
