@@ -17,7 +17,7 @@ var twoSum = function (nums, target) {
     for (let i = 0; i < nums.length; i++) {
         let number = nums[i];
 
-        if (potentials[number]){
+        if (potentials[number] && potentials[number] !== i){
             return [i, potentials[number]]
         }
     }
