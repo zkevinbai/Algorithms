@@ -1,5 +1,5 @@
 var reverseString = function (s) {
-    let counter = (s.length - 1)/ 2;
+    let counter = Math.ceil((s.length - 1)/ 2);
 
     let start = 0;
     let end = s.length - 1;
