@@ -6,7 +6,7 @@ function maxDepth(root) {
     let rightTraversal = 0;
 
     if(root.left) leftTraversal += maxDepth(root.left);
-    if(root.right) leftTraversal += maxDepth(root.right);
+    if(root.right) rightTraversal += maxDepth(root.right);
 
     if(leftTraversal > rightTraversal) return leftTraversal;
     return rightTraversal;
