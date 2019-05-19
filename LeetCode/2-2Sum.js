@@ -4,6 +4,29 @@
 // output 
     // exactly one pair of indices that sum to target;
 
+// strategy 2 O(n)
+var twoSum = function (nums, target) {
+    let potentials = {};
+
+    for (let i = 0; i < nums.length; i++) {
+        let number = target - nums[i];
+
+        potentials[number] = i;
+    }
+
+    for (let i = 0; i < nums.length; i++) {
+        let number = nums[i];
+
+        if (potentials[number]){
+            return [i, potentials[number]]
+        }
+    }
+
+    return [];
+};
+
+
+// strategy 1 brute force O(n^2))
 var twoSum = function (nums, target) {
     let pairs = [];
 
@@ -20,3 +43,4 @@ var twoSum = function (nums, target) {
 
     return pairs;
 };
+
