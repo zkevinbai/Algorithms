@@ -8,9 +8,6 @@ function maxDepth(root) {
     if(root.left) leftTraversal += maxDepth(root.left);
     if(root.right) leftTraversal += maxDepth(root.right);
 
-    if(leftTraversal > rightTraversal) {
-        return leftTraversal + 1;
-    } else {
-        return rightTraversal + 1;
-    }
+    if(leftTraversal > rightTraversal) return leftTraversal + 1;
+    return rightTraversal + 1;
 };
