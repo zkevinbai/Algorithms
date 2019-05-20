@@ -12,9 +12,12 @@ var singleNumber = function (nums) {
             next = nums[index + 1];
             if(number !== next) return number;
         } else if(index === nums.length - 1){
-
+            prev = nums[index - 1];
+            if (number !== prev) return number;
         } else {
-
+            next = nums[index + 1];
+            prev = nums[index - 1];
+            if (number !== prev && number !== next) return number;
         }
         
     }
