@@ -1,5 +1,5 @@
 var singleNumber = function (nums) {
-    if(nums.length === 1) return nums[0];
+    if (nums.length === 1) return nums[0];
 
     nums = nums.sort((a, b) => a - b);
 
@@ -8,10 +8,10 @@ var singleNumber = function (nums) {
         let prev;
         let next;
 
-        if(index === 0){
+        if (index === 0) {
             next = nums[index + 1];
-            if(number !== next) return number;
-        } else if(index === nums.length - 1){
+            if (number !== next) return number;
+        } else if (index === nums.length - 1) {
             prev = nums[index - 1];
             if (number !== prev) return number;
         } else {
@@ -19,6 +19,6 @@ var singleNumber = function (nums) {
             prev = nums[index - 1];
             if (number !== prev && number !== next) return number;
         }
-        
+
     }
 };
