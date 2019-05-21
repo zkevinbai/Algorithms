@@ -1,0 +1,3 @@
+const reverseList = function (head) {
+
+};
