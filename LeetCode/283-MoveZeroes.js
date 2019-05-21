@@ -1,16 +1,11 @@
 const moveZeroes = function (nums) {
-    let sorted = nums.sort((a,b) => a - b);
+    nums.sort((a, b) => a - b);
 
-    let firstNonZero;
+    while (nums[0] === 0) {
+        let shift = nums.shift();
 
-    for (let index = 0; index < sorted.length; index++) {
-        const number = sorted[index];
-        if(number !== 0){
-            firstNonZero = index;
-            break;
-        }
+        nums.push(shift)
     }
 
-    return sorted.slice(firstNonZero).concat(sorted.slice(0, firstNonZero));
-    
+    return nums
 };
