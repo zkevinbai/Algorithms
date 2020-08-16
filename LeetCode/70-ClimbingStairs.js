@@ -37,11 +37,23 @@ Constraints:
 */
 
 // this is the fibonacci sequence
+//   1 2 3
+// 1 1 2 3 5 8 13
+
+const fibonacci = function (n) {
+    if (n === 1) {
+        return 1;
+    }
+    if (n === 2) {
+        return 1;
+    }
+
+    return fibonacci(n - 1) + fibonacci(n - 2);
+};
 
 const climbStairs = function (n) {
-    const nIsEven = (n % 2 === 0);
-
-    if (nIsEven) {
-
-    }
+    return fibonacci(n - 1);
 };
+
+
+
