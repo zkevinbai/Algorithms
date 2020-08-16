@@ -52,7 +52,7 @@ const fibonacci = function (n) {
 };
 
 const climbStairs = function (n) {
-    return fibonacci(n - 1);
+    return fibonacci(n + 1);
 };
 
 
