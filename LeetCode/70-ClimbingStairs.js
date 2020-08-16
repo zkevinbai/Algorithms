@@ -18,9 +18,25 @@ Explanation: There are three ways to climb to the top.
 2. 1 step + 2 steps
 3. 2 steps + 1 step
 
+4
+    1 1 1 1
+    1 1 2
+    1 2 1
+    2 1 1
+    2 2
+5 steps
+
+5
+8 steps
+
+6
+13 steps
+
 Constraints:
 1 <= n <= 45
 */
+
+// this is the fibonacci sequence
 
 const climbStairs = function (n) {
     const nIsEven = (n % 2 === 0);
