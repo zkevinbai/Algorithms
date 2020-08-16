@@ -69,10 +69,26 @@ Constraints:
 //     return climbStairs(n - 1) + climbStairs(n - 2);
 // };
 
+// clean recursive solution
+// const climbStairs = function (n) {
+//     if (n < 4) {
+//         return n;
+//     }
+
+//     return climbStairs(n - 1) + climbStairs(n - 2);
+// };
+
+// optimized solution
 const climbStairs = function (n) {
     if (n < 4) {
         return n;
     }
 
-    return climbStairs(n - 1) + climbStairs(n - 2);
+    const steps = [1, 1, 2, 3];
+
+    for (let i = 4; i <= n; i++) {
+        steps[i] = steps[i - 1] + steps[i - 2];
+    }
+
+    return steps[n];
 };
