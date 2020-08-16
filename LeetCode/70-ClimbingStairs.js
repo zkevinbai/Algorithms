@@ -23,5 +23,9 @@ Constraints:
 */
 
 const climbStairs = function (n) {
-    return 1
+    const nIsEven = (n % 2 === 0);
+
+    if (nIsEven) {
+
+    }
 };
