@@ -48,21 +48,33 @@ if first[0] + next[1] > (first[0] + next[0])
 // 0 + 2 + 4
 // 0 + 3
 // 1 + 3
+
+const maxThree = (three) => {
+    if (three[0] >= three[1] && three[0] >= three[2]) {
+        return three[0];
+    } else if (three[1] >= three[0] && three[1] >= three[2]) {
+        return three[1];
+    } else {
+        return three[2];
+    }
+}
+
 const rob = (nums) => {
     let sum = 0
 
-    let dup = nums.slice();
+    let dup = nums.slice(0);
 
     while(dup.length) {
-        const firstFive = dup.shift(5);
+        const firstFive = dup.slice(0, 5);
+        dup = dup.slice(5, dup.length);
 
         const possibleValues = [
-            firstFive[0] + firstFive[2] + firstFive[4],
-            firstFive[0] + firstFive[3],
-            firstFive[1] + firstFive[3],
+            firstFive[0] + (firstFive[2] || 0) + (firstFive[4] || 0),
+            firstFive[0] + (firstFive[3] || 0),
+            (firstFive[1] || 0) + (firstFive[3] || 0),
         ]
 
-        sum += possibleValues.max();
+        sum += maxThree(possibleValues);
     }
 
     return sum;
