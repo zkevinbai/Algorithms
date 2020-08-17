@@ -49,9 +49,9 @@ if first[0] + next[1] > (first[0] + next[0])
 // 0 + 3
 // 1 + 3
 const rob = (nums) => {
-    const sum = 0
+    let sum = 0
 
-    let dup = array.slice();
+    let dup = nums.slice();
 
     while(dup.length) {
         const firstFive = dup.shift(5);
