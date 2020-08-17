@@ -14,29 +14,58 @@ Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (m
 Total amount you can rob = 2 + 9 + 1 = 12.
 
 Edge case - want to skip houses to get max value
-[10 1 1 20 1]
-need to check 4 values at a time
-[10 1 1 1 20]
+[3,1,1,4,1]
+
+if first[0] + next[1] > (first[1] + next[1])
+if first[0] + next[1] > (first[0] + next[0])
+
 */
 
 // first solve for even odd
+// const rob = (nums) => {
+//     let evenSum = 0;
+//     let oddSum = 0;
+
+//     for (let i = 0; i > nums.length; i++) {
+//         if ( i % 2 === 0 ) {
+//             evenSum += nums[i];
+//         } else {
+//             oddSum += nums[i];
+//         }
+//     }
+
+//     if (evenSum > oddSum) {
+//         return evenSum;
+//     } else {
+//         return oddSum;
+//     }
+// };
+
+// second solve to accomodate edge case
+// [3, 1, 1, 4, 1]
+
+// take the largest numbers
+// 0 + 2 + 4
+// 0 + 3
+// 1 + 3
 const rob = (nums) => {
-    let evenSum = 0;
-    let oddSum = 0;
+    const sum = 0
 
-    for (i = 0; i < nums.length; i++) {
-        if ( i % 2 === 0 ) {
-            evenSum += nums[i];
-        } else {
-            oddSum += nums[i];
-        }
+    let dup = array.slice();
+
+    while(dup.length) {
+        const firstFive = dup.shift(5);
+
+        const possibleValues = [
+            firstFive[0] + firstFive[2] + firstFive[4],
+            firstFive[0] + firstFive[3],
+            firstFive[1] + firstFive[3],
+        ]
+
+        sum += possibleValues.max();
     }
 
-    if (evenSum > oddSum) {
-        return evenSum;
-    } else {
-        return oddSum;
-    }
+    return sum;
 };
 
 
