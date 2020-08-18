@@ -80,34 +80,67 @@ if first[0] + next[1] > (first[0] + next[0])
 //     return sum;
 // };
 
-const checkRange = (nums, n) => {
-    const two = nums[n] + nums[n + 2];
-    const three = nums[n] + nums[n + 3];
+// const checkRange = (nums, n) => {
+//     const two = nums[n] + nums[n + 2];
+//     const three = nums[n] + nums[n + 3];
 
-    if (two > three) {
-        return two;
-    } else {
-        return three;
-    }
-};
+//     if (two > three) {
+//         return two;
+//     } else {
+//         return three;
+//     }
+// };
+
+// const rob = (nums) => {
+//     let sum = 0
+
+//     for (let i = 0; i < nums.length; i++) {
+//         const currVal = checkRange(nums, i);
+//         const nextVal = checkRange(nums, i + 1);
+
+//         if (currVal > nextVal) {
+//             sum += nums[i];
+//             i = i + 2
+//         } else {
+//             sum += nums[i + 1];
+//             i = i + 3
+//         }
+//     }
+
+//     return sum;
+// };
+
+// position 1 2 3 4 5
+// index    0 1 2 3 4
+// values   3 1 1 4 3
+
+// values   3 1 4 4 3
 
 const rob = (nums) => {
-    let sum = 0
+    let houses = nums.slice(0);
 
-    for (let i = 0; i < nums.length; i++) {
-        const currVal = checkRange(nums, i);
-        const nextVal = checkRange(nums, i + 1);
+    houses[2] = houses[0] + houses[2];
 
-        if (currVal > nextVal) {
-            sum += nums[i];
-            i = i + 2
+    for (let i = 3; i < houses.length; i++) {
+        backTwo = houses[i - 2];
+
+        backThree = houses[i - 3];
+
+        if (backTwo > backThree) {
+            houses[i] += backTwo;
         } else {
-            sum += nums[i + 1];
-            i = i + 3
+            houses[i] += backThree;
         }
     }
 
-    return sum;
+    let lastHouse = houses[houses.length - 1];
+    let secondLastHouse = houses[houses.length - 2];
+
+    if (lastHouse > secondLastHouse) {
+        return lastHouse;
+    } else {
+        return secondLastHouse;
+    }
 };
 
 
