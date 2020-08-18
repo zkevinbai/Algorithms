@@ -117,6 +117,10 @@ if first[0] + next[1] > (first[0] + next[0])
 // values   3 1 4 4 3
 
 const rob = (nums) => {
+    if (!nums.length) {
+        return 0;
+    }
+
     let houses = nums.slice(0);
 
     houses[2] = houses[0] + houses[2];
