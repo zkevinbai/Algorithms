@@ -49,32 +49,62 @@ if first[0] + next[1] > (first[0] + next[0])
 // 0 + 3
 // 1 + 3
 
-const maxThree = (three) => {
-    if (three[0] >= three[1] && three[0] >= three[2]) {
-        return three[0];
-    } else if (three[1] >= three[0] && three[1] >= three[2]) {
-        return three[1];
+// const maxThree = (three) => {
+//     if (three[0] >= three[1] && three[0] >= three[2]) {
+//         return three[0];
+//     } else if (three[1] >= three[0] && three[1] >= three[2]) {
+//         return three[1];
+//     } else {
+//         return three[2];
+//     }
+// }
+
+// const rob = (nums) => {
+//     let sum = 0
+
+//     let dup = nums.slice(0);
+
+//     while(dup.length) {
+//         const firstFive = dup.slice(0, 5);
+//         dup = dup.slice(5, dup.length);
+
+//         const possibleValues = [
+//             firstFive[0] + (firstFive[2] || 0) + (firstFive[4] || 0),
+//             firstFive[0] + (firstFive[3] || 0),
+//             (firstFive[1] || 0) + (firstFive[3] || 0),
+//         ]
+
+//         sum += maxThree(possibleValues);
+//     }
+
+//     return sum;
+// };
+
+const checkRange = (nums, n) => {
+    const two = nums[n] + nums[n + 2];
+    const three = nums[n] + nums[n + 3];
+
+    if (two > three) {
+        return two;
     } else {
-        return three[2];
+        return three;
     }
-}
+};
 
 const rob = (nums) => {
     let sum = 0
 
-    let dup = nums.slice(0);
+    for (let i = 0; i < nums.length; i++) {
+        const currVal = checkRange(nums, i);
+        const nextVal = checkRange(nums, i + 1);
 
-    while(dup.length) {
-        const firstFive = dup.slice(0, 5);
-        dup = dup.slice(5, dup.length);
-
-        const possibleValues = [
-            firstFive[0] + (firstFive[2] || 0) + (firstFive[4] || 0),
-            firstFive[0] + (firstFive[3] || 0),
-            (firstFive[1] || 0) + (firstFive[3] || 0),
-        ]
-
-        sum += maxThree(possibleValues);
+        if (currVal > nextVal) {
+            sum += nums[i];
+            i = i + 2
+        } else {
+            sum += nums[i + 1];
+            i = i + 3
+        }
     }
 
     return sum;
