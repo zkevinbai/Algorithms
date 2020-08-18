@@ -116,6 +116,47 @@ if first[0] + next[1] > (first[0] + next[0])
 
 // values   3 1 4 4 3
 
+// const rob = (nums) => {
+//     if (nums.length === 0) {
+//         return 0;
+//     } else if (nums.length === 1) {
+//         return nums[0];
+//     } else if (nums.length === 2) {
+//         let first = nums[0];
+//         let second = nums[1];
+
+//         if (first > second) {
+//             return first;
+//         } else {
+//             return second;
+//         }
+//     }
+
+//     let houses = nums.slice(0);
+
+//     houses[2] = houses[0] + houses[2];
+
+//     for (let i = 3; i < houses.length; i++) {
+//         backTwo = houses[i - 2];
+//         backThree = houses[i - 3];
+
+//         if (backTwo > backThree) {
+//             houses[i] += backTwo;
+//         } else {
+//             houses[i] += backThree;
+//         }
+//     }
+
+//     let lastHouse = houses[houses.length - 1];
+//     let secondLastHouse = houses[houses.length - 2];
+
+//     if (lastHouse > secondLastHouse) {
+//         return lastHouse;
+//     } else {
+//         return secondLastHouse;
+//     }
+// };
+
 const rob = (nums) => {
     if (nums.length === 0) {
         return 0;
@@ -125,11 +166,7 @@ const rob = (nums) => {
         let first = nums[0];
         let second = nums[1];
 
-        if (first > second) {
-            return first;
-        } else {
-            return second;
-        }
+        return Math.max(first, second);
     }
 
     let houses = nums.slice(0);
@@ -150,11 +187,7 @@ const rob = (nums) => {
     let lastHouse = houses[houses.length - 1];
     let secondLastHouse = houses[houses.length - 2];
 
-    if (lastHouse > secondLastHouse) {
-        return lastHouse;
-    } else {
-        return secondLastHouse;
-    }
+    return Math.max(lastHouse, secondLastHouse);
 };
 
 
