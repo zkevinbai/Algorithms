@@ -138,7 +138,6 @@ const rob = (nums) => {
 
     for (let i = 3; i < houses.length; i++) {
         backTwo = houses[i - 2];
-
         backThree = houses[i - 3];
 
         if (backTwo > backThree) {
