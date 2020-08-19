@@ -15,6 +15,10 @@ Output:
 */
 
 const findDisappearedNumbers = (nums) => {
+    if (nums.length === 0) {
+        return [];
+    }
+
     const disapeared = [];
 
     const sortedNumbers = nums.sort();
