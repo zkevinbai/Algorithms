@@ -18,9 +18,10 @@ const findDisappearedNumbers = (nums) => {
     const disapeared = [];
 
     const sortedNumbers = nums.sort();
+    const numbersLength = sortedNumbers.length;
 
     let value = 1;
-    for (let i = 0; i < sortedNumbers.length; i++) {
+    for (let i = 0; i < numbersLength; i++) {
         const number = sortedNumbers[i];
         const nextNumber = sortedNumbers[i + 1];
 
@@ -33,6 +34,12 @@ const findDisappearedNumbers = (nums) => {
             disapeared.push(value);
             value += 1;
         }
+    }
+
+
+    if (disapeared.length === 0 && 
+        sortedNumbers[numbersLength - 1] !== numbersLength) {
+        disapeared.push(numbersLength);
     }
 
     return disapeared;
