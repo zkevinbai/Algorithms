@@ -17,7 +17,7 @@ Output:
 const findDisappearedNumbers = (nums) => {
     const disapeared = [];
 
-    const sortedNumbers = numbers.sort();
+    const sortedNumbers = nums.sort();
 
     let value = 1;
     for (let i = 0; i < sortedNumbers.length; i++) {
