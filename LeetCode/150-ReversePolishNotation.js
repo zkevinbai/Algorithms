@@ -86,28 +86,6 @@ const evalRPN = (tokens) => {
     return stack[0];
 };
 
-// for (let i = 0; i < expression.length; i++) {
-
-//     const op = expression[i];
-//     const leftOne = expression[i - 1];
-//     const leftTwo = expression[i - 2];
-
-//     if (parseInt(leftOne) && parseInt(leftTwo)) {
-//         const value = calc(op, leftTwo, leftOne)
-//     }
-
-//     if (op === "+") {
-//         return left + right;
-//     } else if (op === "-") {
-//         return left - right;
-//     } else if (op === "*") {
-//         return left * right;
-//     } else if (op === "/") {
-//         return left / right;
-//     }
-
-// }
-
  // can't have a space in middle
 // can't have more than one of (+, -)
 // can't have more than one of (.)
