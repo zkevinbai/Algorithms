@@ -48,3 +48,6 @@ const findDisappearedNumbers = (nums) => {
 
     return disapeared;
 };
+
+
+// negative just like first missing positive
