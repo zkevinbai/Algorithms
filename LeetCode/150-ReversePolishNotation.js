@@ -73,8 +73,8 @@ const evalRPN = (tokens) => {
         if (parseInt(val)) {
             stack.push(val);
         } else {
-            const prevOne = stack.pop();
-            const prevTwo = stack.pop();
+            const prevOne = parseInt(stack.pop());
+            const prevTwo = parseInt(stack.pop());
 
             const expressionValue = calc(val, prevTwo, prevOne);
             stack.push(expressionValue);
