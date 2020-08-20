@@ -67,33 +67,44 @@ const evalRPN = (tokens) => {
     const stack = [];
 
     while (expression.length > 1) {
+        let val = expression.shift();
 
+        // if val is a number, push to stack
+        if (parseInt(val)) {
+            stack.push(val);
+        } else {
+            const prevOne = stack.pop();
+            const prevTwo = stack.pop();
 
+            const expressionValue = calc(val, prevTwo, prevOne);
+            stack.push(expressionValue);
+        }
     }
 
+    return stack[0];
 };
 
-for (let i = 0; i < expression.length; i++) {
+// for (let i = 0; i < expression.length; i++) {
 
-    const op = expression[i];
-    const leftOne = expression[i - 1];
-    const leftTwo = expression[i - 2];
+//     const op = expression[i];
+//     const leftOne = expression[i - 1];
+//     const leftTwo = expression[i - 2];
 
-    if (parseInt(leftOne) && parseInt(leftTwo)) {
-        const value = calc(op, leftTwo, leftOne)
-    }
+//     if (parseInt(leftOne) && parseInt(leftTwo)) {
+//         const value = calc(op, leftTwo, leftOne)
+//     }
 
-    if (op === "+") {
-        return left + right;
-    } else if (op === "-") {
-        return left - right;
-    } else if (op === "*") {
-        return left * right;
-    } else if (op === "/") {
-        return left / right;
-    }
+//     if (op === "+") {
+//         return left + right;
+//     } else if (op === "-") {
+//         return left - right;
+//     } else if (op === "*") {
+//         return left * right;
+//     } else if (op === "/") {
+//         return left / right;
+//     }
 
-}
+// }
 
  // can't have a space in middle
 // can't have more than one of (+, -)
