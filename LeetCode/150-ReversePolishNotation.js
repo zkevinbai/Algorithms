@@ -58,7 +58,7 @@ const calc = (op, left, right) => {
     } else if (op === "*") {
         return left * right;
     } else if (op === "/") {
-        return left / right;
+        return parseInt(left / right);
     }
 };
 
@@ -68,13 +68,12 @@ const evalRPN = (tokens) => {
 
     while (expression.length > 0) {
         const val = expression.shift();
-        const parsedVal = parseInt(val);
 
         // if val is a number, push to stack
-        if (parsedVal || parsedVal === 0) {
-            stack.push(parsedVal);
+        if (parseInt(val) || parseInt(val) === 0 || parseInt(val) === -0) {
+            stack.push(parseInt(val));
 
-        // if val is not a number, calculate, and push result to stack
+            // if val is not a number, calculate, and push result to stack
         } else {
             const prevOne = parseInt(stack.pop());
             const prevTwo = parseInt(stack.pop());
@@ -86,6 +85,7 @@ const evalRPN = (tokens) => {
 
     return stack[0];
 };
+
 
  // can't have a space in middle
 // can't have more than one of (+, -)
