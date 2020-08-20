@@ -71,7 +71,7 @@ const evalRPN = (tokens) => {
 
         // if val is a number, push to stack
         if (typeof parseInt(val) === "number") {
-            stack.push(val);
+            stack.push(parseInt(val));
 
             // if val is not a number, calculate, and push result to stack
         } else {
