@@ -66,7 +66,7 @@ const evalRPN = (tokens) => {
     const expression = tokens.slice(0);
     const stack = [];
 
-    while (expression.length > 1) {
+    while (expression.length > 0) {
         let val = expression.shift();
 
         // if val is a number, push to stack
