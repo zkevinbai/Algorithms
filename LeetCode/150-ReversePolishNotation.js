@@ -70,10 +70,10 @@ const evalRPN = (tokens) => {
         const val = expression.shift();
 
         // if val is a number, push to stack
-        if (typeof parseInt(val) === "number") {
+        if (parseInt(val) || parseInt(val) === 0) {
             stack.push(parseInt(val));
 
-            // if val is not a number, calculate, and push result to stack
+        // if val is not a number, calculate, and push result to stack
         } else {
             const prevOne = parseInt(stack.pop());
             const prevTwo = parseInt(stack.pop());
