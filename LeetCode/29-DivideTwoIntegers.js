@@ -22,9 +22,37 @@ The divisor will never be 0.
 Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 231 − 1 when the division result overflows.
 */
 
+/**
+ * @param {number} dividend
+ * @param {number} divisor
+ * @return {number}
+ */
+
 const divide = (dividend, divisor) => {
-    if (divisor > dividend) {
+    if (Math.abs(divisor) > Math.abs(dividend)) {
         return 0;
+    };
+
+    const dividendNegative = dividend < 0;
+    const divisorNegative = divisor < 0;
+    const resultShouldBeNegative = (dividendNegative !== divisorNegative);
+
+    console.log(resultShouldBeNegative)
+
+    if (Math.abs(divisor) === 1) {
+        if (resultShouldBeNegative) {
+            return 0 - dividend;
+        } else {
+            return dividend;
+        }
+    }
+
+    if (Math.abs(dividend) === Math.abs(divisor)) {
+        if (resultShouldBeNegative) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     let divisonStore = divisor;
@@ -37,10 +65,7 @@ const divide = (dividend, divisor) => {
         }
     }
 
-    const isDividendNegative = (dividend < 0);
-    const isDivisorNegative = (divisor < 0);
-
-    if (isDividendNegative !== isDivisorNegative) {
+    if (resultShouldBeNegative) {
         return 0 - divisionTimes;
     }
 
