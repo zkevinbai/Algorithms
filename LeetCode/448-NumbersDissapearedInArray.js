@@ -23,14 +23,19 @@ const findDisappearedNumbers = (nums) => {
     }
 
     for (let i = 0; i < nums.length; i++) {
+        // get absolute value because we will be manipulating positive / negative
         let value = Math.abs(nums[i]);
+        // valuePosition is offset by 1 because we count from 0
         let valuePosition = value - 1;
 
+        // set the absolute value of the number at the found position to be negative
         nums[valuePosition] = -1 * Math.abs(nums[valuePosition])
     }
 
     for (let i = 0; i < nums.length; i++) {
         let value = nums[i];
+
+        // non found values are positive
         if (value > 0) {
             dissappeared.push(i + 1);
         }
