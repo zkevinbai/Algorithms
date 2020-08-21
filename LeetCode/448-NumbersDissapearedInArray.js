@@ -14,6 +14,7 @@ Output:
 [5,6]
 */
 
+
 const findDisappearedNumbers = (nums) => {
     const dissappeared = [];
 
@@ -21,21 +22,23 @@ const findDisappearedNumbers = (nums) => {
         return dissappeared;
     }
 
-    for(let i = 0; i < nums.length; i++) {
-        let value = nums[i];
+    for (let i = 0; i < nums.length; i++) {
+        let value = Math.abs(nums[i]);
+        let valuePosition = value - 1;
 
-        nums[value] = -1 * Math.abs(nums[value])
+        nums[valuePosition] = -1 * Math.abs(nums[valuePosition])
     }
 
-    for(let i = 0; i < nums.length; i++) {
+    for (let i = 0; i < nums.length; i++) {
         let value = nums[i];
-        if (value > 1) {
+        if (value > 0) {
             dissappeared.push(i + 1);
         }
     }
 
     return dissappeared;
 };
+
 
 
 // negative just like first missing positive
