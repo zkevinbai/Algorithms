@@ -29,7 +29,7 @@ const divide = (dividend, divisor) => {
         i += 1;
 
         for (n = 0; n < i; n++) {
-            answer += answer;
+            answer += divisor;
         }
     }
     return i;
