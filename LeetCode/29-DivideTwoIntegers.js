@@ -23,11 +23,11 @@ Assume we are dealing with an environment which could only store integers within
 */
 
 const divide = (dividend, divisor) => {
-    let answer = divisior;
+    let answer = divisor;
     let i = 1;
-    while (Math.abs(answer) < Math.abs(divdend)) {
+    while (Math.abs(answer) < Math.abs(dividend)) {
         i += 1;
         answer *= (i)
     }
-    return answer;
+    return i;
 };
