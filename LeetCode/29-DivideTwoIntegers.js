@@ -41,9 +41,9 @@ const divide = (dividend, divisor) => {
 
     if (Math.abs(divisor) === 1) {
         if (resultShouldBeNegative) {
-            return 0 - dividend;
+            return 0 - Math.abs(dividend);
         } else {
-            return dividend;
+            return Math.abs(dividend);
         }
     }
 
