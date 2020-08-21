@@ -29,7 +29,10 @@ Assume we are dealing with an environment which could only store integers within
  */
 
 const divide = (dividend, divisor) => {
-    if (Math.abs(divisor) > Math.abs(dividend)) {
+    const absoluteDividend = Math.abs(dividend);
+    const absoluteDivisor = Math.abs(divisor);
+
+    if (absoluteDivisor > absoluteDividend) {
         return 0;
     };
 
@@ -39,15 +42,15 @@ const divide = (dividend, divisor) => {
 
     console.log(resultShouldBeNegative)
 
-    if (Math.abs(divisor) === 1) {
+    if (absoluteDivisor === 1) {
         if (resultShouldBeNegative) {
-            return 0 - Math.abs(dividend);
+            return 0 - absoluteDividend;
         } else {
-            return Math.abs(dividend);
+            return absoluteDividend;
         }
     }
 
-    if (Math.abs(dividend) === Math.abs(divisor)) {
+    if (absoluteDividend === absoluteDivisor) {
         if (resultShouldBeNegative) {
             return -1;
         } else {
@@ -57,7 +60,7 @@ const divide = (dividend, divisor) => {
 
     let divisonStore = divisor;
     let divisionTimes = 1;
-    while (Math.abs(divisonStore) < Math.abs(dividend)) {
+    while (Math.abs(divisonStore) < absoluteDividend) {
         divisionTimes += 1;
 
         for (i = 0; i < divisionTimes; i++) {
