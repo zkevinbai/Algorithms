@@ -23,13 +23,13 @@ Assume we are dealing with an environment which could only store integers within
 */
 
 const divide = (dividend, divisor) => {
-    let answer = divisor;
-    let i = 1;
-    while (Math.abs(answer) < Math.abs(dividend)) {
-        i += 1;
+    let divisonStore = divisor;
+    let divisionTimes = 0;
+    while (Math.abs(divisonStore) < Math.abs(dividend)) {
+        divisionTimes += 1;
 
-        for (n = 0; n < i; n++) {
-            answer += divisor;
+        for (i = 0; i < divisionTimes; i++) {
+            divisonStore += divisor;
         }
     }
 
@@ -37,8 +37,8 @@ const divide = (dividend, divisor) => {
     const isDivisorNegative = (divisor < 0);
 
     if (isDividendNegative !== isDivisorNegative) {
-        return 0 - i;
+        return 0 - divisionTimes;
     }
 
-    return i;
+    return divisionTimes;
 };
