@@ -37,9 +37,7 @@ const divide = (dividend, divisor) => {
     const isDivisorNegative = (divisor < 0);
 
     if (isDividendNegative !== isDivisorNegative) {
-        for (n = i; n > (n - i - i); n--) {
-            i -= 1;
-        }    
+        return 0 - i;
     }
 
     return i;
