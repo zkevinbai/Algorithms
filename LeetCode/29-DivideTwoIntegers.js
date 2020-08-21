@@ -60,14 +60,18 @@ const divide = (dividend, divisor) => {
     }
 
     // actual divison
-    let divisonStore = divisor;
-    let divisionTimes = 1;
-    while (Math.abs(divisonStore) < absoluteDividend) {
-        divisionTimes += 1;
+    let divisonStore = 0;
+    let divisionTimes = 0;
 
-        for (i = 0; i < divisionTimes; i++) {
-            divisonStore += divisor;
+    while (divisonStore < absoluteDividend) {
+
+        // covers the remainder ex: 3 / 2
+        if (absoluteDividend - divisonStore <= 1 && absoluteDividend - divisonStore > 0) {
+            break;
         }
+
+        divisionTimes += 1;
+        divisonStore += absoluteDivisor;
     }
 
     if (resultShouldBeNegative) {
