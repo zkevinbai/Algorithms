@@ -29,6 +29,11 @@ Assume we are dealing with an environment which could only store integers within
  */
 
 const divide = (dividend, divisor) => {
+    // JS max integer edge case
+    if (dividend === -2147483648 && divisor === -1) {
+        return 2147483647;
+    }
+
     const absoluteDividend = Math.abs(dividend);
     const absoluteDivisor = Math.abs(divisor);
 
