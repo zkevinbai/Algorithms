@@ -23,8 +23,12 @@ Assume we are dealing with an environment which could only store integers within
 */
 
 const divide = (dividend, divisor) => {
+    if (divisor > dividend) {
+        return 0;
+    }
+
     let divisonStore = divisor;
-    let divisionTimes = 0;
+    let divisionTimes = 1;
     while (Math.abs(divisonStore) < Math.abs(dividend)) {
         divisionTimes += 1;
 
