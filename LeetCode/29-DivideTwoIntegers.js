@@ -32,6 +32,7 @@ const divide = (dividend, divisor) => {
     const absoluteDividend = Math.abs(dividend);
     const absoluteDivisor = Math.abs(divisor);
 
+    // dividend 0 edge case
     if (absoluteDivisor > absoluteDividend) {
         return 0;
     };
@@ -40,8 +41,7 @@ const divide = (dividend, divisor) => {
     const divisorNegative = divisor < 0;
     const resultShouldBeNegative = (dividendNegative !== divisorNegative);
 
-    console.log(resultShouldBeNegative)
-
+    // divisor 1 or -1 edge case
     if (absoluteDivisor === 1) {
         if (resultShouldBeNegative) {
             return 0 - absoluteDividend;
@@ -50,6 +50,7 @@ const divide = (dividend, divisor) => {
         }
     }
 
+    // dividend equals divisor edge case
     if (absoluteDividend === absoluteDivisor) {
         if (resultShouldBeNegative) {
             return -1;
@@ -58,6 +59,7 @@ const divide = (dividend, divisor) => {
         }
     }
 
+    // actual divison
     let divisonStore = divisor;
     let divisionTimes = 1;
     while (Math.abs(divisonStore) < absoluteDividend) {
