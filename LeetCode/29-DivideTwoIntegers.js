@@ -22,3 +22,12 @@ The divisor will never be 0.
 Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 231 − 1 when the division result overflows.
 */
 
+const divide = (dividend, divisor) => {
+    let answer = divisior;
+    let i = 1;
+    while (Math.abs(answer) < Math.abs(divdend)) {
+        i += 1;
+        answer *= (i)
+    }
+    return answer;
+};
