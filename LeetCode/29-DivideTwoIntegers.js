@@ -27,7 +27,10 @@ const divide = (dividend, divisor) => {
     let i = 1;
     while (Math.abs(answer) < Math.abs(dividend)) {
         i += 1;
-        answer *= (i)
+
+        for (n = 0; n < i; n++) {
+            answer += answer;
+        }
     }
     return i;
 };
