@@ -34,7 +34,7 @@ const findDisappearedNumbers = (nums) => {
         }
     }
 
-    return disapeared;
+    return dissappeared;
 };
 
 
