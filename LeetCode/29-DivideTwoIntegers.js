@@ -32,5 +32,15 @@ const divide = (dividend, divisor) => {
             answer += divisor;
         }
     }
+
+    const isDividendNegative = (dividend < 0);
+    const isDivisorNegative = (divisor < 0);
+
+    if (isDividendNegative !== isDivisorNegative) {
+        for (n = i; n > (n - i - i); n--) {
+            i -= 1;
+        }    
+    }
+
     return i;
 };
