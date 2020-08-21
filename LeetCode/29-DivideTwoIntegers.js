@@ -63,20 +63,17 @@ const divide = (dividend, divisor) => {
     let divisonStore = 0;
     let divisionTimes = 0;
 
-    while (divisonStore < absoluteDividend) {
-
-        // covers the remainder ex: 3 / 2
-        if (absoluteDividend - divisonStore <= 1 && absoluteDividend - divisonStore > 0) {
-            break;
-        }
-
+    // we want to go over the dividend, this covers all types of dividend remainder edge cases
+    // ex: 5/2 and 5/3
+    while (divisonStore <= absoluteDividend) {
         divisionTimes += 1;
         divisonStore += absoluteDivisor;
     }
 
+    // we offset the answer by 1, to account for the fact that we go over the dividend
     if (resultShouldBeNegative) {
-        return 0 - divisionTimes;
+        return 1 - divisionTimes;
     }
 
-    return divisionTimes;
+    return divisionTimes - 1;
 };
