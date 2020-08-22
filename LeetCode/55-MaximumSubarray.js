@@ -14,42 +14,63 @@ If you have figured out the O(n) solution, try coding another solution using the
 // find max contiguous sum;
 
 const maxSubArray = (nums) => {
-    let subArrayStart = 0;
-    let subArrayEnd = 0;
-
     let maxSum = nums[0];
-    let runningSum = 0;
 
-    for (let i = 0; i < nums.length; i++) {
-        const value = nums[i];
-        const possibleSum = runningSum + value;
+    for (let i = 1; i < nums.length; i++) {
 
-        if (value > possibleSum) {
-            subArrayStart = i;
-            runningSum = value;
-        } else {
-            runningSum = possibleSum;
+        const potentialSum = nums[i] + nums[i - 1];
+        
+        if (potentialSum > nums[i]) {
+            nums[i] = potentialSum;
         }
 
-        if (runningSum > maxSum) {
-            maxSum = runningSum;
-            end = i;
+        if (nums[i] > maxSum) {
+            maxSum = nums[i];
         }
-
-        console.log(
-            'subArrayStart: ', subArrayStart,
-            'subArrayEnd: ', subArrayEnd,
-
-            'maxSum: ', maxSum,
-            'runningSum: ', runningSum,
-
-            'value: ', value,
-            'possibleSum: ', possibleSum,
-        )
     }
 
     return maxSum;
-};
+}
+
+
+
+// const maxSubArray = (nums) => {
+//     let subArrayStart = 0;
+//     let subArrayEnd = 0;
+
+//     let maxSum = nums[0];
+//     let runningSum = 0;
+
+//     for (let i = 0; i < nums.length; i++) {
+//         const value = nums[i];
+//         const possibleSum = runningSum + value;
+
+//         if (value > possibleSum) {
+//             subArrayStart = i;
+//             runningSum = value;
+//         } else {
+//             runningSum = possibleSum;
+//         }
+
+//         if (runningSum > maxSum) {
+//             maxSum = runningSum;
+//             end = i;
+//         }
+
+//         console.log(
+//             'subArrayStart: ', subArrayStart,
+//             'subArrayEnd: ', subArrayEnd,
+
+//             'maxSum: ', maxSum,
+//             'runningSum: ', runningSum,
+
+//             'value: ', value,
+//             'possibleSum: ', possibleSum,
+//         )
+//     }
+
+//     return maxSum;
+// };
 
 // const maxSubArray = (nums) => {
 //     let maxSum = 0;
