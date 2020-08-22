@@ -14,21 +14,39 @@ If you have figured out the O(n) solution, try coding another solution using the
 // find max contiguous sum;
 
 const maxSubArray = (nums) => {
-    let subArraySum = nums.reduce((a, b) => a + b);
+    let maxSum = 0;
 
     for (let i = 0; i < nums.length; i++) {
-        const startingIndex = i;
+        const value = nums[i];
+        const possibleSum = maxSum + value;
 
-        for (let n = i + 1; n < nums.length + 2; n++) {
-            let endingIndex = n;
-
-            const possibleSum = nums.slice(startingIndex, endingIndex).reduce((a, b) => a + b);
-
-            if (possibleSum > subArraySum) {
-                subArraySum = possibleSum;
-            }
-        }
+        maxSum = Math.max(
+            possibleSum,
+            value,
+            maxSum,
+        );
     }
 
-    return subArraySum;
+    return maxSum;
 };
+
+// const maxSubArray = (nums) => {
+//     let subArraySum = nums.reduce((a, b) => a + b);
+
+//     for (let i = 0; i < nums.length; i++) {
+//         const startingIndex = i;
+
+//         for (let n = i + 1; n < nums.length + 2; n++) {
+//             let endingIndex = n;
+
+//             const possibleSum = nums.slice(startingIndex, endingIndex)
+//                 .reduce((a, b) => a + b);
+
+//             if (possibleSum > subArraySum) {
+//                 subArraySum = possibleSum;
+//             }
+//         }
+//     }
+
+//     return subArraySum;
+// };
