@@ -17,7 +17,7 @@ const maxSubArray = (nums) => {
     let subArrayStart = 0;
     let subArrayEnd = 0;
 
-    let maxSum = 0;
+    let maxSum = nums[0];
     let runningSum = 0;
 
     for (let i = 0; i < nums.length; i++) {
