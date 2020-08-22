@@ -14,16 +14,18 @@ If you have figured out the O(n) solution, try coding another solution using the
 // find max contiguous sum;
 
 const maxSubArray = (nums) => {
+    // set default maxSum to be the first value of the input
     let maxSum = nums[0];
 
     for (let i = 1; i < nums.length; i++) {
-
         const potentialSum = nums[i] + nums[i - 1];
         
+        // memoize the runing sum up to nums[i]
         if (potentialSum > nums[i]) {
             nums[i] = potentialSum;
         }
 
+        // check the memoized running sum against the max sum
         if (nums[i] > maxSum) {
             maxSum = nums[i];
         }
