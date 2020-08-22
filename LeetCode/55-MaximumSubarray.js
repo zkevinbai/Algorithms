@@ -18,32 +18,55 @@ const maxSubArray = (nums) => {
     let subArrayEnd = 0;
 
     let maxSum = 0;
-    let runningMaxSum = 0;
+    let runningSum = 0;
 
     for (let i = 0; i < nums.length; i++) {
         const value = nums[i];
-        const possibleSum = runningMaxSum + value;
+        const possibleSum = runningSum + value;
 
         if (value > possibleSum) {
             subArrayStart = i;
-            runningMaxSum = value;
+            runningSum = value;
         } else {
-            runningMaxSum = possibleSum;
+            runningSum = possibleSum;
         }
 
-        if (runningMaxSum > maxSum) {
-            maxSum = runningMaxSum;
+        if (runningSum > maxSum) {
+            maxSum = runningSum;
             end = i;
         }
-    }
 
-    console.log(
-        'subArrayStart: ', subArrayStart,
-        'subArrayEnd: ', subArrayEnd,
-    )
+        console.log(
+            'subArrayStart: ', subArrayStart,
+            'subArrayEnd: ', subArrayEnd,
+
+            'maxSum: ', maxSum,
+            'runningSum: ', runningSum,
+
+            'value: ', value,
+            'possibleSum: ', possibleSum,
+        )
+    }
 
     return maxSum;
 };
+
+// const maxSubArray = (nums) => {
+//     let maxSum = 0;
+
+//     for (let i = 0; i < nums.length; i++) {
+//         const value = nums[i];
+//         const possibleSum = maxSum + value;
+
+//         maxSum = Math.max(
+//             possibleSum,
+//             value,
+//             maxSum,
+//         );
+//     }
+
+//     return maxSum;
+// };
 
 // const maxSubArray = (nums) => {
 //     let subArraySum = nums.reduce((a, b) => a + b);
