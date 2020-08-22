@@ -11,6 +11,13 @@ Follow up:
 If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 */
 
-const maxSubArray = (nums) => {
+// find max contiguous sum;
 
+const maxSubArray = (nums) => {
+    let subArrayStart = 0;
+    let subArrayEnd = nums.length + 1;
+    let subArray = nums.slice(subArrayStart, subArrayEnd);
+
+
+    return subArray.reduce((a, b) => a + b);
 };
