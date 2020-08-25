@@ -34,7 +34,31 @@ const maxSubArray = (nums) => {
     return maxSum;
 }
 
+// const maxSubArray = (nums) => {
+//     if (nums.length === 1) {
+//         return nums[0];
+//     }
 
+//     let currentSum = nums[0];
+//     let maxSum = nums[0];
+
+//     for (let i = 1; i < nums.length; i++) {
+//         const value = nums[i];
+//         possibleSum = value + currentSum;
+
+//         if (value > possibleSum) {
+//             currentSum = value;
+//         } else {
+//             currentSum = possibleSum;
+//         }
+
+//         if (currentSum > maxSum) {
+//             maxSum = currentSum;
+//         }
+//     }
+
+//     return maxSum;
+// }
 
 // const maxSubArray = (nums) => {
 //     let subArrayStart = 0;
