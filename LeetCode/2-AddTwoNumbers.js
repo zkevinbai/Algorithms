@@ -11,15 +11,17 @@ Explanation: 342 + 465 = 807.
 */
 
 const linkedListSum = (head) => {
-    let value = 0;
+    let value = [];
     let node = head;
 
-    while (node.next) {
-        value += node.value;
+    while (node) {
+        value.unshift(node.val + '');
         node = node.next;
     }
 
-    return value;
+    console.log(value)
+    console.log(parseInt(value.join('')))
+    return parseInt(value.join(''));
 }
 
 const addTwoNumbers = (l1, l2) => {
