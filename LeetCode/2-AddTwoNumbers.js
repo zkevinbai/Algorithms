@@ -10,6 +10,19 @@ Output: 7 -> 0 -> 8
 Explanation: 342 + 465 = 807.
 */
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+
 const linkedListSum = (head) => {
     let value = [];
     let node = head;
@@ -24,6 +37,29 @@ const linkedListSum = (head) => {
     return parseInt(value.join(''));
 }
 
+const numberToLinkedLIst = (integer) => {
+    let array = (integer + '').split('');
+
+    const head = ListNode(
+        parseInt(array.pop),
+        null,
+    )
+
+    let node = head;
+
+    while (array.length) {
+        let newNode = ListNode(
+            parseInt(array.pop),
+            null,
+        );
+
+        node.next = newNode;
+        node = newNode;
+    }
+
+    return head;
+}
+
 const addTwoNumbers = (l1, l2) => {
-    return linkedListSum(l1) + linkedListSum(l2);
+    const sum = linkedListSum(l1) + linkedListSum(l2);
 };
