@@ -23,28 +23,22 @@ Explanation: 342 + 465 = 807.
  * @return {ListNode}
  */
 
- const addTwoNumbers = (l1, l2) => {
+const addTwoNumbers = (l1, l2) => {
     let nodeOne = l1;
     let nodeTwo = l2;
 
     let carryOver = 0;
-    const calcPositionSum = (oneVal, twoVal, carryOver) => {
-        let listSum = oneVal + twoVal + carryOver;
-
-        if (listSum > 10) {
-            carryOver = 1;
-            listSum -= 10;
-        }
-
-        return listSum
-    }
 
     // calculate initial values
-    let positonSum = calcPositionSum(
-        parseInt(nodeOne.val),
-        parseInt(nodeTwo.val),
-        carryOver
-    );
+    let nodeOneVal = nodeOne ? nodeOne.val : 0;
+    let nodeTwoVal = nodeTwo ? nodeTwo.val : 0;
+
+    let positionSum = nodeOneVal + nodeTwoVal + carryOver;
+
+    if (positionSum > 10) {
+        carryOver = 1;
+        positionSum -= 10;
+    }
 
     const newListHead = new ListNode(
         positionSum,
@@ -57,23 +51,38 @@ Explanation: 342 + 465 = 807.
     nodeTwo = nodeTwo.next;
 
     while (carryOver || nodeOne || nodeTwo) {
-        nodeOne = nodeOne.next;
-        nodeTwo = nodeTwo.next;
+        nodeOneVal = nodeOne ? nodeOne.val : 0;
+        nodeTwoVal = nodeTwo ? nodeTwo.val : 0;
 
-        positonSum = calcPositionSum(
-            parseInt(nodeOne.val),
-            parseInt(nodeTwo.val),
-            carryOver
-        );
+        console.log(
+            'start: ', newList.val,
+            'n1v: ', nodeOneVal,
+            'n2v: ', nodeTwoVal,
+            'c: ', carryOver,
+        )
+
+        positionSum = nodeOneVal + nodeTwoVal + carryOver;
+
+        if (positionSum > 10) {
+            carryOver = 1;
+            positionSum -= 10;
+        } else {
+            carryOver = 0;
+        }
 
         newList.next = new ListNode(
             positionSum,
             null,
         );
+
+        newList = newList.next;
+
+        if (nodeOne) { nodeOne = nodeOne.next };
+        if (nodeTwo) { nodeTwo = nodeTwo.next };
     }
 
     return newListHead;
- }
+}
 
 
 // This works for 1560 / 1563 test cases, but not for numbers > JS max int.
