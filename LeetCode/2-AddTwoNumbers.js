@@ -23,52 +23,107 @@ Explanation: 342 + 465 = 807.
  * @return {ListNode}
  */
 
-const linkedListSum = (head) => {
-    let value = [];
-    let node = head;
+ const addTwoNumbers = (l1, l2) => {
+    let nodeOne = l1;
+    let nodeTwo = l2;
 
-    while (node) {
-        value.unshift(node.val + '');
-        node = node.next;
+    let carryOver = 0;
+    const calcPositionSum = (oneVal, twoVal, carryOver) => {
+        let listSum = oneVal + twoVal + carryOver;
+
+        if (listSum > 10) {
+            carryOver = 1;
+            listSum -= 10;
+        }
+
+        return listSum
     }
 
-    console.log(value)
-    console.log(parseInt(value.join('')))
-    return parseInt(value.join(''));
-}
+    // calculate initial values
+    let positonSum = calcPositionSum(
+        parseInt(nodeOne.val),
+        parseInt(nodeTwo.val),
+        carryOver
+    );
 
-const numberToLinkedLIst = (integer) => {
-    let array = (integer + '').split('');
-
-    // console.log(ListNode);
-    // console.log(new ListNode(1, null));
-
-    const head = new ListNode(
-        parseInt(array.pop()),
+    const newListHead = new ListNode(
+        positionSum,
         null,
     )
 
-    console.log(array)
+    let newList = newListHead;
 
-    let node = head;
+    nodeOne = nodeOne.next;
+    nodeTwo = nodeTwo.next;
 
-    console.log(head);
+    while (carryOver || nodeOne || nodeTwo) {
+        nodeOne = nodeOne.next;
+        nodeTwo = nodeTwo.next;
 
-    while (array.length) {
-        let newNode = new ListNode(
-            parseInt(array.pop()),
-            null,
+        positonSum = calcPositionSum(
+            parseInt(nodeOne.val),
+            parseInt(nodeTwo.val),
+            carryOver
         );
 
-        node.next = newNode;
-        node = newNode;
+        newList.next = new ListNode(
+            positionSum,
+            null,
+        );
     }
 
-    return head;
-}
+    return newListHead;
+ }
 
-const addTwoNumbers = (l1, l2) => {
-    const sum = linkedListSum(l1) + linkedListSum(l2);
 
-    return numberToLinkedLIst(sum);
-};
+// This works for 1560 / 1563 test cases, but not for numbers > JS max int.
+
+// const linkedListSum = (head) => {
+//     let value = [];
+//     let node = head;
+
+//     while (node) {
+//         value.unshift(node.val + '');
+//         node = node.next;
+//     }
+
+//     console.log(value)
+//     console.log(parseInt(value.join('')))
+//     return parseInt(value.join(''));
+// }
+
+// const numberToLinkedLIst = (integer) => {
+//     let array = (integer + '').split('');
+
+//     // console.log(ListNode);
+//     // console.log(new ListNode(1, null));
+
+//     const head = new ListNode(
+//         parseInt(array.pop()),
+//         null,
+//     )
+
+//     console.log(array)
+
+//     let node = head;
+
+//     console.log(head);
+
+//     while (array.length) {
+//         let newNode = new ListNode(
+//             parseInt(array.pop()),
+//             null,
+//         );
+
+//         node.next = newNode;
+//         node = newNode;
+//     }
+
+//     return head;
+// }
+
+// const addTwoNumbers = (l1, l2) => {
+//     const sum = linkedListSum(l1) + linkedListSum(l2);
+
+//     return numberToLinkedLIst(sum);
+// };
