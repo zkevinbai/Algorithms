@@ -40,16 +40,23 @@ const linkedListSum = (head) => {
 const numberToLinkedLIst = (integer) => {
     let array = (integer + '').split('');
 
-    const head = ListNode(
-        parseInt(array.pop),
+    // console.log(ListNode);
+    // console.log(new ListNode(1, null));
+
+    const head = new ListNode(
+        parseInt(array.pop()),
         null,
     )
 
+    console.log(array)
+
     let node = head;
 
+    console.log(head);
+
     while (array.length) {
-        let newNode = ListNode(
-            parseInt(array.pop),
+        let newNode = new ListNode(
+            parseInt(array.pop()),
             null,
         );
 
