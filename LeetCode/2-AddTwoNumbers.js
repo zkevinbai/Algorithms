@@ -23,44 +23,38 @@ Explanation: 342 + 465 = 807.
  * @return {ListNode}
  */
 
-const addTwoNumbers = (l1, l2) => {
-    let nodeOne = l1;
-    let nodeTwo = l2;
-
+const addTwoNumbers = (nodeOne, nodeTwo) => {
+    // set carryover for addition
     let carryOver = 0;
 
     // calculate initial values
-    let nodeOneVal = nodeOne ? nodeOne.val : 0;
-    let nodeTwoVal = nodeTwo ? nodeTwo.val : 0;
-
-    let positionSum = nodeOneVal + nodeTwoVal + carryOver;
+    let nodeOneVal = nodeOne.val;
+    let nodeTwoVal = nodeTwo.val;
+    let positionSum = nodeOneVal + nodeTwoVal;
 
     if (positionSum >= 10) {
         carryOver = 1;
         positionSum -= 10;
     }
 
+    // create new linked list
     const newListHead = new ListNode(
         positionSum,
         null,
     )
 
-    let newList = newListHead;
+    // reference new linked list
+    let newNode = newListHead;
 
     nodeOne = nodeOne.next;
     nodeTwo = nodeTwo.next;
 
     while (carryOver || nodeOne || nodeTwo) {
+        // get current values
         nodeOneVal = nodeOne ? nodeOne.val : 0;
         nodeTwoVal = nodeTwo ? nodeTwo.val : 0;
 
-        console.log(
-            'start: ', newList.val,
-            'n1v: ', nodeOneVal,
-            'n2v: ', nodeTwoVal,
-            'c: ', carryOver,
-        )
-
+        // calculate the sum and carryover
         positionSum = nodeOneVal + nodeTwoVal + carryOver;
 
         if (positionSum >= 10) {
@@ -70,20 +64,22 @@ const addTwoNumbers = (l1, l2) => {
             carryOver = 0;
         }
 
-        newList.next = new ListNode(
+        // create the new node
+        newNode.next = new ListNode(
             positionSum,
             null,
         );
 
-        newList = newList.next;
+        // move to new node
+        newNode = newNode.next;
 
+        // traverse both linked lists
         if (nodeOne) { nodeOne = nodeOne.next };
         if (nodeTwo) { nodeTwo = nodeTwo.next };
     }
 
     return newListHead;
 }
-
 
 // This works for 1560 / 1563 test cases, but not for numbers > JS max int.
 
