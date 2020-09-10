@@ -62,4 +62,6 @@ const numberToLinkedLIst = (integer) => {
 
 const addTwoNumbers = (l1, l2) => {
     const sum = linkedListSum(l1) + linkedListSum(l2);
+
+    return numberToLinkedLIst(sum);
 };
