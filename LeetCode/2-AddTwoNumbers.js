@@ -35,7 +35,7 @@ const addTwoNumbers = (l1, l2) => {
 
     let positionSum = nodeOneVal + nodeTwoVal + carryOver;
 
-    if (positionSum > 10) {
+    if (positionSum >= 10) {
         carryOver = 1;
         positionSum -= 10;
     }
@@ -63,7 +63,7 @@ const addTwoNumbers = (l1, l2) => {
 
         positionSum = nodeOneVal + nodeTwoVal + carryOver;
 
-        if (positionSum > 10) {
+        if (positionSum >= 10) {
             carryOver = 1;
             positionSum -= 10;
         } else {
