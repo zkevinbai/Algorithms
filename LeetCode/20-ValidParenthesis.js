@@ -34,5 +34,5 @@ const isValid = (string) => {
         }
     }
 
-    return (stack.length !== 0);
+    return !(stack.length > 0);
 };
