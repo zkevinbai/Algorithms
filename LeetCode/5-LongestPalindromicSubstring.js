@@ -65,6 +65,7 @@ const longestPalindrome = (string) => {
         }
     }
 
+    // generate palindromes based on palindrome pairs, check for max
     for (let i = 0; i < possiblePalindromes.length; i++) {
         const palinromePair = possiblePalindromes[i];
         const palindrome = array.slice(palinromePair[0], palinromePair[1] + 1);
@@ -74,6 +75,7 @@ const longestPalindrome = (string) => {
         }
     }
 
+    // if no max is found, return the first letter
     if (maxPalindrome.length < 2) {
         return array[0];
     }
