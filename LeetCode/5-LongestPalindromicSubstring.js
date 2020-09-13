@@ -63,7 +63,7 @@ const longestPalindrome = (string) => {
         const palinromePair = possiblePalindromes[i];
         const palindrome = array.slice(palinromePair[0], palinromePair[1] + 1);
 
-        if (isPalindrome(palindrome) && palindrome.length > maxPalindrome) {
+        if (isPalindrome(palindrome) && palindrome.length > maxPalindrome.length) {
             maxPalindrome = palindrome;
         }
     }
