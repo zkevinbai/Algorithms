@@ -30,5 +30,25 @@ s consists of English letters, digits, symbols and spaces.
 */
 
 const lengthOfLongestSubstring = (string) => {
+    const array = string.split("");
+    let subString = [];
+    let maxLength = 0;
+    let currentLength = 0;
 
+    for (let i = 0; i < array.length; i++) {
+        const character = array[i];
+        if (subString.includes(character)) {
+            subString = [character];
+            currentLength = 1;
+        } else {
+            subString.push(character);
+            currentLength +=1;
+        }
+
+        if (currentLength > maxLength) {
+            maxLength = currentLength;
+        }
+    }
+
+    return maxLength;
 };
