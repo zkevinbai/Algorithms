@@ -21,10 +21,21 @@ const maxSubArray = (nums) => {
         let value = nums[i];
         const currentSumAlreadyPositive = (currentSum > 0);
 
+        // if currentSum is negative or 0 and value is greater
+        // we should replace currentSum
+
+        // [-2, -1] edge case, without this rule we'd return 0
         if (!currentSumAlreadyPositive && currentSum < value) {
             currentSum = value;
         } else {
+            // if currentSum is positive, add value to currentSum
             currentSum += value;
+
+            // if curent sum was already positive, 
+            // and current sum goes under 0 after adding value
+            // reset current sum to 0
+
+            // [-1, -2] edge case, without this rule we'd return 0
             if (currentSumAlreadyPositive && currentSum < 0) {
                 currentSum = 0;
             }
