@@ -49,3 +49,30 @@ const mergeTwoLists = (listOne, listTwo) => {
 
     return falseHead.next;
 };
+
+// Recursive Way
+const mergeTwoLists = (listOne, listTwo) => {
+    if (!listOne) {
+        return listTwo;
+    }
+    if (!listTwo) {
+        return listOne;
+    }
+
+    let nodeOne = listOne;
+    let nodeTwo = listTwo;
+
+    const newNode = new ListNode(0);
+
+    if (nodeOne.val < nodeTwo.val) {
+        newNode.val = nodeOne.val;
+        nodeOne = nodeOne.next;
+    } else {
+        newNode.val = nodeTwo.val;
+        nodeTwo = nodeTwo.next;
+    }
+
+    newNode.next = mergeTwoLists(nodeOne, nodeTwo);
+
+    return newNode;
+};
