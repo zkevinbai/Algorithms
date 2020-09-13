@@ -33,9 +33,9 @@ const isPalindrome = (array) => {
 
     for (let i = 0; i < leftHalf.length; i++) {
         const leftVal = leftHalf[i];
-        const rightVal = rightHalf[i];
+        const rightVal = rightHalf[rightHalf.length - i];
 
-        if (leftVal !== rightval) {
+        if (leftVal !== rightVal) {
             return false;
         }
     }
