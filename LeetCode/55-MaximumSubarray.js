@@ -19,14 +19,13 @@ const maxSubArray = (nums) => {
 
     for (let i = 1; i < nums.length; i++) {
         let value = nums[i];
+        const currentSumAlreadyPositive = (currentSum > 0);
 
-        if (currentSum < 0 && currentSum < value) {
+        if (!currentSumAlreadyPositive && currentSum < value) {
             currentSum = value;
         } else {
-            const currentSumAlreadyPositive = (currentSum > 0);
-
             currentSum += value;
-            if (currentSumAlreadyPositive && currentSum <= 0) {
+            if (currentSumAlreadyPositive && currentSum < 0) {
                 currentSum = 0;
             }
         }
@@ -34,7 +33,6 @@ const maxSubArray = (nums) => {
         if (currentSum > maxSum) {
             maxSum = currentSum;
         }
-
     }
 
     return maxSum;
