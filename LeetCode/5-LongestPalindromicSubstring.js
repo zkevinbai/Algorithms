@@ -64,7 +64,7 @@ const longestPalindrome = (string) => {
         }
     }
 
-    return maxPalindrome.length;
+    return maxPalindrome.join("");
 };
 
 // get to half point, cut the array
