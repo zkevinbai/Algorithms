@@ -30,7 +30,7 @@ const isValid = (string) => {
             leftBracketsPairs[value] === stackValue) {
             stack.shift();
         } else {
-            stack.shift(value);
+            stack.unShift(value);
         }
     }
 
