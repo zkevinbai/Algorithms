@@ -26,6 +26,9 @@ But the following [1,2,2,null,3,null,3] is not:
  * }
 */
 
+// i think a valid strategy would be to reverse a child tree
+// and then check if the left and right trees are identical
+
 const isSymmetric = (root) => {
     let leftTree = root.left;
     let rightTree = root.right;
