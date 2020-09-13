@@ -14,6 +14,13 @@ Output: 1->1->2->3->4->4
 */
 
 const mergeTwoLists = (listOne, listTwo) => {
+    if (!listOne) {
+        return listTwo;
+    }
+    if (!listTwo) {
+        return listOne;
+    }
+
     const falseHead = new ListNode(0, null);
 
     let nodeOne = listOne;
@@ -21,21 +28,24 @@ const mergeTwoLists = (listOne, listTwo) => {
 
     let newNode = falseHead;
 
-    while (nodeOne || nodeTwo) {
-        if (nodeOne.val <= nodeTwo.val) {
-            newNode.next = nodeOne;
-            newNode = newNode.next;
-
-            newNode.next = nodeTwo;
-            newNode = newNode.next;
+    while (nodeOne && nodeTwo) {
+        if (nodeOne.val < nodeTwo.val) {
+            newNode.next = new ListNode(nodeOne.val);
+            nodeOne = nodeOne.next;
         } else {
-            newNode.next = nodeTwo;
-            newNode = newNode.next;
-
-            newNode.next = nodeOne;
-            newNode = newNode.next;
+            newNode.next = new ListNode(nodeTwo.val);
+            nodeTwo = nodeTwo.next;
         }
-    } 
+
+        newNode = newNode.next;
+    }
+
+    if (nodeOne) {
+        newNode.next = nodeOne;
+    }
+    if (nodeTwo) {
+        newNode.next = nodeTwo;
+    }
 
     return falseHead.next;
 };
