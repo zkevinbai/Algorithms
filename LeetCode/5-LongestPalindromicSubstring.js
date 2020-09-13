@@ -27,6 +27,10 @@ const longestPalindrome = (string) => {
         return string;
     }
 
+    if (isPalindrome(string.split(""))) {
+        return string;
+    }
+
     const array = string.split("");
     const letterCount = {};
     const possiblePalindromes = [];
