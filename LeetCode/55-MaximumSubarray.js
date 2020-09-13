@@ -14,25 +14,52 @@ If you have figured out the O(n) solution, try coding another solution using the
 // find max contiguous sum;
 
 const maxSubArray = (nums) => {
-    // set default maxSum to be the first value of the input
     let maxSum = nums[0];
+    let currentSum = nums[0];
 
     for (let i = 1; i < nums.length; i++) {
-        const potentialSum = nums[i] + nums[i - 1];
-        
-        // memoize the runing sum up to nums[i]
-        if (potentialSum > nums[i]) {
-            nums[i] = potentialSum;
+        let value = nums[i];
+
+        if (currentSum < 0 && currentSum < value) {
+            currentSum = value;
+        } else {
+            const currentSumAlreadyPositive = (currentSum > 0);
+
+            currentSum += value;
+            if (currentSumAlreadyPositive && currentSum <= 0) {
+                currentSum = 0;
+            }
         }
 
-        // check the memoized running sum against the max sum
-        if (nums[i] > maxSum) {
-            maxSum = nums[i];
+        if (currentSum > maxSum) {
+            maxSum = currentSum;
         }
+
     }
 
     return maxSum;
 }
+
+// const maxSubArray = (nums) => {
+//     // set default maxSum to be the first value of the input
+//     let maxSum = nums[0];
+
+//     for (let i = 1; i < nums.length; i++) {
+//         const potentialSum = nums[i] + nums[i - 1];
+        
+//         // memoize the runing sum up to nums[i]
+//         if (potentialSum > nums[i]) {
+//             nums[i] = potentialSum;
+//         }
+
+//         // check the memoized running sum against the max sum
+//         if (nums[i] > maxSum) {
+//             maxSum = nums[i];
+//         }
+//     }
+
+//     return maxSum;
+// }
 
 // const maxSubArray = (nums) => {
 //     if (nums.length === 1) {
