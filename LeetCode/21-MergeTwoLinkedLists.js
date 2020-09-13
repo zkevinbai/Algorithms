@@ -12,3 +12,30 @@ Output: 1->1->2->3->4->4
  *     this.next = (next===undefined ? null : next)
  * }
 */
+
+const mergeTwoLists = (listOne, listTwo) => {
+    const falseHead = new ListNode(0, null);
+
+    let nodeOne = listOne;
+    let nodeTwo = listTwo;
+
+    let newNode = falseHead;
+
+    while (nodeOne || nodeTwo) {
+        if (nodeOne.val <= nodeTwo.val) {
+            newNode.next = nodeOne;
+            newNode = newNode.next;
+
+            newNode.next = nodeTwo;
+            newNode = newNode.next;
+        } else {
+            newNode.next = nodeTwo;
+            newNode = newNode.next;
+
+            newNode.next = nodeOne;
+            newNode = newNode.next;
+        }
+    } 
+
+    return falseHead.next;
+};
