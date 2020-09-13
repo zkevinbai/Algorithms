@@ -18,9 +18,53 @@ Output: "bb"
 // see if the slice of that is a palindrome
 
 // palindrome must start and end with the same letters
+// non duplicated numbers cannot be the start and end of the palindrome
 
 const longestPalindrome = (string) => {
+    const array = string.split("");
+    const letterCount = {};
+    const possiblePalindromes = [];
+    let maxPalindrome = [];
 
+    // get an object of letter counts;
+    for (let i = 0; i < array.length; i++) {
+        const letter = array[i];
+
+        if (letterCount[letter]) {
+            letterCount[letter].push(i);
+        } else {
+            letterCount[letter] = [i];
+        }
+    }
+
+    // check all instances of 2+ letters;
+    // generate all possible start ends
+    const presentLetters = Object.keys(letterCount);
+
+    for (let i = 0; i < presentLetters.length; i++) {
+        const letter = presentLetters[i];
+        const letterInstances = letterCount[letter];
+
+        if (letterInstances.length > 2) {
+
+            for (let i = 0; i < letterInstances.length - 1; i++) {
+                for (let n = i + 1; n < letterInstances.length; n++) {
+                    possiblePalindromes.push([letterInstances[i], letterInstances[n]]);
+                }
+            }
+        }
+    }
+
+    for (let i = 0; i < possiblePalindromes.length; i++) {
+        const palinromePair = possiblePalindromes[i];
+        const palindrome = array.slice(palinromePair[0], palinromePair[1] + 1);
+
+        if (isPalindrome(palindrome) && palindrome.length > maxPalindrome) {
+            maxPalindrome = palindrome;
+        }
+    }
+
+    return maxPalindrome.length;
 };
 
 // get to half point, cut the array
