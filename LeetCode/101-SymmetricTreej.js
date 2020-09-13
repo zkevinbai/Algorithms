@@ -26,3 +26,21 @@ But the following [1,2,2,null,3,null,3] is not:
  * }
 */
 
+const isSymmetric = (root) => {
+    let leftTree = root.left;
+    let rightTree = root.right;
+
+    if (leftTree.val !== rightTree.val) {
+        return false;
+    }
+
+    if (leftTree.left.val !== rightTree.right.val) {
+        return false;
+    }
+    
+    if (leftTree.right.val !== rightTree.left.val) {
+        return false;
+    }
+
+    return true;
+}
