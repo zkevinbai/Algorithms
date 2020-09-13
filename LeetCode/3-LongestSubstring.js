@@ -30,18 +30,36 @@ s consists of English letters, digits, symbols and spaces.
 */
 
 // dvdf edge case
+// vdf is optimal
+// keep track of index of character, reset traversal to one after initial instance of repeat
+
+// need to keep in mind 0 is negative, so all positions are incremented by 1;
+
+// 
 
 const lengthOfLongestSubstring = (string) => {
     const array = string.split("");
+    let charIndex = {};
     let subString = [];
     let maxLength = 0;
 
     for (let i = 0; i < array.length; i++) {
         const character = array[i];
-        if (subString.includes(character)) {
-            subString = [character];
+        const prevCharIndex = charIndex[character];
+
+        if (prevCharIndex && prevCharIndex !== i) {
+            const afterPrevChar = array[prevCharIndex];
+            subString = [afterPrevChar];
+            charIndex = {};
+            charIndex[afterPrevChar] = prevCharIndex + 1;
+            i = prevCharIndex;
+        } else if (prevCharIndex) {
+            subString = [character]
+            charIndex = {};
+            charIndex[character] = i + 1;
         } else {
             subString.push(character);
+            charIndex[character] = i + 1;
         }
 
         if (subString.length > maxLength) {
