@@ -21,6 +21,10 @@ Output: "bb"
 // non duplicated numbers cannot be the start and end of the palindrome
 
 const longestPalindrome = (string) => {
+    if (string.length === 1) {
+        return string;
+    }
+
     const array = string.split("");
     const letterCount = {};
     const possiblePalindromes = [];
@@ -62,6 +66,10 @@ const longestPalindrome = (string) => {
         if (isPalindrome(palindrome) && palindrome.length > maxPalindrome) {
             maxPalindrome = palindrome;
         }
+    }
+
+    if (maxPalindrome.length < 2) {
+        return array[0];
     }
 
     return maxPalindrome.join("");
