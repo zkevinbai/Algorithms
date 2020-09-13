@@ -21,7 +21,7 @@ Output: "bb"
 // non duplicated numbers cannot be the start and end of the palindrome
 
 const longestPalindrome = (string) => {
-    if (string.length === 1) {
+    if (string.length < 2) {
         return string;
     }
 
