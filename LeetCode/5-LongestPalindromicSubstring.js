@@ -12,6 +12,13 @@ Input: "cbbd"
 Output: "bb"
 */
 
+// go through array once
+// grab all indices of letters
+// check all letters first and last indices
+// see if the slice of that is a palindrome
+
+// palindrome must start and end with the same letters
+
 const longestPalindrome = (string) => {
 
 };
