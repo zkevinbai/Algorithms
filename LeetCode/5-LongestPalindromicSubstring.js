@@ -20,6 +20,8 @@ Output: "bb"
 // palindrome must start and end with the same letters
 // non duplicated numbers cannot be the start and end of the palindrome
 
+// 92 / 103 test cases passed.
+
 const longestPalindrome = (string) => {
     if (string.length < 2) {
         return string;
