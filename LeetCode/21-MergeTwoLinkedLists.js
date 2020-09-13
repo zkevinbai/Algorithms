@@ -13,6 +13,7 @@ Output: 1->1->2->3->4->4
  * }
 */
 
+// iterative solution
 const mergeTwoLists = (listOne, listTwo) => {
     if (!listOne) {
         return listTwo;
@@ -50,7 +51,7 @@ const mergeTwoLists = (listOne, listTwo) => {
     return falseHead.next;
 };
 
-// Recursive Way
+// recursive solution
 const mergeTwoLists = (listOne, listTwo) => {
     if (!listOne) {
         return listTwo;
