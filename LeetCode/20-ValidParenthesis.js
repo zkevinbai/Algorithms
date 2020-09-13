@@ -14,23 +14,23 @@ Open brackets must be closed in the correct order.
 const isValid = (string) => {
     const array = string.split("");
 
-    const leftBrackets = {
-        ')' : '(',
-        '}' : '{',
-        ']' : '[',
+    const leftBracketsPairs = {
+        ')': '(',
+        '}': '{',
+        ']': '[',
     }
 
     const stack = [];
 
     for (let i = 0; i < array.length; i++) {
         const value = array[i];
+        const stackValue = stack[0];
 
-        const stackValue = stack[-1];
-
-        if (leftBrackets[value] === stackValue) {
-            stack.pop();
+        if (leftBracketsPairs[value] &&
+            leftBracketsPairs[value] === stackValue) {
+            stack.shift();
         } else {
-            stack.push(value);
+            stack.shift(value);
         }
     }
 
