@@ -45,7 +45,7 @@ const longestPalindrome = (string) => {
         const letter = presentLetters[i];
         const letterInstances = letterCount[letter];
 
-        if (letterInstances.length > 2) {
+        if (letterInstances.length > 1) {
 
             for (let i = 0; i < letterInstances.length - 1; i++) {
                 for (let n = i + 1; n < letterInstances.length; n++) {
