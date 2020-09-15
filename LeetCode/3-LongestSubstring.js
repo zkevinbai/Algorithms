@@ -47,16 +47,20 @@ const lengthOfLongestSubstring = (string) => {
         const character = array[i];
         const prevCharIndex = charIndex[character];
 
+        // if letter is seen, and we are not in a 'aaa' edge case
+        // move back to one after the previous sighting of the repeat
         if (prevCharIndex && prevCharIndex !== i) {
             const afterPrevChar = array[prevCharIndex];
             subString = [afterPrevChar];
             charIndex = {};
             charIndex[afterPrevChar] = prevCharIndex + 1;
             i = prevCharIndex;
+        // if letter is seen, restart on the current location
         } else if (prevCharIndex) {
             subString = [character]
             charIndex = {};
             charIndex[character] = i + 1;
+        // add character to the substring, update charIndex
         } else {
             subString.push(character);
             charIndex[character] = i + 1;
