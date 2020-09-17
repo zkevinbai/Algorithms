@@ -34,33 +34,35 @@ const flipTree = (root) => {
     if (root.right.right || root.right.left) {
         root.right = flipTree(root.right);
     }
+
     if (root.left.right || root.left.left) {
         root.left = flipTree(root.left);
     }
 
     const rightTree= root.right;
-
     root.right = root.left;
     root.left = rightTree;
 
     return root;
 }
 
-// const isSymmetric = (root) => {
-//     let leftTree = root.left;
-//     let rightTree = root.right;
+const compareTwoTrees = (rootOne, rootTwo) => {
+    if (rootOne.val !== rootTwo.val) {
+        return false;
+    }
 
-//     if (leftTree.val !== rightTree.val) {
-//         return false;
-//     }
+    if (rootOne.right || rootTwo.right) {
+        compareTwoTrees(rootOne.right, rootTwo.right);
+    }
 
-//     if (leftTree.left.val !== rightTree.right.val) {
-//         return false;
-//     }
-    
-//     if (leftTree.right.val !== rightTree.left.val) {
-//         return false;
-//     }
+    if (rootOne.left || rootTwo.left) {
+        compareTwoTrees(rootOne.left, rootTwo.left);
+    }
 
-//     return true;
-// }
+}
+
+const isSymmetric = (root) => {
+    const flippedLeft = flipTree(root.left);
+
+    return compareTwoTrees(root.right, flippedLeft);
+}
