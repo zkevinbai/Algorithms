@@ -29,21 +29,38 @@ But the following [1,2,2,null,3,null,3] is not:
 // i think a valid strategy would be to reverse a child tree
 // and then check if the left and right trees are identical
 
-const isSymmetric = (root) => {
-    let leftTree = root.left;
-    let rightTree = root.right;
-
-    if (leftTree.val !== rightTree.val) {
-        return false;
+// recursive
+const flipTree = (root) => {
+    if (root.right.right || root.right.left) {
+        root.right = flipTree(root.right);
+    }
+    if (root.left.right || root.left.left) {
+        root.left = flipTree(root.left);
     }
 
-    if (leftTree.left.val !== rightTree.right.val) {
-        return false;
-    }
-    
-    if (leftTree.right.val !== rightTree.left.val) {
-        return false;
-    }
+    const rightTree= root.right;
 
-    return true;
+    root.right = root.left;
+    root.left = rightTree;
+
+    return root;
 }
+
+// const isSymmetric = (root) => {
+//     let leftTree = root.left;
+//     let rightTree = root.right;
+
+//     if (leftTree.val !== rightTree.val) {
+//         return false;
+//     }
+
+//     if (leftTree.left.val !== rightTree.right.val) {
+//         return false;
+//     }
+    
+//     if (leftTree.right.val !== rightTree.left.val) {
+//         return false;
+//     }
+
+//     return true;
+// }
