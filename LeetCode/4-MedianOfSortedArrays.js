@@ -50,17 +50,22 @@ const findMedianSortedArrays = function (nums1, nums2) {
         if (!nums1.length) {
             newArray = newArray.concat(nums2);
             totalLength = 0;
-        } else if (!nums2.length) {
+            break;
+        }
+        
+        if (!nums2.length) {
             newArray = newArray.concat(nums1);
             totalLength = 0;
-        } else {
-            if (nums1[0] < nums2[0]) {
-                newArray.push(nums1.shift());
-            } else {
-                newArray.push(nums2.shift());
-            }
-            totalLength -= 1;
+            break;
         }
+
+        if (nums1[0] < nums2[0]) {
+            newArray.push(nums1.shift());
+        } else {
+            newArray.push(nums2.shift());
+        }
+
+        totalLength -= 1;
     }
 
     const newLength = newArray.length;
