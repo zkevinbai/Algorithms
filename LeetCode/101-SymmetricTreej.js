@@ -30,6 +30,18 @@ But the following [1,2,2,null,3,null,3] is not:
 // and then check if the left and right trees are identical
 
 // recursive
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
 
 const flipTree = (root) => {
     if (!root) {
@@ -63,15 +75,18 @@ const compareTwoTrees = (rootOne, rootTwo) => {
         return false;
     }
 
+    let isLeftSame = true;
+    let isRightSame = true;
+
     if (rootOne.right || rootTwo.right) {
-        return compareTwoTrees(rootOne.right, rootTwo.right);
+        isRightSame = compareTwoTrees(rootOne.right, rootTwo.right);
     }
 
     if (rootOne.left || rootTwo.left) {
-        return compareTwoTrees(rootOne.left, rootTwo.left);
+        isLeftSame = compareTwoTrees(rootOne.left, rootTwo.left);
     }
 
-    return true;
+    return (isLeftSame === true && isRightSame === true);
 }
 
 const isSymmetric = (root) => {
