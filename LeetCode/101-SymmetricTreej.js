@@ -51,7 +51,6 @@ const flipTree = (root) => {
     if (root.right) {
         root.right = flipTree(root.right);
     }
-
     if (root.left) {
         root.left = flipTree(root.left);
     }
@@ -65,18 +64,17 @@ const flipTree = (root) => {
 }
 
 const compareTwoTrees = (rootOne, rootTwo) => {
-    console.log('r1', rootOne, 'r2', rootTwo)
+    // console.log('r1', rootOne, 'r2', rootTwo)
     if (!rootOne || !rootTwo) {
         console.log("hello")
         return false;
     }
-
     if (rootOne.val !== rootTwo.val) {
         return false;
     }
 
-    let isLeftSame = true;
     let isRightSame = true;
+    let isLeftSame = true;
 
     if (rootOne.right || rootTwo.right) {
         isRightSame = compareTwoTrees(rootOne.right, rootTwo.right);
@@ -93,11 +91,6 @@ const isSymmetric = (root) => {
     if (!root || (!root.left && !root.right)) {
         return true;
     }
-
     const left = flipTree(root.left);
-    // console.log(left);
-    // console.log(root.right)
-    // console.log(compareTwoTrees(flipTree(root.left), root.right) )
-
     return compareTwoTrees(left, root.right);
 }
