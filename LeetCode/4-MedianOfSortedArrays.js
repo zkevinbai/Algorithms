@@ -46,19 +46,33 @@ const findMedianSortedArrays = function (nums1, nums2) {
     const newArray = [];
     let totalLength = nums1.length + nums2.length
 
-    for (let i = 0; i < totalLength; i++) {
-        if (nums1[0] < nums2[0]) {
-            newArray.push(nums1.shift());
+    while (totalLength) {
+        if (!nums1.length) {
+            newArray.concat(nums2);
+            totalLength = 0;
+        } else if (!nums2.length) {
+            newArray.concat(nums1);
+            totalLength = 0;
         } else {
-            newArray.push(nums2.shift());
+            if (nums1[0] < nums2[0]) {
+                newArray.push(nums1.shift());
+            } else {
+                newArray.push(nums2.shift());
+            }
+            totalLength -= 1;
         }
-
-        totalLength -= 1;
     }
 
     const newLength = newArray.length;
     const lengthEven = (newLength % 2 === 0);
     const midPoint = Math.floor(newLength / 2);
+
+    console.log(
+        'na', newArray,
+        'nl', newLength,
+        'le', lengthEven,
+        'mp', midPoint,
+    )
 
     if (lengthEven) {
         const leftNum = newArray[midPoint - 1];
