@@ -30,16 +30,22 @@ But the following [1,2,2,null,3,null,3] is not:
 // and then check if the left and right trees are identical
 
 // recursive
+
 const flipTree = (root) => {
-    if (root.right.right || root.right.left) {
+    if (!root) {
+        return null;
+    }
+
+    if (root.right) {
         root.right = flipTree(root.right);
     }
 
-    if (root.left.right || root.left.left) {
+    if (root.left) {
         root.left = flipTree(root.left);
     }
 
-    const rightTree= root.right;
+    const rightTree = root.right;
+
     root.right = root.left;
     root.left = rightTree;
 
@@ -47,22 +53,36 @@ const flipTree = (root) => {
 }
 
 const compareTwoTrees = (rootOne, rootTwo) => {
+    console.log('r1', rootOne, 'r2', rootTwo)
+    if (!rootOne || !rootTwo) {
+        console.log("hello")
+        return false;
+    }
+
     if (rootOne.val !== rootTwo.val) {
         return false;
     }
 
     if (rootOne.right || rootTwo.right) {
-        compareTwoTrees(rootOne.right, rootTwo.right);
+        return compareTwoTrees(rootOne.right, rootTwo.right);
     }
 
     if (rootOne.left || rootTwo.left) {
-        compareTwoTrees(rootOne.left, rootTwo.left);
+        return compareTwoTrees(rootOne.left, rootTwo.left);
     }
 
+    return true;
 }
 
 const isSymmetric = (root) => {
-    const flippedLeft = flipTree(root.left);
+    if (!root || (!root.left && !root.right)) {
+        return true;
+    }
 
-    return compareTwoTrees(root.right, flippedLeft);
+    const left = flipTree(root.left);
+    // console.log(left);
+    // console.log(root.right)
+    // console.log(compareTwoTrees(flipTree(root.left), root.right) )
+
+    return compareTwoTrees(left, root.right);
 }
