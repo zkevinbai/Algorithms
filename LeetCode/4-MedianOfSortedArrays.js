@@ -43,15 +43,15 @@ nums2.length == n
 // use division to find middle
 
 const findMedianSortedArrays = function (nums1, nums2) {
-    const newArray = [];
+    let newArray = [];
     let totalLength = nums1.length + nums2.length
 
     while (totalLength) {
         if (!nums1.length) {
-            newArray.concat(nums2);
+            newArray = newArray.concat(nums2);
             totalLength = 0;
         } else if (!nums2.length) {
-            newArray.concat(nums1);
+            newArray = newArray.concat(nums1);
             totalLength = 0;
         } else {
             if (nums1[0] < nums2[0]) {
