@@ -44,7 +44,7 @@ nums2.length == n
 
 const findMedianSortedArrays = function (nums1, nums2) {
     const newArray = [];
-    const totalLength = nums1.length + nums2.length
+    let totalLength = nums1.length + nums2.length
 
     for (let i = 0; i < totalLength; i++) {
         if (nums1[0] < nums2[0]) {
