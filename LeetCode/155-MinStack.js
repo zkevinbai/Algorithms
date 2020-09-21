@@ -48,18 +48,12 @@ var MinStack = function () {
     this.stack = [];
 };
 
-/** 
- * @param {number} x
- * @return {void}
- */
 MinStack.prototype.push = function (number) {   
     this.stack.push({
         value: number,
         min: this.min,
         max: this.max,
     });
-
-    debugger;
 
     if (this.max < number || !this.max) {
         this.max = number;
@@ -70,9 +64,6 @@ MinStack.prototype.push = function (number) {
     }
 };
 
-/**
- * @return {void}
- */
 MinStack.prototype.pop = function () {
     const poppedValue =  this.stack.pop().value;
 
@@ -86,16 +77,10 @@ MinStack.prototype.pop = function () {
     }
 };
 
-/**
- * @return {number}
- */
 MinStack.prototype.top = function () {
     return this.max;
 };
 
-/**
- * @return {number}
- */
 MinStack.prototype.getMin = function () {
     return this.min;
 };
