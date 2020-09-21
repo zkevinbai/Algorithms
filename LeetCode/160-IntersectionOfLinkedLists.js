@@ -9,7 +9,20 @@ Output: Reference of the node with value = 2
 
 Input: intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
 Output: null
+
+Notes:
+
+If the two linked lists have no intersection at all, return null.
+The linked lists must retain their original structure after the function returns.
+You may assume there are no cycles anywhere in the entire linked structure.
+Each value on each linked list is in the range [1, 10^9].
+Your code should preferably run in O(n) time and use only O(1) memory.
 */
+
+const getIntersectionNode = function (headA, headB) {
+
+};
+
 
 /*
 an intersection means from the right side the 2 are the same
@@ -20,62 +33,62 @@ do a traverse again through the linked lists to find the value
 return the intersection
 */
 
-const linkedListLength = (head) => {
-    let length = 1;
-    let node = head;
+// const linkedListLength = (head) => {
+//     let length = 1;
+//     let node = head;
 
-    while (node) {
-        node = node.next;
-        length += 1;
-    }
+//     while (node) {
+//         node = node.next;
+//         length += 1;
+//     }
     
-    return length; 
-}
+//     return length; 
+// }
 
-const reverseLinkedList = (head) => {
-    let prev = null;
-    let curr = head;
-    let next = null;
+// const reverseLinkedList = (head) => {
+//     let prev = null;
+//     let curr = head;
+//     let next = null;
 
-    while (curr.next) {
-        next = curr.next;
-        curr.next = prev;
-        prev = curr;
-        curr = next;
-    }
+//     while (curr) {
+//         next = curr.next;
+//         curr.next = prev;
+//         prev = curr;
+//         curr = next;
+//     }
 
-    return prev;
-}
+//     return prev;
+// }
 
-const getIntersectionNode = function (headA, headB) {
-    const reverseA = reverseLinkedList(headA);
-    const reverseB = reverseLinkedList(headB);
+// const getIntersectionNode = function (headA, headB) {
+//     const reverseA = reverseLinkedList(headA);
+//     const reverseB = reverseLinkedList(headB);
 
-    if (reverseB.val !== reverseA.val) {
-        return null;
-    }
+//     if (reverseB.val !== reverseA.val) {
+//         return null;
+//     }
 
-    let intersection = nodeA.val;
-    let nodeAOffset = 1;
-    let nodeA = reverseA;
-    let nodeB = reverseB;
+//     let intersection = nodeA.val;
+//     let nodeAOffset = 1;
+//     let nodeA = reverseA;
+//     let nodeB = reverseB;
 
-    while (nodeA.val = nodeB.val) {
-        nodeA = nodeA.next;
-        nodeB = nodeB.next;
+//     while (nodeA.val = nodeB.val) {
+//         nodeA = nodeA.next;
+//         nodeB = nodeB.next;
         
-        nodeAOffset += 1;
-        intersection = nodeA.val;
-    }
+//         nodeAOffset += 1;
+//         intersection = nodeA.val;
+//     }
 
-    const listALength = linkedListLength(headA);
-    let intersectionOffSet = listALength - listAOffset;
+//     const listALength = linkedListLength(headA);
+//     let intersectionOffSet = listALength - listAOffset;
 
-    nodeA = headA;
-    while (intersectionOffSet > 0) {
-        nodeA = nodeA.next;
-        intersectionOffSet -= 1;
-    }
+//     nodeA = headA;
+//     while (intersectionOffSet > 0) {
+//         nodeA = nodeA.next;
+//         intersectionOffSet -= 1;
+//     }
 
-    return nodeA;
-};
+//     return nodeA;
+// };
