@@ -20,6 +20,18 @@ do a traverse again through the linked lists to find the value
 return the intersection
 */
 
+const lengthLinkedList = (head) => {
+    let length = 0;
+    let node = head;
+
+    while (node) {
+        node = node.next;
+        length += 1;
+    }
+    
+    return length; 
+}
+
 const reverseLinkedList = (head) => {
     let prev = null;
     let curr = head;
