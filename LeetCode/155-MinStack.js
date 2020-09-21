@@ -81,7 +81,7 @@ MinStack.prototype.pop = function () {
 };
 
 MinStack.prototype.top = function () {
-    return this.max;
+    return this.stack[this.stack.length - 1].value;
 };
 
 MinStack.prototype.getMin = function () {
