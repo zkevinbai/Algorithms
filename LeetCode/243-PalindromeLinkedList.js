@@ -24,26 +24,31 @@ Could you do it in O(n) time and O(1) space?
 const isPalindrome = function (head) {
     const array = [];
     let node = head;
-    while (node){
-       array.push(node.val);
-       node = node.next; 
+    while (node) {
+        array.push(node.val);
+        node = node.next;
     }
 
     const isEven = (array.length % 2 === 0);
     const midPoint = array.length / 2;
+    let leftIndex;
+    let rightIndex;
+
     if (isEven) {
         leftIndex = midPoint - 1;
         rightIndex = midPoint;
     } else {
-        leftIndex = midPoint - 2;
+        leftIndex = midPoint - 1;
         rightIndex = midPoint + 1;
     }
+
+    console.log(array)
 
     let right;
     let left;
 
-    for (rightIndex; rightIndex < array.length; i++) {
-        right = array[rightIndex];
+    while (rightIndex < array.length) {
+        right = array[i];
         left = array[leftIndex];
 
         if (right !== left) {
@@ -51,6 +56,6 @@ const isPalindrome = function (head) {
         }
         leftIndex -= 1;
     }
-    
+
     return true;
 };
