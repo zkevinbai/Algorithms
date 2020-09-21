@@ -45,16 +45,20 @@ var MinStack = function () {
  * @param {number} x
  * @return {void}
  */
-MinStack.prototype.push = function (number) {
-    if (this.min > number || !this.min) {
-        this.min = number;
-    }
+MinStack.prototype.push = function (number) {    
+    this.stack.push({
+        value: number,
+        min: this.min,
+        max: this.max,
+    });
 
     if (this.max < number || !this.max) {
         this.min = number;
     }
-    
-    this.stack.push(number);
+
+    if (this.min > number || !this.min) {
+        this.min = number;
+    }
 };
 
 /**
@@ -63,12 +67,13 @@ MinStack.prototype.push = function (number) {
 MinStack.prototype.pop = function () {
     const popped =  this.stack.pop();
 
-    // reset the min or max;
-    if (this.popped === this.min) {
-        // this.min = this.
+    // reset the min and max;
+    if (popped === this.max) {
+        this.max = popped.max;
     }
-    if (this.popped === this.max) {
-        // this.min = this.
+
+    if (popped.value === this.min) {
+        this.min = popped.min;
     }
 };
 
