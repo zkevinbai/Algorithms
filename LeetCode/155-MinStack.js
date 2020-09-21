@@ -48,20 +48,23 @@ var MinStack = function () {
     this.stack = [];
 };
 
-MinStack.prototype.push = function (number) {   
+// i keep hitting a 0 evaluates to null bug
+MinStack.prototype.push = function (number) {
     this.stack.push({
         value: number,
         min: this.min,
         max: this.max,
     });
 
-    if (this.max < number || !this.max) {
+    if (this.max === null || number > this.max) {
         this.max = number;
     }
 
-    if (this.min > number || !this.min) {
+    if (this.min === null || number < this.min) {
         this.min = number;
     }
+
+    // console.log(this.stack);
 };
 
 MinStack.prototype.pop = function () {
