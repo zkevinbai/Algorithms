@@ -11,6 +11,48 @@ Input: intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
 Output: null
 */
 
-const getIntersectionNode = function (headA, headB) {
+/*
+an intersection means from the right side the 2 are the same
+reverse both linked lists, and see if the end (head) nodes are the same
+this tells you if there is any intersection
+then get the last value before divergence, thats intersection
+do a traverse again through the linked lists to find the value
+return the intersection
+*/
 
+const reverseLinkedList = (head) => {
+    let prev = null;
+    let curr = head;
+    let next = null;
+
+    while (node.next) {
+        next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return prev;
+}
+
+const getIntersectionNode = function (headA, headB) {
+    const reverseA = reverseLinkedList(headA);
+    const reverseB = reverseLinkedList(headB);
+
+    if (reverseB.val !== reverseA.val) {
+        return null;
+    }
+
+    let intersection = nodeA.val;
+    let nodeA = reverseA;
+    let nodeB = reverseB;
+
+    while (nodeA.val = nodeB.val) {
+        nodeA = nodeA.next;
+        nodeB = nodeB.next;
+
+        intersection = nodeA.val;
+    }
+
+    return new ListNode(intersection);
 };
