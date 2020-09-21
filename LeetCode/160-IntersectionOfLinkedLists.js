@@ -20,8 +20,8 @@ do a traverse again through the linked lists to find the value
 return the intersection
 */
 
-const lengthLinkedList = (head) => {
-    let length = 0;
+const linkedListLength = (head) => {
+    let length = 1;
     let node = head;
 
     while (node) {
@@ -56,15 +56,26 @@ const getIntersectionNode = function (headA, headB) {
     }
 
     let intersection = nodeA.val;
+    let nodeAOffset = 1;
     let nodeA = reverseA;
     let nodeB = reverseB;
 
     while (nodeA.val = nodeB.val) {
         nodeA = nodeA.next;
         nodeB = nodeB.next;
-
+        
+        nodeAOffset += 1;
         intersection = nodeA.val;
     }
 
-    return new ListNode(intersection);
+    const listALength = linkedListLength(headA);
+    let intersectionOffSet = listALength - listAOffset;
+
+    let nodeA = headA;
+    while (intersectionOffSet > 0) {
+        nodeA = nodeA.next;
+        intersectionOffSet -= 1;
+    }
+
+    return nodeA;
 };
