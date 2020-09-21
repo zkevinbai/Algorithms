@@ -37,7 +37,7 @@ const reverseLinkedList = (head) => {
     let curr = head;
     let next = null;
 
-    while (node.next) {
+    while (curr.next) {
         next = curr.next;
         curr.next = prev;
         prev = curr;
@@ -71,7 +71,7 @@ const getIntersectionNode = function (headA, headB) {
     const listALength = linkedListLength(headA);
     let intersectionOffSet = listALength - listAOffset;
 
-    let nodeA = headA;
+    nodeA = headA;
     while (intersectionOffSet > 0) {
         nodeA = nodeA.next;
         intersectionOffSet -= 1;
