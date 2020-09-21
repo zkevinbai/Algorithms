@@ -22,7 +22,7 @@ const maxArea = function (height) {
         for (let n = i + 1; n < height.length; n++) {
             const rightVal = height[n];
 
-            const distance = n - i + 1;
+            const distance = n - i;
 
             const currentArea = distance * Math.min(leftVal, rightVal);
 
