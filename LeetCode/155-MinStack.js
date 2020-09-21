@@ -36,36 +36,54 @@ Methods pop, top and getMin operations will always be called on non-empty stacks
  * initialize your data structure here.
  */
 var MinStack = function () {
-
+    this.max = null;
+    this.min = null;
+    this.stack = [];
 };
 
 /** 
  * @param {number} x
  * @return {void}
  */
-MinStack.prototype.push = function (x) {
+MinStack.prototype.push = function (number) {
+    if (this.min > number || !this.min) {
+        this.min = number;
+    }
 
+    if (this.max < number || !this.max) {
+        this.min = number;
+    }
+    
+    this.stack.push(number);
 };
 
 /**
  * @return {void}
  */
 MinStack.prototype.pop = function () {
+    const popped =  this.stack.pop();
 
+    // reset the min or max;
+    if (this.popped === this.min) {
+        // this.min = this.
+    }
+    if (this.popped === this.max) {
+        // this.min = this.
+    }
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.top = function () {
-
+    return this.max;
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.getMin = function () {
-
+    return this.min;
 };
 
 /**
