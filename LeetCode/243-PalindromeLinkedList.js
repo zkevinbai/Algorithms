@@ -30,7 +30,7 @@ const isPalindrome = function (head) {
     }
 
     const isEven = (array.length % 2 === 0);
-    const midPoint = array.length / 2;
+    const midPoint = Math.floor(array.length / 2);
     let leftIndex;
     let rightIndex;
 
@@ -42,18 +42,19 @@ const isPalindrome = function (head) {
         rightIndex = midPoint + 1;
     }
 
-    console.log(array)
+    // console.log(array)
 
     let right;
     let left;
 
     while (rightIndex < array.length) {
-        right = array[i];
+        right = array[rightIndex];
         left = array[leftIndex];
 
         if (right !== left) {
             return false;
         }
+        rightIndex += 1;
         leftIndex -= 1;
     }
 
