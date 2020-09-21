@@ -74,14 +74,14 @@ MinStack.prototype.push = function (number) {
  * @return {void}
  */
 MinStack.prototype.pop = function () {
-    const popped =  this.stack.pop();
+    const poppedValue =  this.stack.pop().value;
 
     // reset the min and max;
-    if (popped === this.max) {
+    if (poppedValue === this.max) {
         this.max = popped.max;
     }
 
-    if (popped.value === this.min) {
+    if (poppedValue === this.min) {
         this.min = popped.min;
     }
 };
