@@ -45,7 +45,7 @@ var MinStack = function () {
  * @param {number} x
  * @return {void}
  */
-MinStack.prototype.push = function (number) {    
+MinStack.prototype.push = function (number) {   
     this.stack.push({
         value: number,
         min: this.min,
