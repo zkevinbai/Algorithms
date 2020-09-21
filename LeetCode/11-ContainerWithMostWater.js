@@ -9,3 +9,28 @@ Example:
 Input: [1,8,6,2,5,4,8,3,7]
 Output: 49
 */
+
+// organize the values, go from the highest numbers down to the lowest
+
+// On^2 solution
+const maxArea = function (height) {
+    let maxArea = 0;
+
+    for (let i = 0; i < height.length - 1; i++) {
+        const leftVal = height[i];
+
+        for (let n = i + 1; n < height.length; n++) {
+            const rightVal = height[n];
+
+            const distance = n - i + 1;
+
+            const currentArea = distance * Math.min(leftVal, rightVal);
+
+            if (currentArea > maxArea) {
+                maxArea = currentArea;
+            }
+        }
+    }
+
+    return maxArea;
+};
