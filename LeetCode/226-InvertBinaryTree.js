@@ -19,18 +19,18 @@ Output:
 9   6 3   1
 */
 
-// same as is symmetric, need a helper to flip a tree;
+// solved as a part of is symmetric
 
-const flipTree = (root) => {
+const invertTree = (root) => {
     if (!root) {
         return null;
     }
 
     if (root.left) {
-        root.left = flipTree(root.left);
+        root.left = invertTree(root.left);
     }
     if (root.right) {
-        root.right = flipTree(root.right);
+        root.right = invertTree(root.right);
     }
 
     const leftTree = root.left;
@@ -41,15 +41,22 @@ const flipTree = (root) => {
     return root;
 }
 
-const invertTree = (root) => {
-    if (!root) {
-        return null;
-    }
-    
-    const leftTree = root.left;
+// const flipTree = (root) => {
+//     if (!root) {
+//         return null;
+//     }
 
-    root.left = flipTree(root.right);
-    root.right = flipTree(leftTree);
+//     if (root.left) {
+//         root.left = flipTree(root.left);
+//     }
+//     if (root.right) {
+//         root.right = flipTree(root.right);
+//     }
 
-    return root;
-}; 
+//     const leftTree = root.left;
+
+//     root.left = root.right;
+//     root.right = leftTree;
+
+//     return root;
+// }
