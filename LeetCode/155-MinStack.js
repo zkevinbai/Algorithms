@@ -30,6 +30,13 @@ minStack.getMin(); // return -2
 Constraints:
 
 Methods pop, top and getMin operations will always be called on non-empty stacks.
+
+ * Your MinStack object will be instantiated and called as such:
+ * var obj = new MinStack()
+ * obj.push(x)
+ * obj.pop()
+ * var param_3 = obj.top()
+ * var param_4 = obj.getMin()
 */
 
 /**
@@ -52,8 +59,10 @@ MinStack.prototype.push = function (number) {
         max: this.max,
     });
 
+    debugger;
+
     if (this.max < number || !this.max) {
-        this.min = number;
+        this.max = number;
     }
 
     if (this.min > number || !this.min) {
@@ -90,12 +99,3 @@ MinStack.prototype.top = function () {
 MinStack.prototype.getMin = function () {
     return this.min;
 };
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * var obj = new MinStack()
- * obj.push(x)
- * obj.pop()
- * var param_3 = obj.top()
- * var param_4 = obj.getMin()
- */
