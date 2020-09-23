@@ -20,7 +20,9 @@ Your code should preferably run in O(n) time and use only O(1) memory.
 */
 
 const getIntersectionNode = function (headA, headB) {
-
+// find offset
+// traverse longer until offset
+// solve
 };
 
 
