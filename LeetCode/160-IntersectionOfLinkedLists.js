@@ -19,6 +19,18 @@ Each value on each linked list is in the range [1, 10^9].
 Your code should preferably run in O(n) time and use only O(1) memory.
 */
 
+const linkedListLength = (head) => {
+    let length = 1;
+    let node = head;
+
+    while (node) {
+        node = node.next;
+        length += 1;
+    }
+ 
+    return length; 
+}
+
 const getIntersectionNode = function (headA, headB) {
 // find offset
 // traverse longer until offset
