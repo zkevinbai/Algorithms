@@ -41,15 +41,16 @@ const getIntersectionNode = function (headA, headB) {
 
     let nodeA = headA;
     let nodeB = headB;
+    let offset;
 
     if (lengthA > lengthB) {
-        let offset = lengthA - LengthB;
+        offset = lengthA - LengthB;
         while (offset) {
             nodeA = nodeA.next;
             offset -= 1;
         }
     } else if (lengthB > lengthA) {
-        let offset = lengthB - lengthA;
+        offset = lengthB - lengthA;
         while (offset) {
             nodeB = nodeB.next;
             offset -= 1;
