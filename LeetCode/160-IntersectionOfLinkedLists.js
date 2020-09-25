@@ -31,8 +31,8 @@ const linkedListLength = (head) => {
         node = node.next;
         length += 1;
     }
- 
-    return length; 
+
+    return length;
 }
 
 const getIntersectionNode = function (headA, headB) {
@@ -56,18 +56,19 @@ const getIntersectionNode = function (headA, headB) {
         }
     }
 
+    const intersection = nodeA;
+
     while (nodeA) {
         if (nodeA.val !== nodeB.val) {
-            return false;
+            return null;
         }
 
         nodeA = nodeA.next;
         nodeB = nodeB.next;
     }
 
-    return true; 
+    return intersection;
 };
-
 /*
 an intersection means from the right side the 2 are the same
 reverse both linked lists, and see if the end (head) nodes are the same
