@@ -42,7 +42,7 @@ const getIntersectionNode = function (headA, headB) {
     let nodeA = headA;
     let nodeB = headB;
 
-    if (lengthA > LengthB) {
+    if (lengthA > lengthB) {
         let offset = lengthA - LengthB;
         while (offset) {
             nodeA = nodeA.next;
@@ -67,7 +67,6 @@ const getIntersectionNode = function (headA, headB) {
 
     return true; 
 };
-
 
 /*
 an intersection means from the right side the 2 are the same
