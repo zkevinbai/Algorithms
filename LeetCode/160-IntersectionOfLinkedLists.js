@@ -59,11 +59,11 @@ const getIntersectionNode = function (headA, headB) {
     let intersection = null;
 
     while (nodeA) {
-        if (!intersection && nodeA.val === nodeB.val) {
+        if (!intersection && nodeA === nodeB) {
             intersection = nodeA;
-        }
-
-        if (intersection && nodeA.val !== nodeB.val) {
+        } 
+        
+        if (intersection && nodeA !== nodeB) {
             intersection = null;
         }
 
