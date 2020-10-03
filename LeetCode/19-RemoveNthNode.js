@@ -36,7 +36,6 @@ const removeNthFromEnd = (head, n) => {
     const length = linkedListLength(head);
     let node = head;
     let prevNode = null;
-    let count = 1
     let targetCount = length - n;
 
     if (targetCount === 0) {
