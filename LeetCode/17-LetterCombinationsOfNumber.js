@@ -34,6 +34,13 @@ const letterCombinations = (digits) => {
 
         console.log(combinations)
 
+        // this gets lexicographical order
+        // combinations.forEach(combination => {
+        //     newCombinations = newCombinations.concat(
+        //         letters.map(letter => combination + letter)
+        //     );
+        // });
+
         letters.forEach(letter => {
             newCombinations = newCombinations.concat(
                 combinations.map(value => value + letter)
