@@ -46,6 +46,7 @@ const removeNthFromEnd = (head, n) => {
     while (targetCount > 0) {
         prevNode = node;
         node = node.next;
+        targetCount -= 1;
     }
 
     prevNode.next = node.next;
