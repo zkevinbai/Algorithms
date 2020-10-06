@@ -14,13 +14,15 @@ Output: 49
 
 // On solution
 const maxArea = function (heightArray) {
-    let length = heightArray.length - 1;
+    // width refers to the spaces between the numbers
+    // an array of length 9 has a width of 8
+    let width = heightArray.length - 1;
     let leftPointer = 0;
-    let rightPointer = length;
+    let rightPointer = width;
     let maxArea = Math.min(
         heightArray[leftPointer],
         heightArray[rightPointer],
-    ) * length;
+    ) * width;
 
     while (leftPointer !== rightPointer) {
         if (heightArray[leftPointer] < heightArray[rightPointer]) {
@@ -29,12 +31,12 @@ const maxArea = function (heightArray) {
             // covers right < left, and right === left
             rightPointer -= 1;
         }
-        length -= 1;
+        width -= 1;
 
         const newArea = Math.min(
             heightArray[leftPointer],
             heightArray[rightPointer]
-        ) * length;
+        ) * width;
 
         if (newArea > maxArea) {
             maxArea = newArea;
