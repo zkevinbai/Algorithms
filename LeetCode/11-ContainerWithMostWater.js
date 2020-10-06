@@ -14,9 +14,9 @@ Output: 49
 
 // On solution
 const maxArea = function (heightArray) {
-    let length = heightArray.length;
+    let length = heightArray.length - 1;
     let leftPointer = 0;
-    let rightPointer = length - 1;
+    let rightPointer = length;
     let maxArea = Math.min(
         heightArray[leftPointer],
         heightArray[rightPointer],
