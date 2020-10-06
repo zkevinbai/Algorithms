@@ -12,6 +12,38 @@ Output: 49
 
 // organize the values, go from the highest numbers down to the lowest
 
+// On solution
+const maxArea = function (heightArray) {
+    let length = heightArray.length;
+    let leftPointer = 0;
+    let rightPointer = length - 1;
+    let maxArea = Math.min(
+        heightArray[leftPointer],
+        heightArray[rightPointer],
+    ) * length;
+
+    while (leftPointer !== rightPointer) {
+        if (heightArray[leftPointer] < heightArray[rightPointer]) {
+            leftPointer += 1;
+        } else {
+            // covers right < left, and right === left
+            rightPointer -= 1;
+        }
+        length -= 1;
+
+        const newArea = Math.min(
+            heightArray[leftPointer],
+            heightArray[rightPointer]
+        ) * length;
+
+        if (newArea > maxArea) {
+            maxArea = maxArea;
+        }
+    }
+
+    return maxArea;
+};
+
 // On^2 solution
 const maxArea = function (height) {
     let maxArea = 0;
