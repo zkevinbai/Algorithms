@@ -37,7 +37,7 @@ const maxArea = function (heightArray) {
         ) * length;
 
         if (newArea > maxArea) {
-            maxArea = maxArea;
+            maxArea = newArea;
         }
     }
 
