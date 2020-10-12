@@ -23,3 +23,22 @@ Merged tree:
 
 Note: The merging process must start from the root nodes of both trees.
 */
+
+const mergeTrees = (treeOne, treeTwo) => {
+    if (!treeOne) {
+        return treeTwo;
+    }
+
+    if (!treeTwo) {
+        return treeOne;
+    }
+
+    if (treeOne && treeTwo) {
+        treeOne.val += treeTwo.val;
+    }
+
+    treeOne.left = mergeTrees(treeOne.left, treeTwo.left);
+    treeOne.right = mergeTrees(treeOne.right, treeTwo.right);
+
+    return treeOne;
+};
