@@ -58,9 +58,13 @@ const binarySearch = (array, target) => {
 
     let pivotIndex = Math.floor(array.length / 2);
 
+    const pivotIndices = {pivotIndex: true};
+
     while (array[pivotIndex] !== target) {
-        // covers the too big and too small edge cases
-        if (pivotIndex === 0 || pivotIndex > array.length - 1) {
+        // covers the too big and too small edge cases, and the back and forth
+        if (pivotIndex === 0 ||
+            pivotIndex > array.length - 1 ||
+            pivotIndices[pivotIndex]) {
             return -1;
         }
 
@@ -69,6 +73,8 @@ const binarySearch = (array, target) => {
         } else {
             pivotIndex = pivotIndex + (Math.floor(pivotIndex / 2) || 1);
         }
+
+        pivotIndices[pivotIndex] = true;
     }
 
     return pivotIndex;
