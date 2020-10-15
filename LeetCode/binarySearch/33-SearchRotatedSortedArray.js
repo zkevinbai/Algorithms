@@ -93,12 +93,33 @@ const search = (nums, target) => {
     const rightOfPivot = nums.slice(pivot, nums.length);
     const leftOfPivot = nums.slice(0, pivot);
 
+    // const preSearchData = {
+    //     pivot,
+    //     leftOfPivot,
+    //     rightOfPivot,
+    // }
+    // console.log(JSON.stringify(preSearchData));
+
+    if (rightOfPivot[rightOfPivot.length - 1] < target) {
+        return binarySearch(leftOfPivot, target);
+    } else {
+        return binarySearch(rightOfPivot);
+    }
+};
+
+// ----
+
+const searchV1 = (nums, target) => {
+    const pivot = findPivot(nums);
+
+    const rightOfPivot = nums.slice(pivot, nums.length);
+    const leftOfPivot = nums.slice(0, pivot);
+
     const preSearchData = {
         pivot,
         leftOfPivot,
         rightOfPivot,
     }
-
     console.log(JSON.stringify(preSearchData));
 
     const searchLeft = binarySearch(leftOfPivot, target);
@@ -108,7 +129,6 @@ const search = (nums, target) => {
         searchLeft,
         searchRight,
     }
-
     console.log(JSON.stringify(postSearchData));
 
     if (searchLeft >= 0) {
@@ -120,7 +140,6 @@ const search = (nums, target) => {
     }
 };
 
-// ----
 const iterativeBinarySearch = (array, target) => {
     if (!array.length) {
         return -1;
