@@ -45,17 +45,21 @@ const findPivot = (array) => {
 }
 
 const binarySearch = (array, target) => {
-    let pivotIndex = array.length / 2;
+    let pivotIndex = Math.floor(array.length / 2);
 
     while (array[pivotIndex] !== target) {
         if (array[pivotIndex] > target) {
-            pivotIndex = pivotIndex / 2;
+            pivotIndex = Math.floor(pivotIndex / 2);
         } else {
-            pivotIndex = pivotIndex + pivotIndex / 2;
+            pivotIndex = pivotIndex + Math.floor(pivotIndex / 2);
         }
+
+        if (pivotIndex === 0 || pivotIndex > array.length - 1) {
+            return -1;
+        } 
     }
 
-    return Math.floor(pivotIndex);
+    return pivotIndex;
 }
 
 const search = (nums, target) => {
