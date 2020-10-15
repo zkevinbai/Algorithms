@@ -33,6 +33,7 @@ edge cases to cover
 [1,2,3], 8
 [1,2,3], 0
 [1,3,5], 4
+[1, 2, 3, 4, 5, 6, 7], 6
 */
 
 // this is asking for array.indexOf(target)
@@ -51,7 +52,7 @@ const findPivot = (array) => {
     return index + 1;
 }
 
-const binarySearch = (array, target) => {
+const iterativeBinarySearch = (array, target) => {
     if (!array.length) {
         return -1;
     }
@@ -61,6 +62,7 @@ const binarySearch = (array, target) => {
     const pivotIndices = {};
 
     while (array[pivotIndex] !== target) {
+        debugger;
         // covers the too big and too small edge cases, and the back and forth
         // the first rule is not necessary because of pivot indices
         if (pivotIndex === 0 ||
@@ -79,6 +81,31 @@ const binarySearch = (array, target) => {
     }
 
     return pivotIndex;
+}
+
+const binarySearch = (array, target) => {
+    if (!array.length) {
+        return -1;
+    }
+
+    const pivotIndex = Math.floor(array.length / 2);
+    const pivotVal = array[pivotIndex];
+    // const data = {
+    //     pivotIndex,
+    //     pivotVal,
+    // }
+    // console.log(JSON.stringify(data));
+
+    const leftArray = array.slice(0, pivotIndex);
+    const rightArray = array.slice(pivotIndex, array.length);
+
+    if (pivotVal === target) {
+        return pivotIndex;
+    } else if (pivotVal < target) {
+        return pivotIndex + binarySearch(rightArray, target);
+    } else if (pivotVal > target) {
+        return binarySearch(leftArray, target);
+    }
 }
 
 const search = (nums, target) => {
