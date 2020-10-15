@@ -3,9 +3,14 @@ let binarySearch = (array, target) => {
         return -1;
     }
 
+    if (array.length === 1 && array[0] !== target) {
+        return -1;
+    }
+
     const pivotIndex = Math.floor(array.length/2);
     const pivotVal = array[pivotIndex];
     const data = {
+        array,
         pivotIndex,
         pivotVal,
     }
@@ -17,7 +22,12 @@ let binarySearch = (array, target) => {
     if (pivotVal === target) {
         return pivotIndex;
     } else if (pivotVal < target) {
-        return pivotIndex + binarySearch(rightArray, target);
+        const rightSearch = binarySearch(rightArray, target);
+        if (rightSearch > 0) {
+            return pivotIndex + rightSearch;
+        } else {
+            return -1;
+        }
     } else if (pivotVal > target) {
         return binarySearch(leftArray, target);
     }

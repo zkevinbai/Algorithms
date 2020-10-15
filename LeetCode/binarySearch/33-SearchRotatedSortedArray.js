@@ -52,49 +52,23 @@ const findPivot = (array) => {
     return index + 1;
 }
 
-const iterativeBinarySearch = (array, target) => {
-    if (!array.length) {
-        return -1;
-    }
-
-    let pivotIndex = Math.floor(array.length / 2);
-
-    const pivotIndices = {};
-
-    while (array[pivotIndex] !== target) {
-        debugger;
-        // covers the too big and too small edge cases, and the back and forth
-        // the first rule is not necessary because of pivot indices
-        if (pivotIndex === 0 ||
-            pivotIndex > array.length - 1 ||
-            pivotIndices[pivotIndex]) {
-            return -1;
-        }
-        // it is important we set this here, or this would return -1 immediately;
-        pivotIndices[pivotIndex] = true;
-
-        if (array[pivotIndex] > target) {
-            pivotIndex = Math.floor(pivotIndex / 2);
-        } else {
-            pivotIndex = pivotIndex + (Math.floor(pivotIndex / 2) || 1);
-        }
-    }
-
-    return pivotIndex;
-}
-
 const binarySearch = (array, target) => {
     if (!array.length) {
         return -1;
     }
 
+    if (array.length === 1 && array[0] !== target) {
+        return -1;
+    }
+
     const pivotIndex = Math.floor(array.length / 2);
     const pivotVal = array[pivotIndex];
-    // const data = {
-    //     pivotIndex,
-    //     pivotVal,
-    // }
-    // console.log(JSON.stringify(data));
+    const data = {
+        array,
+        pivotIndex,
+        pivotVal,
+    }
+    console.log(JSON.stringify(data));
 
     const leftArray = array.slice(0, pivotIndex);
     const rightArray = array.slice(pivotIndex, array.length);
@@ -102,7 +76,12 @@ const binarySearch = (array, target) => {
     if (pivotVal === target) {
         return pivotIndex;
     } else if (pivotVal < target) {
-        return pivotIndex + binarySearch(rightArray, target);
+        const rightSearch = binarySearch(rightArray, target);
+        if (rightSearch > 0) {
+            return pivotIndex + rightSearch;
+        } else {
+            return -1;
+        }
     } else if (pivotVal > target) {
         return binarySearch(leftArray, target);
     }
@@ -140,3 +119,35 @@ const search = (nums, target) => {
         return -1;
     }
 };
+
+// ----
+const iterativeBinarySearch = (array, target) => {
+    if (!array.length) {
+        return -1;
+    }
+
+    let pivotIndex = Math.floor(array.length / 2);
+
+    const pivotIndices = {};
+
+    while (array[pivotIndex] !== target) {
+        debugger;
+        // covers the too big and too small edge cases, and the back and forth
+        // the first rule is not necessary because of pivot indices
+        if (pivotIndex === 0 ||
+            pivotIndex > array.length - 1 ||
+            pivotIndices[pivotIndex]) {
+            return -1;
+        }
+        // it is important we set this here, or this would return -1 immediately;
+        pivotIndices[pivotIndex] = true;
+
+        if (array[pivotIndex] > target) {
+            pivotIndex = Math.floor(pivotIndex / 2);
+        } else {
+            pivotIndex = pivotIndex + (Math.floor(pivotIndex / 2) || 1);
+        }
+    }
+
+    return pivotIndex;
+}
