@@ -87,9 +87,9 @@ const search = (nums, target) => {
     const searchLeft = binarySearch(leftOfPivot, target);
     const searchRight = binarySearch(rightOfPivot, target);
     
-    if (searchLeft > 0) {
+    if (searchLeft >= 0) {
         return searchLeft;
-    } else if (searchRight > 0) {
+    } else if (searchRight >= 0) {
         return searchRight + pivot;
     } else {
         return -1;
