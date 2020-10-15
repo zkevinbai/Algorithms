@@ -30,6 +30,8 @@ nums is guranteed to be rotated at some pivot.
 -10^4 <= target <= 10^4
 */
 
+// this is asking for array.indexOf(target)
+
 // Approach
 // find the pivot
 // binary search the two halves afterwards
@@ -65,9 +67,14 @@ const binarySearch = (array, target) => {
 const search = (nums, target) => {
     const pivot = findPivot(nums);
 
-    const newArray = [
-        ...nums.slice(pivot, nums.length - 1),
-        ...nums.slice(0, pivot),
-    ];
+    const pivotLeft = nums.slice(pivot, nums.length - 1);
+    const pivotRight = nums.slice(0, pivot);
+    
 
+    return binarySearch(newArray, target);
 };
+
+console.log(search(
+    [4, 5, 6, 7, 0, 1, 2],
+    0,
+))
