@@ -50,15 +50,15 @@ const binarySearch = (array, target) => {
     let pivotIndex = Math.floor(array.length / 2);
 
     while (array[pivotIndex] !== target) {
+        if (pivotIndex === 0 || pivotIndex > array.length - 1) {
+            return -1;
+        }
+
         if (array[pivotIndex] > target) {
             pivotIndex = Math.floor(pivotIndex / 2);
         } else {
             pivotIndex = pivotIndex + Math.floor(pivotIndex / 2);
         }
-
-        if (pivotIndex === 0 || pivotIndex > array.length - 1) {
-            return -1;
-        } 
     }
 
     return pivotIndex;
@@ -74,7 +74,15 @@ const search = (nums, target) => {
     return binarySearch(newArray, target);
 };
 
-console.log(search(
-    [4, 5, 6, 7, 0, 1, 2],
+console.log(binarySearch(
+    [0, 1, 2, 4, 5, 6, 7, ],
+    -1,
+))
+console.log(binarySearch(
+    [0, 1, 2, 4, 5, 6, 7, ],
     0,
+))
+console.log(binarySearch(
+    [0, 1, 2, 4, 5, 6, 7, ],
+    7,
 ))
