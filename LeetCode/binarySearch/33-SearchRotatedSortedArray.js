@@ -28,6 +28,20 @@ Constraints:
 All values of nums are unique.
 nums is guranteed to be rotated at some pivot.
 -10^4 <= target <= 10^4
+
+
+console.log(binarySearch(
+    [0, 1, 2, 4, 5, 6, 7, ],
+    -1,
+))
+console.log(binarySearch(
+    [0, 1, 2, 4, 5, 6, 7, ],
+    0,
+))
+console.log(binarySearch(
+    [0, 1, 2, 4, 5, 6, 7, ],
+    7,
+))
 */
 
 // this is asking for array.indexOf(target)
@@ -75,20 +89,9 @@ const search = (nums, target) => {
     
     if (searchLeft > 0) {
         return searchLeft;
-    } else {
+    } else if (searchRight > 0) {
         return searchRight + pivot;
+    } else {
+        return -1;
     }
 };
-
-console.log(binarySearch(
-    [0, 1, 2, 4, 5, 6, 7, ],
-    -1,
-))
-console.log(binarySearch(
-    [0, 1, 2, 4, 5, 6, 7, ],
-    0,
-))
-console.log(binarySearch(
-    [0, 1, 2, 4, 5, 6, 7, ],
-    7,
-))
