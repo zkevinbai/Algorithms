@@ -67,13 +67,13 @@ const binarySearch = (array, target) => {
 const search = (nums, target) => {
     const pivot = findPivot(nums);
 
-    const rightOfPivot = nums.slice(pivot, nums.length - 1);
+    const rightOfPivot = nums.slice(pivot, nums.length);
     const leftOfPivot = nums.slice(0, pivot);
 
     const searchLeft = binarySearch(leftOfPivot, target);
     const searchRight = binarySearch(rightOfPivot, target);
     
-    if (searchLeft) {
+    if (searchLeft > 0) {
         return searchLeft;
     } else {
         return searchRight + pivot;
