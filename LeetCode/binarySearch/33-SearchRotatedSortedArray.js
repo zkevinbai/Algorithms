@@ -61,6 +61,10 @@ const findPivot = (array) => {
 }
 
 const binarySearch = (array, target) => {
+    if (!array.length) {
+        return -1;
+    }
+
     let pivotIndex = Math.floor(array.length / 2);
 
     while (array[pivotIndex] !== target) {
@@ -81,11 +85,21 @@ const binarySearch = (array, target) => {
 const search = (nums, target) => {
     const pivot = findPivot(nums);
 
+    const leftOfPivot = nums.slice(0, pivot);z
     const rightOfPivot = nums.slice(pivot, nums.length);
-    const leftOfPivot = nums.slice(0, pivot);
 
     const searchLeft = binarySearch(leftOfPivot, target);
     const searchRight = binarySearch(rightOfPivot, target);
+
+    const data = {
+        pivot,
+        leftOfPivot,
+        rightOfPivot,
+        searchLeft,
+        searchRight,
+    }
+
+    console.log(JSON.stringify(data));
     
     if (searchLeft >= 0) {
         return searchLeft;
