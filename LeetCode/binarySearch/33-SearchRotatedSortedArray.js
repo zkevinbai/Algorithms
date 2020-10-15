@@ -34,6 +34,15 @@ nums is guranteed to be rotated at some pivot.
 // find the pivot
 // binary search the two halves afterwards
 
+const findPivot = (array) => {
+    let index = 0;
+
+    while (array[index] < array[index + 1]) {
+        index += 1;
+    }
+
+    return index + 1;
+}
 
 const search = (nums, target) => {
     const pivot = findPivot(nums);
