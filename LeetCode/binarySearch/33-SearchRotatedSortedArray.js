@@ -104,7 +104,7 @@ const search = (nums, target) => {
     if (rightOfPivot[rightOfPivot.length - 1] < target) {
         return binarySearch(leftOfPivot, target);
     } else {
-        return binarySearch(rightOfPivot);
+        return binarySearch(rightOfPivot, target);
     }
 };
 
