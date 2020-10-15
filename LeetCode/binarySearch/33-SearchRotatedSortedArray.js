@@ -29,19 +29,10 @@ All values of nums are unique.
 nums is guranteed to be rotated at some pivot.
 -10^4 <= target <= 10^4
 
-
-console.log(binarySearch(
-    [0, 1, 2, 4, 5, 6, 7, ],
-    -1,
-))
-console.log(binarySearch(
-    [0, 1, 2, 4, 5, 6, 7, ],
-    0,
-))
-console.log(binarySearch(
-    [0, 1, 2, 4, 5, 6, 7, ],
-    7,
-))
+edge cases to cover
+[1,2,3], 8
+[1,2,3], 0
+[1,3,5], 4
 */
 
 // this is asking for array.indexOf(target)
