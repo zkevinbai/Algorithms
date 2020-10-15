@@ -44,6 +44,20 @@ const findPivot = (array) => {
     return index + 1;
 }
 
+const binarySearch = (array, target) => {
+    let pivotIndex = array.length / 2;
+
+    while (array[pivotIndex] !== target) {
+        if (array[pivotIndex] > target) {
+            pivotIndex = pivotIndex / 2;
+        } else {
+            pivotIndex = pivotIndex + pivotIndex / 2;
+        }
+    }
+
+    return Math.floor(pivotIndex);
+}
+
 const search = (nums, target) => {
     const pivot = findPivot(nums);
 
