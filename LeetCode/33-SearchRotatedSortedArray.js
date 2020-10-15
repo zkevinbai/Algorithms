@@ -53,13 +53,8 @@ const findPivot = (array) => {
 }
 
 const binarySearch = (array, target) => {
-    if (!array.length) {
-        return -1;
-    }
-
-    if (array.length === 1 && array[0] !== target) {
-        return -1;
-    }
+    if (!array.length) return -1;
+    if (array.length === 1 && array[0] !== target) return -1;
 
     const pivotIndex = Math.floor(array.length / 2);
     const pivotVal = array[pivotIndex];
