@@ -63,12 +63,13 @@ const binarySearch = (array, target) => {
 
     const pivotIndex = Math.floor(array.length / 2);
     const pivotVal = array[pivotIndex];
-    const data = {
-        array,
-        pivotIndex,
-        pivotVal,
-    }
-    console.log(JSON.stringify(data));
+
+    // const data = {
+    //     array,
+    //     pivotIndex,
+    //     pivotVal,
+    // }
+    // console.log(JSON.stringify(data));
 
     const leftArray = array.slice(0, pivotIndex);
     const rightArray = array.slice(pivotIndex, array.length);
