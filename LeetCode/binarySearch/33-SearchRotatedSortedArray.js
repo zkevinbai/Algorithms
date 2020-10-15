@@ -57,7 +57,7 @@ const binarySearch = (array, target) => {
         if (array[pivotIndex] > target) {
             pivotIndex = Math.floor(pivotIndex / 2);
         } else {
-            pivotIndex = pivotIndex + Math.floor(pivotIndex / 2);
+            pivotIndex = pivotIndex + (Math.floor(pivotIndex / 2) || 1);
         }
     }
 
