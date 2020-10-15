@@ -64,13 +64,6 @@ const binarySearch = (array, target) => {
     const pivotIndex = Math.floor(array.length / 2);
     const pivotVal = array[pivotIndex];
 
-    // const data = {
-    //     array,
-    //     pivotIndex,
-    //     pivotVal,
-    // }
-    // console.log(JSON.stringify(data));
-
     const leftArray = array.slice(0, pivotIndex);
     const rightArray = array.slice(pivotIndex, array.length);
 
@@ -96,7 +89,6 @@ const search = (nums, target) => {
     const leftOfPivot = nums.slice(0, pivot);
 
     if (rightOfPivot[rightOfPivot.length - 1] < target || !rightOfPivot.length) {
-        console.log('hello')
         return binarySearch(leftOfPivot, target);
     } else {
         const searchRight = binarySearch(rightOfPivot, target);
@@ -168,6 +160,41 @@ const searchV1 = (nums, target) => {
     }
 };
 
+let binarySearchV1 = (array, target) => {
+    if (!array.length) {
+        return -1;
+    }
+
+    if (array.length === 1 && array[0] !== target) {
+        return -1;
+    }
+
+    const pivotIndex = Math.floor(array.length / 2);
+    const pivotVal = array[pivotIndex];
+    const data = {
+        array,
+        pivotIndex,
+        pivotVal,
+    }
+    console.log(JSON.stringify(data));
+
+    const leftArray = array.slice(0, pivotIndex);
+    const rightArray = array.slice(pivotIndex, array.length);
+
+    if (pivotVal === target) {
+        return pivotIndex;
+    } else if (pivotVal < target) {
+        const rightSearch = binarySearch(rightArray, target);
+        if (rightSearch > 0) {
+            return pivotIndex + rightSearch;
+        } else {
+            return -1;
+        }
+    } else if (pivotVal > target) {
+        return binarySearch(leftArray, target);
+    }
+}
+
 const iterativeBinarySearch = (array, target) => {
     if (!array.length) {
         return -1;
@@ -198,3 +225,103 @@ const iterativeBinarySearch = (array, target) => {
 
     return pivotIndex;
 }
+/*
+----
+Other people's approaches to consider
+
+
+// var search = function (nums, target) {
+//     let left = 0;
+//     let right = nums.length - 1;
+
+//     while (nums[right] < nums[left]) {
+//         right--;
+//     }
+
+//     if (target < nums[0]) {
+//         left = right + 1;
+//         right = nums.length - 1;
+//     }
+
+//     return binSearch(nums, target, left, right);
+// };
+
+// const binSearch = function (nums, target, left, right) {
+//     let l = left;
+//     let r = right;
+
+//     while (l <= r) {
+//         let mid = Math.floor((l + r) / 2);
+
+//         if (nums[mid] === target) {
+//             return mid;
+//         } else if (target < nums[mid]) {
+//             r = mid - 1;
+//         } else {
+//             l = mid + 1;
+//         }
+//     }
+
+//     return -1;
+// }
+
+var search = function(nums, target) {
+let n = nums.length
+if(n==0) return -1
+    if(n==1) return nums[0] == target? 0: -1
+
+    let rotateindex = FindRotateIndex(nums,0,n-1)
+
+    if(nums[rotateindex] == target) return rotateindex
+
+     if (rotateindex == 0)
+      return BinarySearch(nums,0, n - 1,target);
+
+    if(target < nums[0]) return BinarySearch(nums,rotateindex,n-1,target)
+
+    // if(target > nums[0])
+        return BinarySearch(nums,0,rotateindex,target)
+
+
+};
+
+var FindRotateIndex = function(nums,left,right){
+    if (nums[left] < nums[right])
+      return 0;
+
+    while (left <= right) {
+      let pivot = left + Math.floor((right- left ) / 2);
+      if (nums[pivot] > nums[pivot + 1])
+        return pivot + 1;
+      else {
+        if (nums[pivot] < nums[left])
+          right = pivot - 1;
+        else
+          left = pivot + 1;
+      }
+    }
+    return 0;
+}
+
+var BinarySearch = function(nums, left, right,target){
+
+
+
+    while (left <= right) {
+        let mid = left + Math.floor((right - left) / 2)
+
+        if (nums[mid] == target) {
+            return mid
+        }
+
+        if ( nums[mid] < target) {
+            left = mid +1
+        } else {
+            right = mid - 1
+        }
+
+    }
+
+    return -1
+}
+*/
