@@ -37,62 +37,7 @@ nums is a non-decreasing array.
 -109 <= target <= 109
 */
 
-//O(log(n))
-const binarySearch = (array, target) => {
-    if (!array.length) return -1;
-    if (array.length === 1 && array[0] !== target) return -1;
-
-    const pivotIndex = Math.floor(array.length / 2);
-    const pivotVal = array[pivotIndex];
-
-    const leftArray = array.slice(0, pivotIndex);
-    const rightArray = array.slice(pivotIndex, array.length);
-
-    if (pivotVal === target) {
-        return pivotIndex;
-    } else if (pivotVal < target) {
-        const rightSearch = binarySearch(rightArray, target);
-        if (rightSearch > 0) {
-            return pivotIndex + rightSearch;
-        } else {
-            return -1;
-        }
-    } else if (pivotVal > target) {
-        return binarySearch(leftArray, target);
-    }
-}
-
-const searchRange = (array, target) => {
-    if (array.length === 0) {
-        return [-1, -1];
-    }
-
-    if (array.length === 1 && array[0] !== target) {
-        return [-1, -1];
-    }
-
-    const targetPivot = binarySearch(array, target);
-
-    if (targetPivot === -1) {
-        return [-1, -1];
-    }
-
-    let leftPointer = targetPivot;
-    let rightPointer = targetPivot;
-
-    while (array[leftPointer - 1] === target) {
-        leftPointer -= 1;
-    }
-
-    while (array[rightPointer - 1] === target) {
-        rightPointer -= 1;
-    }
-
-    return [leftPointer, rightPointer];
-};
-
 //O(n)
-/*
 const searchRange = (array, target) => {
     if (array.length === 0) {
         return [-1, -1];
@@ -119,4 +64,57 @@ const searchRange = (array, target) => {
 
     return [leftPointer, rightPointer];
 };
-*/
+
+//O(log(n))
+// const binarySearch = (array, target) => {
+//     if (!array.length) return -1;
+//     if (array.length === 1 && array[0] !== target) return -1;
+
+//     const pivotIndex = Math.floor(array.length / 2);
+//     const pivotVal = array[pivotIndex];
+
+//     const leftArray = array.slice(0, pivotIndex);
+//     const rightArray = array.slice(pivotIndex, array.length);
+
+//     if (pivotVal === target) {
+//         return pivotIndex;
+//     } else if (pivotVal < target) {
+//         const rightSearch = binarySearch(rightArray, target);
+//         if (rightSearch > 0) {
+//             return pivotIndex + rightSearch;
+//         } else {
+//             return -1;
+//         }
+//     } else if (pivotVal > target) {
+//         return binarySearch(leftArray, target);
+//     }
+// }
+
+// const searchRange = (array, target) => {
+//     if (array.length === 0) {
+//         return [-1, -1];
+//     }
+
+//     if (array.length === 1 && array[0] !== target) {
+//         return [-1, -1];
+//     }
+
+//     const targetPivot = binarySearch(array, target);
+
+//     if (targetPivot === -1) {
+//         return [-1, -1];
+//     }
+
+//     let leftPointer = targetPivot;
+//     let rightPointer = targetPivot;
+
+//     while (array[leftPointer - 1] === target) {
+//         leftPointer -= 1;
+//     }
+
+//     while (array[rightPointer - 1] === target) {
+//         rightPointer -= 1;
+//     }
+
+//     return [leftPointer, rightPointer];
+// };
