@@ -37,7 +37,36 @@ nums is a non-decreasing array.
 -109 <= target <= 109
 */
 
+//O(log(n))
+const searchRange = (array, target) => {
+    if (array.length === 0) {
+        return [-1, -1];
+    }
+
+    if (array.length === 1 && array[0] !== target) {
+        return [-1, -1];
+    }
+
+    let leftPointer = 0;
+    let rightPointer = array.length - 1;
+
+    while (leftPointer !== target && rightPointer !== target && leftPointer !== rightPointer) {
+        leftPointer += 1;
+    }
+
+    while (array[rightPointer] !== target && rightPointer > 0) {
+        rightPointer -= 1;
+    }
+
+    if (leftPointer === array.length - 1 && rightPointer === 0 && array[leftPointer] !== target) {
+        return [-1, -1];
+    }
+
+    return [leftPointer, rightPointer];
+};
+
 //O(n)
+/*
 const searchRange = (array, target) => {
     if (array.length === 0) {
         return [-1, -1];
@@ -58,10 +87,10 @@ const searchRange = (array, target) => {
         rightPointer -= 1;
     }
 
-
     if (leftPointer === array.length - 1 && rightPointer === 0 && array[leftPointer] !== target) {
         return [-1, -1];
     }
 
     return [leftPointer, rightPointer];
 };
+*/
