@@ -43,6 +43,10 @@ const searchRange = (array, target) => {
         return [-1, -1];
     }
 
+    if (array.length === 1 && array[0] !== target) {
+        return [-1, -1];
+    }
+
     let leftPointer = 0;
     let rightPointer = array.length - 1;
 
@@ -54,7 +58,8 @@ const searchRange = (array, target) => {
         rightPointer -= 1;
     }
 
-    if (leftPointer === array.length - 1 && rightPointer === 0 && leftPointer !== target) {
+
+    if (leftPointer === array.length - 1 && rightPointer === 0 && array[leftPointer] !== target) {
         return [-1, -1];
     }
 
