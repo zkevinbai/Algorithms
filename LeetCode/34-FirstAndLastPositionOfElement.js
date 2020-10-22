@@ -38,3 +38,25 @@ nums is a non-decreasing array.
 */
 
 //O(n)
+const searchRange = (array, target) => {
+    if (array.length === 0) {
+        return [-1, -1];
+    }
+
+    let leftPointer = 0;
+    let rightPointer = array.length - 1;
+
+    while (leftPointer !== target && leftPointer < array.length - 1) {
+        leftPointer += 1;
+    }
+
+    while (rightPointer !== target && rightPointer > 0) {
+        rightPointer -= 1;
+    }
+
+    if (leftPointer === array.length -1 && rightPointer === 0 && leftPointer !== target) {
+        return [-1, -1];
+    }
+
+    return [leftPointer, rightPointer];
+};
