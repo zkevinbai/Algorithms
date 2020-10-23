@@ -14,4 +14,29 @@ Constraints:
 
 1 <= n <= 8
 */
+const generateParenthesis = (n) => {
+    const list = [];
+    backtrack(list, "", 0, 0, n);
+    return list;
+}
 
+const backtrack = (
+    list,   // array
+    string, // string
+    open,   // integer
+    close,  // integer,
+    max,    // integer
+) => {
+    if (string.length === max * 2) {
+        list.push(string);
+        return;
+    }
+
+    if (open < max) {
+        backtrack(list, string + "(", open + 1, close, max);
+    }
+
+    if (close < open) {
+        backtrack(list, string + ")", open, close + 1, max);
+    }
+}
