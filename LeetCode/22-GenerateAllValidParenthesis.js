@@ -15,28 +15,28 @@ Constraints:
 1 <= n <= 8
 */
 const generateParenthesis = (n) => {
-    const results = [];
-    backtrack(results, "", 0, 0, n);
-    return results;
+    const list = [];
+    backtrack(list, "", 0, 0, n);
+    return list;
 }
 
 const backtrack = (
-    results,
+    list,
     string,
     openCount,
     closeCount,
     max,
 ) => {
     if (string.length === max * 2) {
-        results.push(string);
+        list.push(string);
         return;
     }
 
     if (openCount < max) {
-        backtrack(results, string + "(", openCount + 1, closeCount, max);
+        backtrack(list, string + "(", openCount + 1, closeCount, max);
     }
 
     if (closeCount < openCount) {
-        backtrack(results, string + ")", openCount, closeCount + 1, max);
+        backtrack(list, string + ")", openCount, closeCount + 1, max);
     }
 }
