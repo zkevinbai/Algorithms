@@ -81,7 +81,6 @@ const findMedianSortedArrays = function (nums1, nums2) {
 
     if (lengthEven) {
         const leftNum = newArray[midPoint - 1];
-
         return (leftNum + newArray[midPoint]) / 2;
     } else {
         return newArray[midPoint];
