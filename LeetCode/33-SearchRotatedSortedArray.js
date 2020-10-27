@@ -42,6 +42,9 @@ edge cases to cover
 // find the pivot
 // binary search the two halves afterwards
 
+// 5 0 1 2 3 4 
+//  + + - + +
+
 const findPivot = (array) => {
     let index = 0;
 
@@ -224,41 +227,75 @@ const iterativeBinarySearch = (array, target) => {
 ----
 Other people's approaches to consider
 
+Idea - Binary Search:
 
-// var search = function (nums, target) {
-//     let left = 0;
-//     let right = nums.length - 1;
+One thing to remember is that we will always have two sorted subarrays. If the median is greater than the last value of the window, we are in the first subarray,
+else we are in the second subarray. The first subarray's values are always greater than the second subarray's values.
 
-//     while (nums[right] < nums[left]) {
-//         right--;
-//     }
+1. If the median is less than target:
+if we are in the first subarray, we search right half.
+if we are in the second subarray, we compare the target and the last value of the window,
+and if target is greater we search the left half, else we search the right half.
 
-//     if (target < nums[0]) {
-//         left = right + 1;
-//         right = nums.length - 1;
-//     }
+2. If the median is greater than target:
+if we are in the first subarray, we compare the target and the first value of the window,
+and if target is less we search the right half, else we search the left half.
+if we are in the second subarray, we search left half.
 
-//     return binSearch(nums, target, left, right);
-// };
+var search = function (nums, target) {
+    let l = 0, r = nums.length - 1, mid;
+    while (l <= r) {
+        mid = Math.floor((l + r) / 2);
+        if (nums[mid] == target) return mid;
+        else if (nums[mid] < target) {
+            if (nums[mid] > nums[r]) l = mid + 1;
+            else if (target > nums[r]) r = mid - 1;
+            else l = mid + 1;
+        } else {
+            if (nums[mid] < nums[r]) r = mid - 1;
+            else if (target < nums[l]) l = mid + 1;
+            else r = mid - 1;
+        }
+    }
+    return -1;
+    // Time Complexity: O(log(n))
+    // Space Complexity: O(1)
+};
 
-// const binSearch = function (nums, target, left, right) {
-//     let l = left;
-//     let r = right;
+var search = function (nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
 
-//     while (l <= r) {
-//         let mid = Math.floor((l + r) / 2);
+    while (nums[right] < nums[left]) {
+        right--;
+    }
 
-//         if (nums[mid] === target) {
-//             return mid;
-//         } else if (target < nums[mid]) {
-//             r = mid - 1;
-//         } else {
-//             l = mid + 1;
-//         }
-//     }
+    if (target < nums[0]) {
+        left = right + 1;
+        right = nums.length - 1;
+    }
 
-//     return -1;
-// }
+    return binSearch(nums, target, left, right);
+};
+
+const binSearch = function (nums, target, left, right) {
+    let l = left;
+    let r = right;
+
+    while (l <= r) {
+        let mid = Math.floor((l + r) / 2);
+
+        if (nums[mid] === target) {
+            return mid;
+        } else if (target < nums[mid]) {
+            r = mid - 1;
+        } else {
+            l = mid + 1;
+        }
+    }
+
+    return -1;
+}
 
 var search = function(nums, target) {
 let n = nums.length
@@ -299,8 +336,6 @@ var FindRotateIndex = function(nums,left,right){
 }
 
 var BinarySearch = function(nums, left, right,target){
-
-
 
     while (left <= right) {
         let mid = left + Math.floor((right - left) / 2)
