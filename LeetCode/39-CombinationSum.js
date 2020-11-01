@@ -41,7 +41,7 @@ All elements of candidates are distinct.
 
 * can use external call
 
-
+// subtraction solution;
 function combinationSumRecursive({
     candidates,
     remainingSum,
@@ -90,114 +90,49 @@ const combinationSum = (candidates, target) => {
         startFrom,
     })
 
-    return finalCombinations;
-};
-
-function combinationSumRecursive({
-    candidates,
-    remainingSum,
-    finalCombinations = [],
-    currentCombination = [],
-    startFrom = 0,
-}) {
-    if (remainingSum < 0) {
-        // By adding another candidate we've gone below zero.
-        // This would mean that the last candidate was not acceptable.
-        return;
-    }
-
-    if (remainingSum === 0) {
-        // If after adding the previous candidate our remaining sum
-        // became zero - we need to save the current combination since it is one
-        // of the answers we're looking for.
-        finalCombinations.push(currentCombination.slice());
-
-        return;
-    }
-
-    // If we haven't reached zero yet let's continue to add all
-    // possible candidates that are left.
-    for (let candidateIndex = startFrom; candidateIndex < candidates.length; candidateIndex += 1) {
-        const currentCandidate = candidates[candidateIndex];
-
-        // Let's try to add another candidate.
-        currentCombination.push(currentCandidate);
-
-        // Explore further option with current candidate being added.
-        combinationSumRecursive({
-            candidates,
-            remainingSum: remainingSum - currentCandidate,
-            finalCombinations,
-            currentCombination,
-            candidateIndex,
-        });
-
-        // BACKTRACKING.
-        // Let's get back, exclude current candidate and try another ones later.
-        currentCombination.pop();
-    }
-
-    return finalCombinations;
-}
-
-const combinationSum = (candidates, target) => {
-    let validCombinations = [];
-    let currentCombination = [];
-    let startFrom = 0;
-    let sum = 0;
-
-    combinationSumRecursive({
-        combinations,
-        remainingSum: target,
+    combinationSumAddition({
+        candidates,
+        target,
+        startFrom,
+        currentSum: 0,
         validCombinations,
         currentCombination,
-        startFrom,
     })
 
     return validCombinations;
-
-    return sumFinder({
-        candidates,
-        target,
-        start,
-        sum,
-        potentialCombination,
-        validCombinations,
-    });
-
 };
 
-const sumFinder = ({
+const combinationSumAddition = ({
     candidates,
     target,
-    start,
-    sum,
-    potentialCombination,
-    validCombinations,
+    startFrom,
+    currentSum = 0,
+    currentCombination = [],
+    validCombinations = [],
 }) => {
-    if (sum > target) {
-        return validCombinations;
+    if (currentSum > target) {
+        return;
     }
 
-    if (sum === target) {
-        validCombinations.push(potentialCombination);
-        return validCombinations;
+    if (currentSum === target) {
+        validCombinations.push(currentCombination.slice());
+        return;
     }
 
-    for (let candidateIndex = start; candidateIndex < candidates.length; candidateIndex++) {
+    for (let candidateIndex = startFrom; candidateIndex < candidates.length; candidateIndex++) {
         const candidate = candidates[candidateIndex];
-        potentialCombination.push(candidate);
+        currentCombination.push(candidate);
 
-        sumFinder({
+        combinationSumAddition({
             candidates,
             target,
-            start: candidateIndex,
-            sum: sum + candidate,
-            potentialCombination,
+            startFrom: candidateIndex,
+            currentSum: currentSum + candidate,
+            currentCombination,
             validCombinations,
         });
 
-        potentialCombination.pop();// why do this?
+        currentCombination.pop();// this allows you to start new trees of possibility
     }
 
     return validCombinations;
