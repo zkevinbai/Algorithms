@@ -1,34 +1,33 @@
-let binarySearch = (array, target) => {
-    if (!array.length) {
-        return -1;
+function combinationSumRecursive({
+    candidates,
+    remainingSum,
+    finalCombinations = [],
+    currentCombination = [],
+    startFrom = 0,
+}) {
+    if (remainingSum < 0) {
+        return;
     }
 
-    if (array.length === 1 && array[0] !== target) {
-        return -1;
+    if (remainingSum === 0) {
+        finalCombinations.push(currentCombination.slice());
+        return;
     }
 
-    const pivotIndex = Math.floor(array.length/2);
-    const pivotVal = array[pivotIndex];
-    const data = {
-        array,
-        pivotIndex,
-        pivotVal,
-    }
-    console.log(JSON.stringify(data));
+    for (let candidateIndex = startFrom; candidateIndex < candidates.length; candidateIndex += 1) {
+        const currentCandidate = candidates[candidateIndex];
+        currentCombination.push(currentCandidate);
 
-    const leftArray = array.slice(0, pivotIndex);
-    const rightArray = array.slice(pivotIndex, array.length);
+        combinationSumRecursive({
+            candidates,
+            remainingSum: remainingSum - currentCandidate,
+            finalCombinations,
+            currentCombination,
+            startFrom: candidateIndex,
+        });
 
-    if (pivotVal === target) {
-        return pivotIndex;
-    } else if (pivotVal < target) {
-        const rightSearch = binarySearch(rightArray, target);
-        if (rightSearch > 0) {
-            return pivotIndex + rightSearch;
-        } else {
-            return -1;
-        }
-    } else if (pivotVal > target) {
-        return binarySearch(leftArray, target);
+        currentCombination.pop();
     }
+
+    return finalCombinations;
 }
