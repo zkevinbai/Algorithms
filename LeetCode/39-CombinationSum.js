@@ -40,5 +40,52 @@ All elements of candidates are distinct.
 */
 
 const combinationSum = (candidates, target) => {
+    let validCombinations = [];
+    let potentialCombination = [];
+    let start = 0;
+    let sum = 0;
 
+    sumFinder({
+        candidates,
+        target,
+        start,
+        sum,
+        potentialCombination,
+        validCombinations,
+    });
+
+    return validCombinations;
 };
+
+const sumFinder = ({
+    candidates,
+    target,
+    start,
+    sum,
+    potentialCombination,
+    validCombinations,
+}) => {
+    if (sum > target) return;
+
+    if (sum === target) {
+        validCombinations.push(potentialCombination);
+        return;
+    }
+
+    for (let i = start; i < candidates.length; i++) {
+        const candidate = candidates[i];
+        potentialCombination.push(candidate);
+        sum += candidate;
+
+        sumFinder({
+            candidates,
+            target,
+            start,
+            sum,
+            potentialCombination,
+            validCombinations,
+        });
+        
+        potentialCombination.pop();// why do this?
+    }
+}
