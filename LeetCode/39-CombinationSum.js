@@ -37,6 +37,9 @@ Constraints:
 1 <= candidates[i] <= 200
 All elements of candidates are distinct.
 1 <= target <= 500
+
+https://www.programcreek.com/2014/02/leetcode-combination-sum-java/
+https://github.com/trekhleb/javascript-algorithms/blob/master/src/algorithms/sets/combination-sum/combinationSum.js
 */
 
 // addition solution
