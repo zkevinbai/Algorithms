@@ -39,73 +39,18 @@ All elements of candidates are distinct.
 1 <= target <= 500
 */
 
-* can use external call
-
-// subtraction solution;
-function combinationSumRecursive({
-    candidates,
-    remainingSum,
-    validCombinations = [],
-    currentCombination = [],
-    startFrom = 0,
-}) {
-    if (remainingSum < 0) {
-        return;
-    }
-
-    if (remainingSum === 0) {
-        validCombinations.push(currentCombination.slice());
-        return;
-    }
-
-    for (let candidateIndex = startFrom; candidateIndex < candidates.length; candidateIndex += 1) {
-        const currentCandidate = candidates[candidateIndex];
-
-        currentCombination.push(currentCandidate);
-
-        combinationSumRecursive({
-            candidates,
-            remainingSum: remainingSum - currentCandidate,
-            validCombinations,
-            currentCombination,
-            startFrom: candidateIndex,
-        });
-
-        currentCombination.pop();
-    }
-
-    return validCombinations;
-}
-
+// addition solution
 const combinationSum = (candidates, target) => {
-    let validCombinations = [];
-    let currentCombination = [];
-    let startFrom = 0;
-
-    combinationSumRecursive({
-        candidates,
-        remainingSum: target,
-        validCombinations,
-        currentCombination,
-        startFrom,
-    })
-
-    combinationSumAddition({
+    return combinationSumAddition({
         candidates,
         target,
-        startFrom,
-        currentSum: 0,
-        validCombinations,
-        currentCombination,
     })
-
-    return validCombinations;
 };
 
 const combinationSumAddition = ({
     candidates,
     target,
-    startFrom,
+    startFrom = 0,
     currentSum = 0,
     currentCombination = [],
     validCombinations = [],
@@ -133,6 +78,49 @@ const combinationSumAddition = ({
         });
 
         currentCombination.pop();// this allows you to start new trees of possibility
+    }
+
+    return validCombinations;
+}
+
+// subtraction solution; saves 2 lines of code but is harder to follow
+const combinationSum = (candidates, target) => {
+    return combinationSumSubtraction({
+        candidates,
+        remainingSum: target,
+    })
+};
+
+function combinationSumSubtraction({
+    candidates,
+    startFrom = 0,
+    remainingSum,
+    validCombinations = [],
+    currentCombination = [],
+}) {
+    if (remainingSum < 0) {
+        return;
+    }
+
+    if (remainingSum === 0) {
+        validCombinations.push(currentCombination.slice());
+        return;
+    }
+
+    for (let candidateIndex = startFrom; candidateIndex < candidates.length; candidateIndex += 1) {
+        const currentCandidate = candidates[candidateIndex];
+
+        currentCombination.push(currentCandidate);
+
+        combinationSumSubtraction({
+            candidates,
+            startFrom: candidateIndex,
+            remainingSum: remainingSum - currentCandidate,
+            validCombinations,
+            currentCombination,
+        });
+
+        currentCombination.pop();
     }
 
     return validCombinations;
