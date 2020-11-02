@@ -32,12 +32,17 @@ const permuteWithoutRepetitions = (permutationOptions) => {
 
     const firstOption = permutationOptions[0];
 
-    for (let positionIndex = 0; positionIndex < candidates.length; positionIndex++) {
-        const permutationPrefix = subPermutations.slice(0, positionIndex);
-        const permutationPostfix = subPermutations.slice(positionIndex);
+    for (let permIndex = 0; permIndex < subPermutations.length; permIndex++) {
+        const subPermutation = subPermutations[permIndex];
 
-        permutations.push([permutationPrefix.concat(firstOption, permutationPostfix)]);
+        // why <= ? because you cannot slice past the length of the array
+        for (let positionIndex = 0; positionIndex <= subPermutation.length; positionIndex++) {
+            const permutationPrefix = subPermutation.slice(0, positionIndex);
+            const permutationPostfix = subPermutation.slice(positionIndex);
+
+            permutations.push(permutationPrefix.concat(firstOption, permutationPostfix));
+        }
     }
 
-    return permutatons;
+    return permutations;
 }
