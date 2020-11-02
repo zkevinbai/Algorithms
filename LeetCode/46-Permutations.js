@@ -16,3 +16,43 @@ Output:
   [3,2,1]
 ]
 */
+
+const permute = (nums) => {
+    return generatePermutations({ candidates: nums });
+};
+
+const generatePermutations = ({
+    candidates,
+    currentIndex = 0,
+    currentPermutation = [],
+    validPermutatons = [],
+}) => {
+    if (currentPermutation.length > candidates.length) {
+        return;
+    }
+
+    if (currentPermutation.length === candidates.length) {
+        validPermutatons.push(currentPermutation.slice());
+
+        return;
+    }
+
+    for (let candidateIndex = 0; candidateIndex < candidates.length; candidateIndex++) {
+        const candidate = candidates[candidateIndex];
+
+        if (candidateIndex !== currentIndex && currentIndex !== 0) {
+            currentPermutation.push(candidate);
+        }
+
+        generatePermutations({
+            candidates,
+            currentIndex: candidateIndex,
+            currentPermutation,
+            validPermutatons,
+        })
+
+        currentPermutation.pop();
+    }
+
+    return permutatons;
+}
