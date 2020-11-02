@@ -21,37 +21,22 @@ const permute = (nums) => {
     return generatePermutations({ candidates: nums });
 };
 
-const generatePermutations = ({
-    candidates,
-    currentIndex = 0,
-    currentPermutation = [],
-    validPermutatons = [],
-}) => {
-    if (currentPermutation.length > candidates.length) {
-        return;
+const permuteWithoutRepetitions = (permutationOptions) => {
+    if (permutationOptions.length === 1) {
+        return [permutationOptions];
     }
 
-    if (currentPermutation.length === candidates.length) {
-        validPermutatons.push(currentPermutation.slice());
+    const permutations = [];
 
-        return;
-    }
+    const subPermutations = permuteWithoutRepetitions(permutationOptions.slice(1));
 
-    for (let candidateIndex = 0; candidateIndex < candidates.length; candidateIndex++) {
-        const candidate = candidates[candidateIndex];
+    const firstOption = permutationOptions[0];
 
-        if (candidateIndex !== currentIndex && currentIndex !== 0) {
-            currentPermutation.push(candidate);
-        }
+    for (let positionIndex = 0; positionIndex < candidates.length; positionIndex++) {
+        const permutationPrefix = subPermutations.slice(0, positionIndex);
+        const permutationPostfix = subPermutations.slice(positionIndex);
 
-        generatePermutations({
-            candidates,
-            currentIndex: candidateIndex,
-            currentPermutation,
-            validPermutatons,
-        })
-
-        currentPermutation.pop();
+        permutations.push([permutationPrefix.concat(firstOption, permutationPostfix)]);
     }
 
     return permutatons;
