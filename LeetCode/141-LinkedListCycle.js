@@ -16,13 +16,17 @@ const hasCycle = (head) => {
 
     let node = head;
 
-    while (node.next) {
-        if (values[node.next.val]) {
-            console.log('hello')
+    if (!node) return false;
+    if (!node.next) return false;
+    if (node.next.next === node) return true;
+
+    while (node.next.next) {
+        if (values[node.next.val] === node.next.next.val) {
+            console.log(node.next.val)
             return true;
         }
 
-        values[node.val] = true;
+        values[node.val] = node.next.val;
 
         node = node.next;
     }
