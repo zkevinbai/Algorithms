@@ -37,8 +37,6 @@ const hasCycle = (head) => {
 
 // o(n) runtime, o(1) space
 const hasCycle = (head) => {
-    const values = {};
-
     let node = head;
 
     if (!node) return false;
@@ -50,6 +48,26 @@ const hasCycle = (head) => {
         }
         node.visited = true;
         node = node.next;
+    }
+
+    return false
+};
+
+// o(n) runtime, o(1) space
+const hasCycle = (head) => {
+    if (!head) return false;
+    if (!head.next) return false;
+
+    let slowPointer = head;
+    let fastPointer = head;
+
+    while (fastPointer.next && fastPointer.next.next) {
+        fastPointer = fastPointer.next.next;
+        slowPointer = slowPointer.next;
+
+        if (fastPointer === slowPointer) {
+            return true;
+        }
     }
 
     return false
