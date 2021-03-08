@@ -28,7 +28,7 @@ and so on
 // abab
 // 3
 // 
-
+// cabab
 const partitionLabels = (string) => {
     const letterArray = string.split("");
     console.log(letterArray)
@@ -36,7 +36,7 @@ const partitionLabels = (string) => {
     const visitedLetters = {};
 
     let pointerStart = 0; // storage one
-    let pointerEnd = 0;
+    let pointerEnd = null;
 
     let currentPointerStart = null;
     let currentPointerEnd = null;
@@ -51,7 +51,7 @@ const partitionLabels = (string) => {
 
         // check if we've used this already
 
-        if (currentPointerStart === pointerEnd && visitedLetters[currentLetter]) {
+        if (currentPointerStart === pointerEnd) {
             const partition = pointerEnd - pointerStart + 1;
             partitions.push(partition);
             pointerStart = pointerEnd + 1;
@@ -72,8 +72,14 @@ const partitionLabels = (string) => {
 
         visitedLetters[currentLetter] = true
 
-        if (currentPointerEnd > pointerEnd) {
+        if (currentPointerEnd > pointerEnd || currentPointerEnd === pointerStart) {
             pointerEnd = currentPointerEnd;
+        }
+
+        if (currentPointerStart === pointerEnd) {
+            const partition = pointerEnd - pointerStart + 1;
+            partitions.push(partition);
+            pointerStart = pointerEnd + 1;
         }
 
         console.log("pointerStart", pointerStart)
