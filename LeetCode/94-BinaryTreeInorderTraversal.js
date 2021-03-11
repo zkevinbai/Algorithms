@@ -37,10 +37,33 @@ Follow up:
 Recursive solution is trivial, could you do it iteratively?
 **/
 
+// recursive
+
+const inOrderRecurisive = (root) => {
+
+    const res = [];
+
+    const visit = (node) => {
+        if (node && node.val) res.push(node.val);
+    }
+
+    const recuseInOrder = (root) => {
+        if (root.left) inOrderRecurisive(root.left);
+        visit(root)
+        if (root.right) inOrderRecurisive(root.right);
+    }
+
+    return res;
+}
+
+
+// iterative
     // Time Complexity: O(n)
     // Space Complexity: O(n)
-    
-const inOrder = (root) => {
+
+const inOrderIterative = (root) => {
+    if (!root) return [];
+
     const stack = [root];
     const result = [];
 
@@ -60,5 +83,5 @@ const inOrder = (root) => {
 }
 
 var inorderTraversal = function (root) {
-    return inOrder(root);
+    return inOrderIterative(root);
 };
