@@ -48,14 +48,15 @@ const inOrderRecurisive = (root) => {
     }
 
     const recuseInOrder = (root) => {
-        if (root.left) inOrderRecurisive(root.left);
+        if (root.left) recuseInOrder(root.left);
         visit(root)
-        if (root.right) inOrderRecurisive(root.right);
+        if (root.right) recuseInOrder(root.right);
     }
+
+    recuseInOrder(root);
 
     return res;
 }
-
 
 // iterative
     // Time Complexity: O(n)
