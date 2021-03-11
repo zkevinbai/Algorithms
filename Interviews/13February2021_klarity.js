@@ -173,7 +173,7 @@ const num_2_strings_recursive = (n_digit) => {
 
     const currentNum = stringNum[0]; // "2"
 
-    const currentLetters = numberDictionary[currentNum];  //"a b c"
+    const currentLetters = numberDictionary[currentNum];  // "a b c"
 
     if (stringNum.length === 1) {
         // console.log(currentLetters)
@@ -203,7 +203,6 @@ const num_2_strings_recursive = (n_digit) => {
     console.log(nextNumber);
 
     const nextLetters = num_2_strings_recursive(nextNumber);
-
 
     const output = helper(currentLetters, nextLetters);
     console.log(output);
