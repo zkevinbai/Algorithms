@@ -40,6 +40,7 @@ Recursive solution is trivial, could you do it iteratively?
 // recursive
 
 const inOrderRecurisive = (root) => {
+    if (!root) return [];
 
     const res = [];
 
