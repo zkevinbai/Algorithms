@@ -6,20 +6,45 @@ For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76, 73]
 Note: The length of temperatures will be in the range [1, 30000]. Each temperature will be an integer in the range [30, 100].
 */
 
-const dailyTemperatures = (temperatureArray) => {
+// 2 pointer O(n), 3x slower than n^2
+const dailyTemperatures2Pointer = (temperatures) => {
+    let slow = 0; fast = 1; res = []; count = 0;
+
+    while (slow < temperatureArray.length - 1) {
+        count++;
+        if (temperatures[fast] > temperatures[slow]) {
+            res.push(count);
+            count = 0;
+            slow++
+            fast = slow + 1;
+        } else if (fast === temperatureArray.length) {
+            res.push(0);
+            count = 0;
+            slow++
+            fast = slow + 1;
+        } else {
+            fast += 1;
+        }
+    }
+
+    return res;
+};
+
+// iterative O(n^2)
+const dailyTemperatures = (temperatures) => {
     const res = [];
 
-    for (let i = 0; i < temperatureArray.length; i++) {
-        const day = temperatureArray[i];
+    for (let i = 0; i < temperatures.length; i++) {
+        const day = temperatures[i];
         let daysUntilHigherTemp = 0;
 
-        if (i === temperatureArray.length - 1) {
+        if (i === temperatures.length - 1) {
             res.push(daysUntilHigherTemp);
             continue;
         }
 
-        for (let j = i + 1; j < temperatureArray.length; j++) {
-            const newDay = temperatureArray[j];
+        for (let j = i + 1; j < temperatures.length; j++) {
+            const newDay = temperatures[j];
 
             if (newDay > day) {
                 daysUntilHigherTemp = j - i;
