@@ -21,15 +21,12 @@ Constraints:
 const quickSort = (array) => {
     if (array.length < 2) return array;
 
-    const compare = (x, y) => {
-        if (x < y) return - 1;
-        return 1;
-    }
+    const randomIdx = Math.floor(Math.random * array.length - 1);
+    const pivot = array.splice(randomIdx, 1);
+    // const pivot = array.shift();
 
-    const pivot = array.shift();
-
-    let left = array.filter((el) => compare(el, pivot) === -1);
-    let right = array.filter((el) => compare(el, pivot) != -1);
+    let left = array.filter((el) => el < pivot);
+    let right = array.filter((el) => el > pivot);
 
     left = quickSort(left);
     right = quickSort(right);
