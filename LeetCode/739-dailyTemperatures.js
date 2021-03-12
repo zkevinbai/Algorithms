@@ -5,23 +5,25 @@ For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76, 73]
 
 Note: The length of temperatures will be in the range [1, 30000]. Each temperature will be an integer in the range [30, 100].
 */
-const dailyTemperatures_stack = function (temperature) {
-    const result = Array(temperature.length).fill(0); // prefill results
+const dailyTemperatures_stack = function (temperatures) {
+    const res = Array(temperatures.length).fill(0); // prefill results
     const stack = [];
 
-    for (let i = 0; i < temperature.length; i++) {
+    for (let i = 0; i < temperatures.length; i++) { // stack exists, current temperature > top of stack temperature
         let top = stack[stack.length - 1];
 
-        while (stack.length && temperature[i] > temperature[top]) { // stack exists, current temperature > top of stack temperature
+        while (stack.length && temperatures[i] > temperatures[top]) {
             const topIndex = stack.pop();
 
-            result[topIndex] = i - topIndex; // update topIndex day's days until hot
+            res[topIndex] = i - topIndex;  // update topIndex day's days until hot
 
             top = stack[stack.length - 1]; // reset top
         }
+
         stack.push(i);
     }
-    return result;
+
+    return res;
 };
 
 // 2 pointer O(n), 3x slower than n^2
