@@ -18,8 +18,28 @@ Constraints:
 -104 <= nums[i] <= 104
 */
 
+const quickSort = (array) => {
+    if (array.length < 2) return array;
+
+    const compare = (x, y) => {
+        if (x < y) return - 1;
+        return 1;
+    }
+
+    const pivot = array.shift();
+
+    let left = array.filter((el) => compare(el, pivot) === -1);
+    let right = array.filter((el) => compare(el, pivot) != -1);
+
+    left = quickSort(left);
+    right = quickSort(right);
+
+    return left.concat([pivot]).concat(right);
+}
+
 const findKthLargest = function (nums, k) {
-    nums = nums.sort((a, b) => a - b);
+    // nums = nums.sort((a, b) => a - b);
+    nums = quickSort((a, b) => a - b);
 
     return nums[nums.length - k];
 };
