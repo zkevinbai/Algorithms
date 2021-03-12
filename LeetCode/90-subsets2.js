@@ -1,12 +1,14 @@
 /*
-Given an integer array nums of unique elements, return all possible subsets (the power set).
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
 
 The solution set must not contain duplicate subsets. Return the solution in any order.
 
+
+
 Example 1:
 
-Input: nums = [1,2,3]
-Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
 Example 2:
 
 Input: nums = [0]
@@ -17,13 +19,13 @@ Constraints:
 
 1 <= nums.length <= 10
 -10 <= nums[i] <= 10
-All the numbers of nums are unique.
 */
 
-// iterative
-
-const subsets = (array) => {
+const uniqueSubsets = (array) => {
+    array = array.sort();  // need to sort, repeating numbers = order matters;
     let res = [[]];
+
+    let uniqueSubsets = {}
 
     for (let i = 0; i < array.length; i++) {
         number = array[i];
@@ -31,7 +33,11 @@ const subsets = (array) => {
 
         for (let j = 0; j < res.length; j++) {
             const newSubset = res[j].concat(number);
-            newArr.push(newSubset);
+
+            if (!uniqueSubsets[newSubset]) {
+                uniqueSubsets[newSubset] = true;
+                newArr.push(newSubset);
+            }
         }
 
         res = res.concat(newArr);
