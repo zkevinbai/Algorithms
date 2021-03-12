@@ -18,25 +18,28 @@ Constraints:
 -104 <= nums[i] <= 104
 */
 
-const quickSort = (array) => {
+const quicksort = (array) => {
     if (array.length < 2) return array;
 
-    const randomIdx = Math.floor(Math.random * array.length - 1);
-    const pivot = array.splice(randomIdx, 1);
-    // const pivot = array.shift();
+    const randomIdx = Math.floor(Math.random() * array.length - 1);
+    const pivot = array[randomIdx];
+    // const pivot = array.splice(randomIdx, 1);
 
+    // const pivot = array.shift(); this shouldn't matter;
+
+    // cool thing about filter is that i never touch el = pivot;
     let left = array.filter((el) => el < pivot);
     let right = array.filter((el) => el > pivot);
 
-    left = quickSort(left);
-    right = quickSort(right);
+    left = quicksort(left);
+    right = quicksort(right);
 
-    return left.concat([pivot]).concat(right);
+    return left.concat(pivot, right);
 }
 
 const findKthLargest = function (nums, k) {
     // nums = nums.sort((a, b) => a - b);
-    nums = quickSort((a, b) => a - b);
+    nums = quicksort((a, b) => a - b);
 
     return nums[nums.length - k];
 };
