@@ -28,3 +28,18 @@ Constraints:
 0 <= ki < people.length
 */
 
+const reconstructQueue = (people) => {
+    const sortedPeople = people.sort((a, b) => {
+        return a[0] === b[0] ? a[1] - b[1] : a[0] - b[0]
+    });
+
+    console.log(sortedPeople);
+
+    const queue = [];
+
+    sortedPeople.forEach((person) => {
+        queue.splice(person[1], 0, person);
+    });
+
+    return queue;
+};
