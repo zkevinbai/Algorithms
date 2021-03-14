@@ -87,58 +87,73 @@ input array of strings, strings are commands ex 'GLR'
 output, array of strings, YES or NO
 */
 
-const isCommandCircle = (command) => {
+let isCommandCircle = (command) => {
+    const G = 'G', R = 'R', L = 'L';
+    console.log('hello')
+    if (command.length < 2 && (command === L || command === R)) return true;
+
     const commandArray = command.split('');
 
-    const gCount = 0;
+    let gCount = 0;
     commandArray.forEach((order) => {
-        if (order === "G") gCount += 1;
+        if (order === G) gCount += 1;
     })
-    if (gCount < 1) return false;
 
-    const board = Array(gCount * 2).fill(Array(gCount*2));
-
-    let column = gCount;
-    let row = gCount;
+    let x = gCount*4, y = gCount*4;
     let orientation = 1; // 1 up 2 right, 3 down, 4 left
     //  1
     //4 + 2
     //  3
     const botPositions = {};
 
-    commandArray.forEach((order) => {
-        const botPosition = board[column][row];
-        if (botPositions[botPosition]) return false;
+    let commandSequence = [];    
+    let times = commandArray.length * 4;
+    while (times > 0) {
+        commandSequence = commandSequence.concat(commandArray);
+        times -= 1;
+    }
 
-        if (order === "G") {
-            if (orientation === 1) {
-                y -= 1;
-            } else if (orientation === 2) {
-                x += 1;
-            } else if (orientation === 3) {
-                y += 1;
-            } else if (orientation === 4) {
-                x -= 1;
-            }
-        } else if (order === "R") {
-            if (orientation === 4) {
-                orientation = 1;
+    for (let i = 0; i < commandSequence.length; i++) {
+            const botPosition = x + '' + y;
+            const order = commandSequence[i];
+            if (botPositions[botPosition]) {
+                console.log(botPositions)
+                return true;
             } else {
-                orientation += 1;
-            }
-        } else if (order === "L") {
-            if (orientation === 1) {
-                orientation = 4;
-            } else {
-                orientation -= 1;
-            }
-        }
+                if (order === G) {
+                    if (orientation === 1) {
+                        y -= 1;
+                    } else if (orientation === 2) {
+                        x += 1;
+                    } else if (orientation === 3) {
+                        y += 1;
+                    } else if (orientation === 4) {
+                        x -= 1;
+                    }
+                } else if (order === R) {
+                    if (orientation === 4) {
+                        orientation = 1;
+                    } else {
+                        orientation += 1;
+                    }
+                } else if (order === L) {
+                    if (orientation === 1) {
+                        orientation = 4;
+                    } else {
+                        orientation -= 1;
+                    }
+                }
 
-        botPositions[botPosition] = true;
-    })
+                botPositions[botPosition] = true;
+            }
+    }
 
-    return true;
+    return false;
 }
+
+let demo = 'GGGGGGGR';
+
+console.log(isCommandCircle(demo));
 
 function doesCircleExist(commands) {
     const YES = 'YES';
