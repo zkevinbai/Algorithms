@@ -90,7 +90,7 @@ output, array of strings, YES or NO
     //4 + 2
     //  3
 
-let isCommandCircle = (command) => {
+const isCommandCircle = (command) => {
     const G = 'G', R = 'R', L = 'L';
     if (command.length < 2 && (command === L || command === R)) return true;
 
@@ -110,7 +110,8 @@ let isCommandCircle = (command) => {
     let botPosition = '0,0';
     botPositions[botPosition] = true;
     
-    for (let i = 0; i < commandSequence.length; i++) {        
+    for (let i = 0; i < commandSequence.length; i++) {  
+        debugger;      
         const order = commandSequence[i];
         if (order === G) {
             if (orientation === 1) y += 1;
@@ -119,10 +120,10 @@ let isCommandCircle = (command) => {
             if (orientation === 4) x += 1;
 
             botPosition = x + ',' + y; // ignore rotations, only check moves
-            // console.log(botPosition);
+            console.log(botPosition);
 
             if (botPositions[botPosition]) {
-                // console.log(botPositions, botPosition)
+                console.log(botPositions, botPosition)
                 return true;
             } else {
                 botPositions[botPosition] = true;
