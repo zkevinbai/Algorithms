@@ -30,7 +30,7 @@ const inOrderBST = (root) => {
 
     const recursiveInOrder = (node) => {
         if (node.left) recursiveInOrder(node.left);
-        nums.push(node.val);
+        visit(node);
         if (node.right) recursiveInOrder(node.right);
     };
 
