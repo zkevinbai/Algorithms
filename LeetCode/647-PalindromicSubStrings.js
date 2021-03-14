@@ -22,22 +22,36 @@ Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 The input string length won't exceed 1000.
 */
 
-const isPalindrome = (string) => {
+const checkPalindrome = (string) => {
+    if (string.length < 2) return true;
+
     const isEven = string.length % 2 === 0;
     let firstHalf = string.slice(0, string.length / 2);
     let secondHalf;
 
     if (isEven) {
-        secondHalf = string.slice(string.length / 2, string.length - 1);
+        secondHalf = string.slice(string.length / 2, string.length);
     } else {
-        secondHalf = string.slice(string.length / 2 + 1, string.length - 1);
+        secondHalf = string.slice(string.length / 2 + 1, string.length);
     }
 
-    return firstHalf === secondHalf;
+    return firstHalf === secondHalf.split('').reverse().join('');
 }
 
 const countSubstrings = (string) => {
-    const count = 0;
+    let count = 0;
 
-    for
+    for (let i = 0; i < string.length; i++) {
+        for (let j = i + 1; j < string.length + 1; j++) {
+            const potentialPalindrome = string.slice(i, j);
+            const isPalindrome = checkPalindrome(potentialPalindrome);
+            // console.log(potentialPalindrome, isPalindrome);
+
+            if (isPalindrome) {
+                count += 1;
+            }
+        }
+    }
+
+    return count;
 };
