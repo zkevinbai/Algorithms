@@ -19,7 +19,7 @@ The number of nodes in the tree is n.
 Follow up: If the BST is modified often (i.e., we can do insert and delete operations) and you need to find the kth smallest frequently, how would you optimize?
 */
 
-// Solution - traverse BST, covert to array, use indexing to find kth
+// Solution - inorder traverse BST, covert to array, use indexing to find kth
 
 const inOrderBST = (root) => {
     const nums = [];
