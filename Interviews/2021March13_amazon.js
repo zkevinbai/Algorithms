@@ -50,8 +50,6 @@ find the fewest elements whose sum is greater than the remaining elements
  * The function accepts INTEGER_ARRAY arr as parameter.
  */
 
-const sum = (array, start, end)
-
 function minimalHeaviestSetA(array) {
     array = array.sort((a, b) => b - a); // biggest to smallest;
 
@@ -62,7 +60,7 @@ function minimalHeaviestSetA(array) {
     let answerSum = 0;
     let i = 0;
 
-    while (remainingSum > answerArraySum) {
+    while (remainingSum >= answerArraySum) {
         const number = array[i];
         answerArray.push(number);
         answerSum += number;
@@ -73,3 +71,40 @@ function minimalHeaviestSetA(array) {
     return answerArray;
 }
 
+/*
+2 Robot Rodeo
+
+robot inputs
+G move forward
+L turn left
+R turn right
+
+Robot will continue insturctions in infinite loop
+
+Determine if the robot moves in an infintie circle
+
+input array of strings, strings are commands ex 'GLR'
+output, array of strings, YES or NO
+*/
+
+function doesCircleExist(commands) {
+    const YES = 'YES';
+    const NO = 'NO';
+
+    const answerArray = [];
+
+    const isCommandCircle = (command) => {
+
+    }
+
+    for (let i = 0; i < commands.length; i++) {
+        const command = commands[i];
+        if (isCommandCircle(command)) {
+            answerArray.push(YES);
+        } else {
+            answerArray.push(NO)
+        }
+    }
+
+    return answerArray;
+}
