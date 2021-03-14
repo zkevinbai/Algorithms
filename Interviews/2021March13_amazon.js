@@ -118,7 +118,7 @@ let isCommandCircle = (command) => {
             if (orientation === 3) y -= 1;
             if (orientation === 4) x += 1;
 
-            botPosition = x + ',' + y;
+            botPosition = x + ',' + y; // ignore rotations, only check moves
             // console.log(botPosition);
 
             if (botPositions[botPosition]) {
