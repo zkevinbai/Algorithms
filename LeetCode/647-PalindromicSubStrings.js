@@ -40,18 +40,45 @@ const checkPalindrome = (string) => {
 
 const countSubstrings = (string) => {
     let count = 0;
+    let slow = 0;
+    let fast = 1;
 
-    for (let i = 0; i < string.length; i++) {
-        for (let j = i + 1; j < string.length + 1; j++) {
-            const potentialPalindrome = string.slice(i, j);
-            const isPalindrome = checkPalindrome(potentialPalindrome);
-            // console.log(potentialPalindrome, isPalindrome);
+    while (slow < string.length) {
+        const potentialPalindrome = string.slice(slow, fast);
+        const isPalindrome = checkPalindrome(potentialPalindrome);
 
-            if (isPalindrome) {
-                count += 1;
-            }
+        // console.log(slow, fast, potentialPalindrome, isPalindrome);
+
+        if (isPalindrome) {
+            count += 1;
+        }
+
+        if (fast >= string.length) {
+            console.log('hello')
+            slow += 1;
+            fast = slow + 1;
+        } else {
+            fast += 1;
         }
     }
 
     return count;
 };
+
+// const countSubstrings = (string) => {
+//     let count = 0;
+
+//     for (let i = 0; i < string.length; i++) {
+//         for (let j = i + 1; j < string.length + 1; j++) {
+//             const potentialPalindrome = string.slice(i, j);
+//             const isPalindrome = checkPalindrome(potentialPalindrome);
+//             // console.log(potentialPalindrome, isPalindrome);
+
+//             if (isPalindrome) {
+//                 count += 1;
+//             }
+//         }
+//     }
+
+//     return count;
+// };
