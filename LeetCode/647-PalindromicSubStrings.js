@@ -21,49 +21,62 @@ Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 
 The input string length won't exceed 1000.
 */
+const expandCheck = (string, left, right) => {
+    let palindromeCount = 0;
 
-const checkPalindrome = (string) => {
-    if (string.length < 2) return true;
+    // console.log(left, right)
 
-    const isEven = string.length % 2 === 0;
-    let firstHalf = string.slice(0, string.length / 2);
-    let secondHalf;
+    while (left >= 0 && right <= string.length && (string[left] === string[right])) {
+        palindromeCount += 1;
 
-    if (isEven) {
-        secondHalf = string.slice(string.length / 2, string.length);
-    } else {
-        secondHalf = string.slice(string.length / 2 + 1, string.length);
+        // console.log(string.slice(left, right+1))
+
+        left -= 1;
+        right += 1;
     }
 
-    return firstHalf === secondHalf.split('').reverse().join('');
-}
+    // console.log('===')
+
+    return palindromeCount
+};
 
 const countSubstrings = (string) => {
     let count = 0;
-    let slow = 0;
-    let fast = 1;
 
-    while (slow < string.length) {
-        const potentialPalindrome = string.slice(slow, fast);
-        const isPalindrome = checkPalindrome(potentialPalindrome);
-
-        // console.log(slow, fast, potentialPalindrome, isPalindrome);
-
-        if (isPalindrome) {
-            count += 1;
-        }
-
-        if (fast >= string.length) {
-            console.log('hello')
-            slow += 1;
-            fast = slow + 1;
-        } else {
-            fast += 1;
-        }
+    for (let i = 0; i < string.length; i++) {
+        count += expandCheck(string, i, i); // odd, [a, b, a] (left = a, right = a)
+        count += expandCheck(string, i, i + 1); // even, [a, b, a] (left = a, right = b)
     }
 
     return count;
 };
+
+// const countSubstringsTwoPointer = (string) => {
+//     let count = 0;
+//     let slow = 0;
+//     let fast = 1;
+
+//     while (slow < string.length) {
+//         const potentialPalindrome = string.slice(slow, fast);
+//         const isPalindrome = checkPalindrome(potentialPalindrome);
+
+//         // console.log(slow, fast, potentialPalindrome, isPalindrome);
+
+//         if (isPalindrome) {
+//             count += 1;
+//         }
+
+//         if (fast >= string.length) {
+//             console.log('hello')
+//             slow += 1;
+//             fast = slow + 1;
+//         } else {
+//             fast += 1;
+//         }
+//     }
+
+//     return count;
+// };
 
 // const countSubstrings = (string) => {
 //     let count = 0;
