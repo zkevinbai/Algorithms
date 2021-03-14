@@ -96,10 +96,6 @@ let isCommandCircle = (command) => {
 
     const commandArray = command.split('');
 
-    let x = 0, y = 0;
-    let orientation = 1; // 1 up 2 right, 3 down, 4 left
-    const botPositions = {};
-
     let commandSequence = [];    
     let times = 4; // minimum number of cycles to find a circle
     while (times > 0) {
@@ -107,19 +103,30 @@ let isCommandCircle = (command) => {
         times -= 1;
     }
 
-    for (let i = 0; i < commandSequence.length; i++) {
-        const botPosition = x + '' + y;
-        if (botPositions[botPosition]) {
-            console.log(botPositions)
-            return true;
-        }
-        
+    let x = 0, y = 0;
+    let orientation = 1; // 1 up 2 right, 3 down, 4 left
+    
+    const botPositions = {};
+    let botPosition = '0,0';
+    botPositions[botPosition] = true;
+    
+    for (let i = 0; i < commandSequence.length; i++) {        
         const order = commandSequence[i];
         if (order === G) {
             if (orientation === 1) y += 1;
             if (orientation === 2) x -= 1;
             if (orientation === 3) y -= 1;
             if (orientation === 4) x += 1;
+
+            botPosition = x + ',' + y;
+            // console.log(botPosition);
+
+            if (botPositions[botPosition]) {
+                // console.log(botPositions, botPosition)
+                return true;
+            } else {
+                botPositions[botPosition] = true;
+            }
         } else if (order === R) {
             if (orientation === 4) orientation = 1;
             orientation += 1;
@@ -127,14 +134,13 @@ let isCommandCircle = (command) => {
             if (orientation === 1) orientation = 4;
             orientation -= 1;
         }
-
-        botPositions[botPosition] = true;
     }
 
     return false;
 }
 
-let demo = 'GGGGGGGR';
+let demo = 'GGGGGGR';
+// let demo = 'GRRRRR';
 
 console.log(isCommandCircle(demo));
 
