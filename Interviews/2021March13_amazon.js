@@ -116,10 +116,10 @@ let isCommandCircle = (command) => {
         
         const order = commandSequence[i];
         if (order === G) {
-            if (orientation === 1) y -= 1;
-            if (orientation === 2) x += 1;
-            if (orientation === 3) y += 1;
-            if (orientation === 4) x -= 1;
+            if (orientation === 1) y += 1;
+            if (orientation === 2) x -= 1;
+            if (orientation === 3) y -= 1;
+            if (orientation === 4) x += 1;
         } else if (order === R) {
             if (orientation === 4) orientation = 1;
             orientation += 1;
