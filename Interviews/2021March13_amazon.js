@@ -89,7 +89,6 @@ output, array of strings, YES or NO
 
 let isCommandCircle = (command) => {
     const G = 'G', R = 'R', L = 'L';
-    console.log('hello')
     if (command.length < 2 && (command === L || command === R)) return true;
 
     const commandArray = command.split('');
