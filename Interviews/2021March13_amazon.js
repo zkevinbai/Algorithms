@@ -87,15 +87,64 @@ input array of strings, strings are commands ex 'GLR'
 output, array of strings, YES or NO
 */
 
+const isCommandCircle = (command) => {
+    const commandArray = command.split('');
+
+    const gCount = 0;
+    commandArray.forEach((order) => {
+        if (order === "G") gCount += 1;
+    })
+    if (gCount < 1) return false;
+
+    const board = Array(gCount * 2).fill(Array(gCount*2));
+
+    let column = gCount;
+    let row = gCount;
+    let orientation = 1; // 1 up 2 right, 3 down, 4 left
+    //  1
+    //4 + 2
+    //  3
+    const botPositions = {};
+
+    commandArray.forEach((order) => {
+        const botPosition = board[column][row];
+        if (botPositions[botPosition]) return false;
+
+        if (order === "G") {
+            if (orientation === 1) {
+                y -= 1;
+            } else if (orientation === 2) {
+                x += 1;
+            } else if (orientation === 3) {
+                y += 1;
+            } else if (orientation === 4) {
+                x -= 1;
+            }
+        } else if (order === "R") {
+            if (orientation === 4) {
+                orientation = 1;
+            } else {
+                orientation += 1;
+            }
+        } else if (order === "L") {
+            if (orientation === 1) {
+                orientation = 4;
+            } else {
+                orientation -= 1;
+            }
+        }
+
+        botPositions[botPosition] = true;
+    })
+
+    return true;
+}
+
 function doesCircleExist(commands) {
     const YES = 'YES';
     const NO = 'NO';
 
     const answerArray = [];
-
-    const isCommandCircle = (command) => {
-
-    }
 
     for (let i = 0; i < commands.length; i++) {
         const command = commands[i];
