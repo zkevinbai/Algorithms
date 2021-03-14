@@ -93,12 +93,7 @@ let isCommandCircle = (command) => {
 
     const commandArray = command.split('');
 
-    let gCount = 0;
-    commandArray.forEach((order) => {
-        if (order === G) gCount += 1;
-    })
-
-    let x = gCount*4, y = gCount*4;
+    let x = 0, y = 0;
     let orientation = 1; // 1 up 2 right, 3 down, 4 left
     //  1
     //4 + 2
@@ -113,38 +108,38 @@ let isCommandCircle = (command) => {
     }
 
     for (let i = 0; i < commandSequence.length; i++) {
-            const botPosition = x + '' + y;
-            const order = commandSequence[i];
-            if (botPositions[botPosition]) {
-                console.log(botPositions)
-                return true;
-            } else {
-                if (order === G) {
-                    if (orientation === 1) {
-                        y -= 1;
-                    } else if (orientation === 2) {
-                        x += 1;
-                    } else if (orientation === 3) {
-                        y += 1;
-                    } else if (orientation === 4) {
-                        x -= 1;
-                    }
-                } else if (order === R) {
-                    if (orientation === 4) {
-                        orientation = 1;
-                    } else {
-                        orientation += 1;
-                    }
-                } else if (order === L) {
-                    if (orientation === 1) {
-                        orientation = 4;
-                    } else {
-                        orientation -= 1;
-                    }
-                }
-
-                botPositions[botPosition] = true;
+        const botPosition = x + '' + y;
+        const order = commandSequence[i];
+        if (botPositions[botPosition]) {
+            console.log(botPositions)
+            return true;
+        }
+        
+        if (order === G) {
+            if (orientation === 1) {
+                y -= 1;
+            } else if (orientation === 2) {
+                x += 1;
+            } else if (orientation === 3) {
+                y += 1;
+            } else if (orientation === 4) {
+                x -= 1;
             }
+        } else if (order === R) {
+            if (orientation === 4) {
+                orientation = 1;
+            } else {
+                orientation += 1;
+            }
+        } else if (order === L) {
+            if (orientation === 1) {
+                orientation = 4;
+            } else {
+                orientation -= 1;
+            }
+        }
+
+        botPositions[botPosition] = true;
     }
 
     return false;
