@@ -86,6 +86,9 @@ Determine if the robot moves in an infintie circle
 input array of strings, strings are commands ex 'GLR'
 output, array of strings, YES or NO
 */
+    //  1
+    //4 + 2
+    //  3
 
 let isCommandCircle = (command) => {
     const G = 'G', R = 'R', L = 'L';
@@ -95,13 +98,10 @@ let isCommandCircle = (command) => {
 
     let x = 0, y = 0;
     let orientation = 1; // 1 up 2 right, 3 down, 4 left
-    //  1
-    //4 + 2
-    //  3
     const botPositions = {};
 
     let commandSequence = [];    
-    let times = commandArray.length * 4;
+    let times = 4; // minimum number of cycles to find a circle
     while (times > 0) {
         commandSequence = commandSequence.concat(commandArray);
         times -= 1;
@@ -109,34 +109,23 @@ let isCommandCircle = (command) => {
 
     for (let i = 0; i < commandSequence.length; i++) {
         const botPosition = x + '' + y;
-        const order = commandSequence[i];
         if (botPositions[botPosition]) {
             console.log(botPositions)
             return true;
         }
         
+        const order = commandSequence[i];
         if (order === G) {
-            if (orientation === 1) {
-                y -= 1;
-            } else if (orientation === 2) {
-                x += 1;
-            } else if (orientation === 3) {
-                y += 1;
-            } else if (orientation === 4) {
-                x -= 1;
-            }
+            if (orientation === 1) y -= 1;
+            if (orientation === 2) x += 1;
+            if (orientation === 3) y += 1;
+            if (orientation === 4) x -= 1;
         } else if (order === R) {
-            if (orientation === 4) {
-                orientation = 1;
-            } else {
-                orientation += 1;
-            }
+            if (orientation === 4) orientation = 1;
+            orientation += 1;
         } else if (order === L) {
-            if (orientation === 1) {
-                orientation = 4;
-            } else {
-                orientation -= 1;
-            }
+            if (orientation === 1) orientation = 4;
+            orientation -= 1;
         }
 
         botPositions[botPosition] = true;
