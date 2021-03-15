@@ -48,7 +48,7 @@ rightArray = 24 12 4 1
 answerArray = 24 12 8 6
 */
 
-
+// o(n)
 const productExceptSelf = (nums) => {
 
     // left
@@ -73,12 +73,7 @@ const productExceptSelf = (nums) => {
         runningProduct *= nums[i];
     }
 
-    // const obj = {
-    //     leftArray,
-    //     rightArray
-    // };
-    // console.log(obj);
-
+    // answer
     const answer = Array(nums.length);
     for (let i = 0; i < nums.length; i++) {
         answer[i] = leftArray[i] * rightArray[i];
