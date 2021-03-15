@@ -53,9 +53,7 @@ const productExceptSelf = (nums) => {
 
     // left
     let runningProduct = 1;
-
     const leftArray = Array(nums.length);
-    leftArray[0] = runningProduct;
 
     for (let i = 0; i < nums.length; i++) {
         leftArray[i] = runningProduct // don't use the current number
@@ -64,9 +62,7 @@ const productExceptSelf = (nums) => {
 
     // right
     runningProduct = 1;
-
     const rightArray = Array(nums.length);
-    rightArray[nums.length - 1] = runningProduct;
 
     for (let i = nums.length - 1; i >= 0; i--) {
         rightArray[i] = runningProduct // don't use the current number
@@ -75,6 +71,7 @@ const productExceptSelf = (nums) => {
 
     // answer
     const answer = Array(nums.length);
+
     for (let i = 0; i < nums.length; i++) {
         answer[i] = leftArray[i] * rightArray[i];
     }
