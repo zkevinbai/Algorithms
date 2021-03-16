@@ -140,7 +140,7 @@ const isCommandCircle = (command) => {
     return false;
 }
 
-let demo = 'GGGGGGR';
+let demo = 'GGRRLRLGGGGLLRGLRRGGR';
 // let demo = 'GRRRRR';
 
 console.log(isCommandCircle(demo));
