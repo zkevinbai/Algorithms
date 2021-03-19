@@ -68,22 +68,30 @@ obj.r = right
 obj.l = left
 */ 
 
-function kthSmallestInBST(t, k) {
-    let values = [];
 
-    let queue = [t];
+function solution(T) {
+    let count = 0;
+    if (!T.x) return count;
+
+    let queue = [[T, 0]];
 
     while (queue.length) {
         let shift = queue.shift();
-        values.push(shift.value);
+        let currentTree = shift[0];
+        let largestVisible = shift[1];
 
-        if (shift.left) {
-            queue.push(shift.left)
+        if (currentTree.x >= largestVisible) {
+            count += 1;
+            largestVisible = currentTree.x;
         }
-        if (shift.right) {
-            queue.push(shift.right)
+
+        if (currentTree.l !== null) {
+            queue.push([currentTree.l, largestVisible]);
+        }
+        if (currentTree.r !== null) {
+            queue.push([currentTree.r, largestVisible]);
         }
     }
 
-    return values.sort((a, b) => a - b)[k - 1];
+    return count;
 }
