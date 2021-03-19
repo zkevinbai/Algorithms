@@ -68,6 +68,15 @@ obj.r = right
 obj.l = left
 */ 
 
+/*
+
+stragegy, BFS the tree with a stack and go layer by layer
+
+keep track of the largest visible node at each level / branch 
+by passing that information along the stack
+
+*/
+
 
 function solution(T) {
     let count = 0;
