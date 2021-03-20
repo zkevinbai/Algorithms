@@ -39,9 +39,10 @@ Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
 Output: [[7,4,1],[8,5,2],[9,6,3]]
           7       8       9    
 
-go backwards 
-and then shift and push n times, where n is the length of the subArray
-
+go backwards to get the subArray
+then go forwards with the subArray, 
+shifting and pushing into the index you are on
+shift n times where n is the length of the subArray
 
 Your input
 [[1,2,3],[4,5,6],[7,8,9]]
