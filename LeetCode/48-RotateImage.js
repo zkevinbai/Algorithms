@@ -29,3 +29,73 @@ matrix[i].length == n
 1 <= n <= 20
 -1000 <= matrix[i][j] <= 1000
 */
+
+/*
+solution
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+                    3        2        1
+
+Output: [[7,4,1],[8,5,2],[9,6,3]]
+          7       8       9    
+
+go backwards 
+and then shift and push n times, where n is the length of the subArray
+
+
+Your input
+[[1,2,3],[4,5,6],[7,8,9]]
+
+7 [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 8, 9 ] ]
+8 [ [ 1, 2, 3, 7 ], [ 4, 5, 6 ], [ 9 ] ]
+9 [ [ 1, 2, 3, 7 ], [ 4, 5, 6, 8 ], [] ]
+4 [ [ 1, 2, 3, 7 ], [ 5, 6, 8 ], [ 9 ] ]
+5 [ [ 1, 2, 3, 7, 4 ], [ 6, 8 ], [ 9 ] ]
+6 [ [ 1, 2, 3, 7, 4 ], [ 8, 5 ], [ 9 ] ]
+1 [ [ 2, 3, 7, 4 ], [ 8, 5 ], [ 9, 6 ] ]
+2 [ [ 3, 7, 4, 1 ], [ 8, 5 ], [ 9, 6 ] ]
+3 [ [ 7, 4, 1 ], [ 8, 5, 2 ], [ 9, 6 ] ]
+
+Output
+[[7,4,1],[8,5,2],[9,6,3]]
+*/
+const rotate = function (matrix) {
+
+    const subArrayLength = matrix[0].length;
+
+    for (let i = matrix.length - 1; i >= 0; i--) {
+        let j = 0;
+
+        while (j < subArrayLength) {
+            let subArrNum = matrix[i].shift();
+            // console.log(subArrayNum, matrix)
+            matrix[j].push(subArrNum);
+
+            j += 1;
+        }
+    }
+
+    return matrix;
+};
+
+// going forwards, less intuitive
+const rotateTraverseForwards = function (matrix) {
+
+    const subArrayLength = matrix[0].length;
+
+    for (let i = 0; i < matrix.length - 1; i++) {
+        // current matrix
+
+        let j = 0;
+
+        while (j < subArrayLength) {
+            let subArrNum = matrix[i].pop();
+
+            matrix[j].unshift(subArrNum);
+
+            j += 1;
+        }
+    }
+
+    return matrix;
+};
