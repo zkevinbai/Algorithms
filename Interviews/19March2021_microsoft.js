@@ -77,7 +77,6 @@ by passing that information along the stack
 
 */
 
-
 function solution(T) {
     let count = 0;
     if (!T.x) return count;
