@@ -56,7 +56,7 @@ DFS to get all possible paths
 increment path count each time there is a solution;
 */
 const uniquePaths = (m, n) => {
-    let stack = [[0, 0]];
+    let stack = [[1, 1]];
 
     let paths = 0;
 
@@ -67,16 +67,16 @@ const uniquePaths = (m, n) => {
 
         let newPosition;
 
-        if (x === n - 1 && y === m - 1) {
+        if (x === n && y === m) {
             paths += 1;
         } else {
 
-            if (x < n - 1) {
+            if (x < n) {
                 newPosition = [x + 1, y];
                 stack.unshift(newPosition);
             }
 
-            if (y < m - 1) {
+            if (y < m) {
                 newPosition = [x, y + 1];
                 stack.unshift(newPosition);
             }
