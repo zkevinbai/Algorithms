@@ -46,6 +46,34 @@ It's guaranteed that the answer will be less than or equal to 2 * 109.
 */
 
 /*
+dynamic programming solution
+
+build the board one square at a time
+moving left to right, top from down
+memoize the potential unique paths of each square 
+use addition to get the total uniques 
+
+*/
+
+const uniquePaths = (m, n) => {
+    const board = Array(m).fill(Array(n).fill(0));
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (i === 0 || j === 0) {
+                board[i][j] = 1;
+            } else {
+                const top = board[i][j - 1];
+                const left = board[i - 1][j];
+                board[i][j] = top + left;
+            }
+        }
+    }
+
+    return board[m -1][n - 1];
+}
+
+/*
 solution
 m = height of box
 n = width of box
@@ -54,6 +82,8 @@ starting position is always (0, 0)
 DFS to get all possible paths
 
 increment path count each time there is a solution;
+
+too slow
 */
 const uniquePaths = (m, n) => {
     let stack = [[1, 1]];
