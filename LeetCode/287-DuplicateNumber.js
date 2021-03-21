@@ -69,6 +69,21 @@ var findDuplicate = function (nums) {
     }
 };
 
+// constant storage
+var findDuplicate = function (nums) {
+    const dupArr = Array(nums).fill(1);
+
+    for (let i = 0; i < nums.length; i++) {
+        const num = nums[i];
+
+        if (dupArr[num - 1] < 0) {
+            return num;
+        } else {
+            dupArr[num - 1] = -1;
+        }
+    }
+};
+
 /*
 solution (if the numbers were a range from 1 to n)
 sum all numbers up to n,
