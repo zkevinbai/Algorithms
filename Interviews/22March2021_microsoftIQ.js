@@ -12,19 +12,19 @@ How many BALLOONS does the word contain
 /*
 solution,
 
-sort the array
-count the B A L O N and S
-
-balloon is 6 letters long
-each balloon 
+balloon is 7 letters long
  1 b
  1 a
  2 l
  2 0
  1 n
 
- make an inventory of letters;
-*/
+count the B A L O N
+divide by baloon usage
+
+return the lowest number 
+(intuition, you can have 100 ls, but if you only have one b, your count is 1)
+ */
 
 function solution(S) {
     const letters = {};
