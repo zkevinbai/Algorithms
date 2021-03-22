@@ -65,19 +65,30 @@ steps
     2 use data
 
 */
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const USERS_URL = 'https://example.com/api/users';
 
 export default function Table() {
+    const [loadingState, setLoadingState] = useState(false);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [userData, setUserData] = useState({});
 
-    // const [loading, setLoading] = useState(false);
+    const changePage = (target) => {
+        if (target === 0 || target === 10) {
+            setCurrentPage(target);
+        } else if (target < 0) {
+            setCurrentPage(0);
+        } else if (target > 10) {
+            setCurrentPage(10);
+        } else {
+            setCurrentPage(target);
+        }
+    }
 
     const getData = () => {
-        // setLoading(true);
-        fetch(USERS_URL + '?page=0')
+        setLoadingState(true);
+        fetch(USERS_URL + '?page=' + currentPage)
             .then(
                 function (response) {
                     if (response.status !== 200) {
@@ -88,7 +99,9 @@ export default function Table() {
 
                     // Examine the text in the response
                     response.json().then(function (data) {
-                        console.log(data);
+                        setLoadingState(false);
+                        setUserData(data);
+                        console.log('dt', data)
                     });
                 }
             )
@@ -97,8 +110,10 @@ export default function Table() {
             });
     }
 
-    getData();
-    // console.log(data);
+    useEffect(() => {
+        getData(0);
+        console.log('data', userData)
+    }, []);
 
     return (
         <div>
@@ -112,15 +127,14 @@ export default function Table() {
                 </thead>
                 <tbody>
                     //  render elements in tbody
-        </tbody>
+                </tbody>
             </table>
             <section className="pagination">
-                <button disabled={false} className="first-page-btn">first</button>
-                <button disabled={false} className="previous-page-btn">previous</button>
-                <button disabled={false} className="next-page-btn">next</button>
-                <button disabled={false} className="last-page-btn">last</button>
+                <button onClick={changePage(0)} disabled={loadingState} className="first-page-btn">first</button>
+                <button onClick={changePage(currentPage - 1)} disabled={loadingState} className="previous-page-btn">previous</button>
+                <button onClick={changePage(currentPage + 1)} disabled={loadingState} className="next-page-btn">next</button>
+                <button onClick={changePage(10)} disabled={loadingState} className="last-page-btn">last</button>
             </section>
         </div>
     );
 };
-
