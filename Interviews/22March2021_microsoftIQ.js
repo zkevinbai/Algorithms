@@ -111,18 +111,8 @@ export default function Table() {
             });
     }
 
-    const renderUsers = () => {
-
-
-        return (
-            {
-
-            }
-        );
-    };
-
     useEffect(() => {
-        getData(0);
+        getData();
     }, []);
 
     console.log('u', userData)
@@ -137,7 +127,6 @@ export default function Table() {
                     </tr>
                 </thead>
                 <tbody>
-                    //  render elements in tbody
                     {
                         userData.map((user) => {
                             return (
