@@ -32,19 +32,20 @@ figure out the level with extra storage
 */
 
 const levelOrder = function (root) {
-    if (!root.val) return [[]];
-
     let levels = [];
+    if (!root) return levels;
+
     let queue = [[root, 0]];
 
     while (queue.length) {
-        const top = queue.pop();
+        const top = queue.shift();
         const node = top[0];
         const level = top[1];
 
         if (node.left) {
             queue.push([node.left, level + 1])
         };
+
         if (node.right) {
             queue.push([node.right, level + 1])
         };
