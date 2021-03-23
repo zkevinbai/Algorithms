@@ -72,7 +72,7 @@ const USERS_URL = 'https://example.com/api/users';
 export default function Table() {
     const [loadingState, setLoadingState] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState([]);
 
     const changePage = (target) => {
         if (target === 0 || target === 10) {
@@ -84,6 +84,8 @@ export default function Table() {
         } else {
             setCurrentPage(target);
         }
+
+        getData();
     }
 
     const getData = () => {
@@ -100,8 +102,7 @@ export default function Table() {
                     // Examine the text in the response
                     response.json().then(function (data) {
                         setLoadingState(false);
-                        setUserData(data);
-                        console.log('dt', data)
+                        setUserData(data.results);
                     });
                 }
             )
@@ -110,11 +111,21 @@ export default function Table() {
             });
     }
 
+    const renderUsers = () => {
+
+
+        return (
+            {
+
+            }
+        );
+    };
+
     useEffect(() => {
         getData(0);
-        console.log('data', userData)
     }, []);
 
+    console.log('u', userData)
     return (
         <div>
             <table className="table">
@@ -127,13 +138,48 @@ export default function Table() {
                 </thead>
                 <tbody>
                     //  render elements in tbody
+                    {
+                        userData.map((user) => {
+                            return (
+                                <tr>
+                                    <th>{user.id}</th>
+                                    <th>{user.firstName}</th>
+                                    <th>{user.lastName}</th>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </table>
             <section className="pagination">
-                <button onClick={changePage(0)} disabled={loadingState} className="first-page-btn">first</button>
-                <button onClick={changePage(currentPage - 1)} disabled={loadingState} className="previous-page-btn">previous</button>
-                <button onClick={changePage(currentPage + 1)} disabled={loadingState} className="next-page-btn">next</button>
-                <button onClick={changePage(10)} disabled={loadingState} className="last-page-btn">last</button>
+                <button
+                    onClick={() => changePage(0)}
+                    disabled={loadingState}
+                    className="first-page-btn"
+                >
+                    first
+                </button>
+                <button
+                    onClick={() => changePage(currentPage - 1)}
+                    disabled={loadingState}
+                    className="previous-page-btn"
+                >
+                    previous
+                </button>
+                <button
+                    onClick={() => changePage(currentPage + 1)}
+                    disabled={loadingState}
+                    className="next-page-btn"
+                >
+                    next
+                </button>
+                <button
+                    onClick={() => changePage(10)}
+                    disabled={loadingState}
+                    className="last-page-btn"
+                >
+                    last
+                </button>
             </section>
         </div>
     );
