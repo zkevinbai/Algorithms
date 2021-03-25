@@ -29,7 +29,7 @@ const minPathSum = (grid) => {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if (i === 0 && j === 0) {
-                grid[i][j] = grid[i][j];
+                continue;
             } else if (i === 0) {
                 grid[i][j] += grid[i][j - 1];
             } else if (j === 0) {
