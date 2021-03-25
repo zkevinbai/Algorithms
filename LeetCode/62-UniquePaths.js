@@ -55,8 +55,8 @@ use addition to get the total uniques
 
 */
 
-const uniquePaths = (m, n) => {
-    const board = Array(m).fill(Array(n).fill(0));
+const uniquePathsDP = (m, n) => {
+    const board = Array.from({ length: m }, subArr => Array(n).fill(0));
 
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
@@ -72,6 +72,8 @@ const uniquePaths = (m, n) => {
 
     return board[m -1][n - 1];
 }
+
+// console.log(uniquePathsDP(3, 3));
 
 /*
 solution
