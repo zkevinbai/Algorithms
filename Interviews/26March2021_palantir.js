@@ -35,7 +35,7 @@ const shiftLeft = (array) => {
     for (let i = 0; i < array.length; i++) {
         const currentVal = array[i];
 
-        if (currentVal !== 0 && i !== 0 && openIndices.length) {
+        if (currentVal !== 0 && openIndices.length) {
             const shiftIndex = openIndices.shift();
             array[shiftIndex] = currentVal;
             array[i] = 0;
