@@ -1,5 +1,8 @@
 // 2048, build an algo that can move an array left
 
+// input would be numerical, array of n length
+// output should have values concatenated, and shifted left
+
 const shiftLeft = (array) => {
     let left = 0;
     let right = 1;
