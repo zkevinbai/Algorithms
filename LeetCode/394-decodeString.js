@@ -38,46 +38,26 @@ s is guaranteed to be a valid input.
 All the integers in s are in the range [1, 300].
 */
 
-const decodeString = (string) => {
+const expand = (count, string) => {
 
-    const expand = (count, startIndex) => {
-        let left = startIndex;
-        let right = left + 1;
+    const expansionCopy = string;
 
-        let expansion = '';
+    while (count) {
+        string += expansionCopy;
 
-        while (right < string.length) {
-            let rightVal = string[right];
-            const parsedInt = parseInt(rightVal);
-
-            if (parsedInt) {
-                const expandedString = expand(parsedInt, right + 1);
-                expansion += expandedString;
-                right += expandedString.length + 1;
-            } else if (rightVal === ']') {
-                break;
-            } else {
-                expansion += rightVal;
-                right += 1;
-            }
-        }
-
-        const expansionCopy = expansion;
-
-        while (count) {
-            expansion += expansionCopy;
-
-            count -= 1;
-        }
-
-        return expansion;
+        count -= 1;
     }
-    
+
+    return string;
+}
+
+
+const decodeString = (string) => {
     for (let i = 0; i < string.length; i++) {
         const val = string[i];
         const parsedInt = parseInt(val);
 
-        if (parsedInt) {
+        if (!!parsedInt) {
             const expandedString = expand(parsedInt, i + 1);
 
             string.splice(i, expandedString.length + 1, expandedString);
@@ -88,3 +68,54 @@ const decodeString = (string) => {
 
     return string;
 };
+
+// const decodeString = (string) => {
+
+//     const expand = (count, startIndex) => {
+//         let left = startIndex;
+//         let right = left + 1;
+
+//         let expansion = '';
+
+//         while (right < string.length) {
+//             let rightVal = string[right];
+//             const parsedInt = parseInt(rightVal);
+
+//             if (parsedInt) {
+//                 const expandedString = expand(parsedInt, right + 1);
+//                 expansion += expandedString;
+//                 right += expandedString.length + 1;
+//             } else if (rightVal === ']') {
+//                 break;
+//             } else {
+//                 expansion += rightVal;
+//                 right += 1;
+//             }
+//         }
+
+//         const expansionCopy = expansion;
+
+//         while (count) {
+//             expansion += expansionCopy;
+
+//             count -= 1;
+//         }
+
+//         return expansion;
+//     }
+    
+//     for (let i = 0; i < string.length; i++) {
+//         const val = string[i];
+//         const parsedInt = parseInt(val);
+
+//         if (parsedInt) {
+//             const expandedString = expand(parsedInt, i + 1);
+
+//             string.splice(i, expandedString.length + 1, expandedString);
+
+//             i += expandedString.length + 1;
+//         }
+//     }
+
+//     return string;
+// };
