@@ -38,6 +38,10 @@ s is guaranteed to be a valid input.
 All the integers in s are in the range [1, 300].
 */
 
+
+// Achieve extremely brute force but working code
+// will handle nested 3[xx2[a]]
+
 const decodeString = (string) => {
 
     const expand = (count, startIndex) => {
@@ -80,15 +84,54 @@ const decodeString = (string) => {
         if (parsedInt) {
             const expandedString = expand(parsedInt, i + 1);
 
-            console.log('expandedString', expandedString)
-
             let x = string.split('');
             x.splice(i, 1, expandedString);
             string = x.join('');
-            console.log(x)
-
         }
     }
 
-    return string;
+
+    const deleteBracketsInclusive = (string) => {
+        const array = string.split('');
+
+        let bracketStart;
+        let bracketEnd;
+
+        for (let i = 0; i < array.length; i++) {
+            const val = array[i];
+
+            if (val === '[') {
+                bracketStart = i;
+                bracketEnd = bracketStart + 2;
+
+                let complimentsRequired = 1;
+
+                while (bracketStart === i) {
+                    if (array[bracketEnd] === ']' && complimentsRequired - 1 === 0) {
+                        array.splice(bracketStart, bracketEnd - bracketStart + 1);
+                        bracketStart = null;
+                    }
+
+                    if (array[bracketEnd] === '[') {
+                        complimentsRequired += 1;
+                    }
+
+                    if (array[bracketEnd] === ']' && complimentsRequired - 1 !== 0) {
+                        complimentsRequired -= 1;
+                    }
+
+                    bracketEnd += 1
+                }
+            }
+
+        }
+
+        return array.join('')
+    }
+
+    return deleteBracketsInclusive(string);
 };
+
+
+
+// achieved "axxaxxaxx[axx[x]]bcbc[bc]", just need to delete all content within brackets
