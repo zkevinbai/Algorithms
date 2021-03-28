@@ -53,51 +53,44 @@ const decodeStringRegex = s => {
     return s;
 };
 
-// var decodeString = function (s) {
-//     while (s.indexOf('[') !== -1) { // base case, breaks when there's no bracket found
-//         let left = s.lastIndexOf('['); // left position of the inner-most `[`
-//         let right = left + s.substring(left).indexOf(']'); // right positio of the inner-most `]`
-//         let word = s.substring(left + 1, right); // between them is the string
-//         let count = '';
-//         while (s[left - 1] >= 0) { // try to find a valid number, if num > 9, keep keep grabbing the num
-//             left--;
-//             count = s[left] + count;
-//         }
-//         // console.log(count)
-//         s = s.substring(0, left) + word.repeat(count) + s.substring(right + 1); // put them all togher and repeat :)
-//     }
-//     return s;
-// };
-
 const decodeString = (string) => {
-    while(string.indexOf('[') !== -1) { // while we have not decoded all brackets
+    while (string.indexOf('[') !== -1) { // while we have not decoded all brackets
         let left = string.lastIndexOf('[');  // get innermost left bracket
-        let right = left + s.substring(left).indexOf(']');  
-            // s.substring(left) grabs all values to right of left index
-            // indexOf grabs the innermost right bracket
-        let word = s.substring(left + 1, right) 
-            // left is the bracket, so + 1 
-            // substring is not inclusive so right will nto count
+        let right = left + string.substring(left).indexOf(']');
+        // s.substring(left) grabs all values to right of left index
+        // indexOf grabs the innermost right bracket
+        let word = string.substring(left + 1, right)
+        // left is the bracket, so + 1 
+        // substring is not inclusive so right will nto count
         let count = '';  // account for count being more than one digit
-        while (s[left - 1] >= 0) { 
+        while (string[left - 1] >= 0) {
             // while left of [ is a number, keep grabbing it
             // 123[word] we want to replicate this 123 times, not 3 times
 
-            left -= 1; 
+            left -= 1;
             // move left marker, we already have the word
             // now we are using it to 1 - figure out the count, 
             // 2 - figure out the left boundary of what we want to replace
 
-            count = s[left - 1] + count; // build count
+            count = string[left] + count; // build count
         }
+
+        // console.log({
+        //     left,
+        //     leftV: string[left],
+        //     word,
+        //     count
+        // })
 
         string = string.substring(0, left) + word.repeat(count) + string.substring(right + 1)
         // left = substring from 0 to left, getting rid of the number
         // word = repeat the word per our count
         // right = substring from right + 1, substring includes start idx
     }
+
+    return string;
 }
- 
+
 // Achieve extremely brute force but working code
 // will handle nested 3[xx2[a]]
 
