@@ -38,6 +38,21 @@ s is guaranteed to be a valid input.
 All the integers in s are in the range [1, 300].
 */
 
+// regex solution
+// https://regexr.com/3cr6f
+// capture the following pattern number + [ + word + ]
+// repeat the word, replace the number[word] with the repetitions
+const decodeStringRegex = s => {
+    while (s.includes('[')) {
+        s = s.replace(/(\d+)\[(\w+)\]/g, (captured, number, word) => {
+            // console.log(captured, number, word)
+            return word.repeat(number)
+        }
+        );
+    }
+    return s;
+};
+
 
 // Achieve extremely brute force but working code
 // will handle nested 3[xx2[a]]
