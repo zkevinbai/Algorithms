@@ -73,13 +73,17 @@ const numIslands = (grid) => {
                 while (queue.length) {
                     const shift = queue.shift();
                     const shiftI = shift[0];
-                    const shiftJ = shift[1]
+                    const shiftJ = shift[1];
                     const shiftPos = '' + shiftI + shiftJ;
 
-                    const down = grid[shiftI + 1][shiftJ];
-                    const right = grid[shiftI][shiftJ + 1];
+                    if (
+                        !visited[shiftPos] && // right of down is the same as down of right
+                        shiftI !== grid.length - 1 && // stop at the edge
+                        shiftJ !== grid.length - 1
+                    ) {
+                        const down = grid[shiftI + 1][shiftJ];
+                        const right = grid[shiftI][shiftJ + 1];
 
-                    if (!visited[shiftPos]) {
                         if (down === '1') queue.push([shiftI + 1, shiftJ]);
                         if (right === '1') queue.push([shiftI, shiftJ + 1]);
                     }
