@@ -82,10 +82,21 @@ const numIslands = (grid) => {
                             if (down === '1') queue.push([shiftI + 1, shiftJ]);
                         }
 
+                        if (shiftI !== 0) {
+                            const up = grid[shiftI - 1][shiftJ];
+                            if (up === '1') queue.push([shiftI - 1, shiftJ]);
+                        }
+
                         if (shiftJ !== grid[i].length - 1) {
                             const right = grid[shiftI][shiftJ + 1];
-                            console.log({ right })
+                            // console.log({ right })
                             if (right === '1') queue.push([shiftI, shiftJ + 1]);
+                        }
+
+                        if (shiftJ !== 0) {
+                            const left = grid[shiftI][shiftJ - 1];
+                            // console.log({ right })
+                            if (left === '1') queue.push([shiftI, shiftJ - 1]);
                         }
                     }
 
@@ -130,4 +141,21 @@ borders
 input
 [["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]
 
+edge case 3
+need to go left
+[
+    ["1","1","1"],
+    ["0","1","0"],
+    ["1","1","1"]
+]
+
+[["1","1","1"],["0","1","0"],["1","1","1"]]
+
+edge case 3
+need to go up
+[
+    ["1","0","1","1","1"],
+    ["1","0","1","0","1"],
+    ["1","1","1","0","1"]
+]
 */
