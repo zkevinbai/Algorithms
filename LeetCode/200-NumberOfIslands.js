@@ -76,22 +76,26 @@ const numIslands = (grid) => {
                     const shiftJ = shift[1];
                     const shiftPos = '' + shiftI + shiftJ;
 
-                    if (
-                        !visited[shiftPos] && // right of down is the same as down of right
-                        shiftI !== grid.length - 1 && // stop at the edge
-                        shiftJ !== grid.length - 1
-                    ) {
-                        const down = grid[shiftI + 1][shiftJ];
-                        const right = grid[shiftI][shiftJ + 1];
+                    if (!visited[shiftPos]) { // skip visited land
+                        if (shiftI !== grid.length - 1) {
+                            const down = grid[shiftI + 1][shiftJ];
+                            if (down === '1') queue.push([shiftI + 1, shiftJ]);
+                        }
 
-                        if (down === '1') queue.push([shiftI + 1, shiftJ]);
-                        if (right === '1') queue.push([shiftI, shiftJ + 1]);
+                        if (shiftJ !== grid[i].length - 1) {
+                            const right = grid[shiftI][shiftJ + 1];
+                            console.log({ right })
+                            if (right === '1') queue.push([shiftI, shiftJ + 1]);
+                        }
                     }
 
+                    // console.log({ shiftPos })
                     visited[shiftPos] = true;
                 }
 
+                // console.log('island ---------------------')
                 islandCount += 1;
+                // console.log(position, visited)
             } else if (value === '0') {
                 continue;
             }
@@ -100,3 +104,30 @@ const numIslands = (grid) => {
 
     return islandCount;
 };
+
+/*
+edge case 1,
+a jump
+[
+    ["1","1","1","1","0"],
+    ["1","1","0","1","0"],
+    ["1","1","0","0","0"],
+    ["0","0","0","0","0"]
+]
+
+input
+[["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]
+
+edge case 2
+borders
+[
+    ["1","1","0","0","0"],
+    ["1","1","0","0","0"],
+    ["0","0","1","0","0"],
+    ["0","0","0","1","1"]
+]
+
+input
+[["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]
+
+*/
