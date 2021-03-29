@@ -60,47 +60,21 @@ const numIslands = (grid) => {
     let islandCount = 0;
 
     const bfsTraversal = (i, j) => {
-        const queue = [[i, j]];
+        let q = [[i, j]];
+        while (q.length) {
+            let [x, y] = q.shift();
+            grid[x][y] = 0;
 
-        while (queue.length) {
-            const shift = queue.shift();
-            const shiftI = shift[0];
-            const shiftJ = shift[1];
-            grid[shiftI][shiftJ] = "0";
-
-            let newI = shiftI;
-            let newJ = shiftJ;
-
-            // down
-            if (shiftI !== grid.length - 1) {
-                newI = shiftI + 1;
-                newJ = shiftJ;
-                const down = grid[newI][newJ];
-                if (down === '1') queue.push([newI, newJ]);
-            }
-
-            // up
-            if (shiftI !== 0) {
-                newI = shiftI - 1;
-                newJ = shiftJ;
-                const up = grid[newI][newJ];
-                if (up === '1') queue.push([newI, newJ]);
-            }
-
-            // right
-            if (shiftJ !== grid[i].length - 1) {
-                newI = shiftI;
-                newJ = shiftJ + 1;
-                const right = grid[newI][newJ];
-                if (right === '1') queue.push([newI, newJ]);
-            }
-
-            // left
-            if (shiftJ !== 0) {
-                newI = shiftI;
-                newJ = shiftJ - 1;
-                const left = grid[newI][newJ];
-                if (left === '1') queue.push([newI, newJ]);
+            for (let [newX, newY] of [[x + 1, y], [x, y + 1], [x - 1, y], [x, y - 1]]) {
+                if (
+                    newX >= 0 &&
+                    newX < grid.length &&
+                    newY >= 0 &&
+                    newY < grid[0].length &&
+                    grid[newX][newY] === '1'
+                ) {
+                    q.push([newX, newY]);
+                }
             }
         }
     }
@@ -108,7 +82,7 @@ const numIslands = (grid) => {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             const value = grid[i][j];
-        
+
             if (value === '1') {
                 bfsTraversal(i, j);
                 islandCount += 1;
@@ -116,8 +90,74 @@ const numIslands = (grid) => {
         }
     }
 
+    // console.log(grid)
+
     return islandCount;
 };
+
+
+// const numIslands = (grid) => {
+//     let islandCount = 0;
+
+//     const bfsTraversal = (i, j) => {
+//         const queue = [[i, j]];
+
+//         while (queue.length) {
+//             const shift = queue.shift();
+//             const shiftI = shift[0];
+//             const shiftJ = shift[1];
+//             grid[shiftI][shiftJ] = "0";
+
+//             let newI = shiftI;
+//             let newJ = shiftJ;
+
+//             // down
+//             if (shiftI !== grid.length - 1) {
+//                 newI = shiftI + 1;
+//                 newJ = shiftJ;
+//                 const down = grid[newI][newJ];
+//                 if (down === '1') queue.push([newI, newJ]);
+//             }
+
+//             // up
+//             if (shiftI !== 0) {
+//                 newI = shiftI - 1;
+//                 newJ = shiftJ;
+//                 const up = grid[newI][newJ];
+//                 if (up === '1') queue.push([newI, newJ]);
+//             }
+
+//             // right
+//             if (shiftJ !== grid[i].length - 1) {
+//                 newI = shiftI;
+//                 newJ = shiftJ + 1;
+//                 const right = grid[newI][newJ];
+//                 if (right === '1') queue.push([newI, newJ]);
+//             }
+
+//             // left
+//             if (shiftJ !== 0) {
+//                 newI = shiftI;
+//                 newJ = shiftJ - 1;
+//                 const left = grid[newI][newJ];
+//                 if (left === '1') queue.push([newI, newJ]);
+//             }
+//         }
+//     }
+
+//     for (let i = 0; i < grid.length; i++) {
+//         for (let j = 0; j < grid[i].length; j++) {
+//             const value = grid[i][j];
+        
+//             if (value === '1') {
+//                 bfsTraversal(i, j);
+//                 islandCount += 1;
+//             }
+//         }
+//     }
+
+//     return islandCount;
+// };
 
 /*
 edge case 1,
