@@ -34,12 +34,12 @@ part 2
 what if you want the fastest data
 */
 
-const getFastestData = async (urls) => {
+const getFastestData = (urls) => {
     const promises = [];
 
-    urls.forEach(url => promises.push(new Promise(get(url))));
+    urls.forEach(async (url) => promises.push(await get(url)));
 
-    Promise.race(promises)
+    return Promise.race(promises)
         .then((result) => result)
         .catch((error) => error)
 }
