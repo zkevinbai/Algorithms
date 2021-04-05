@@ -159,15 +159,16 @@ const LRUCache = (capacity) => {
     }
 };
 
-// const test = LRUCache(2);
+const test = LRUCache(2);
 
-// console.log(
-//     // test,
-//     test.put(1,1),
-//     test.put(2,2),
-//     test.get(1),
-//     test.put(3,3),
-//     test.get(1),
-//     test.get(2),
-//     test.get(3),
-// )
+console.log(
+    test.put(2,1),
+    test.put(3,2),
+    test.get(3),
+    test.get(2),
+    test.put(4,3),
+    test.get(2),
+    test.get(3),
+    test.get(4),
+)
+// expected [null,null,null,2,1,null,1,-1,3]
