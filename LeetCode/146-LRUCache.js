@@ -57,7 +57,7 @@ At most 3 * 104 calls will be made to get and put.
 
 /*
 ways to approach this
-
+factories (my way baby!)
 functions / prototypes
 classes
 
@@ -67,76 +67,96 @@ js map
 node ->next node2 ->next node3
      <-prev       <-prev
 */
-const LRUCache = function (capacity) {
-    this.hashMap = {};
-    this.capacity = capacity;
-    this.count = 0;
-    this.head = null;
-    this.tail = null;
+const LinkedListNode = ({key, value}) => {
+    return ({
+        key,
+        value,
+        next: null,
+        prev: null,
+    })
 };
 
-LRUCache.prototype.get = function (key) {
-    // console.log(this.hashMap)
-    const currentNode = this.hashMap[key];
-    if (!currentNode) return -1;
+const DoublyLinkedList = function () {
+    let DummyHead = LinkedListNode();
+    let DummyTail = LinkedListNode();
 
-    const { value, prev, next } = currentNode;
+    DummyHead.next = DummyTail;
+    DummyTail.prev = DummyHead;
 
-    if (prev) prev.next = next;
-    if (next) next.prev = prev;
-
-    if (this.tail === currentNode && prev) {
-        this.tail = prev;
-    }
-    if (this.head !== currentNode) {
-        currentNode.next = this.head;
-        this.head.prev = currentNode;
+    const insertHead = (node) => {
+        node.prev = DummyHead;
+        node.next = DummyHead.next;
+        DummyHead.next.prev = node;
+        DummyHead.next = node;
     }
 
-    this.head = currentNode;
+    const removeNode = (node) => {
+        const { next, prev } = node;
 
-    return value;
+        next.prev = prev;
+        prev.next = next;
+    }
+
+    const moveToHead = (node) => {
+        removeNode(node);
+        insertHead(node);
+    }
+
+    const removeTail = () => {
+        const tail = DummyTail.prev;
+
+        removeNode(tail);
+
+        return tail.key;
+    }
+
+    return {
+        insertHead,
+        removeNode,
+        moveToHead,
+        removeTail,
+    }
 };
 
-LRUCache.prototype.put = function (key, value) {
-    // console.log(this.hashMap)
+const LRUCache = (capacity) => {
+    let object = {};
+    let linkedList = DoublyLinkedList();
+    let capacity = capacity;
+    let count = 0;
 
-    const currentNode = this.hashMap[key];
-    if (currentNode) {
-        this.hashMap[key].value = value;
-        this.get(key);
-    } else {
-        this.hashMap[key] = {
-            key,
-            value,
-            next: null,
-            prev: null,
-        };
+    const get = (key) => {
+        const currentNode = object[key];
+        if (!currentNode) return -1;
 
-        const currentNode = this.hashMap[key];
+        linkedlist.moveToHead(node);
 
-        if (this.head) {
-            currentNode.next = this.head;
-            this.head.prev = currentNode;
+        return currentNode.value;
+    };
+
+    const put = function (key, value) {
+        const currentNode = object[key];
+
+        if (currentNode) {
+            object[key].value = value;
+            linkedlist.moveToHead(node);
+        } else {
+            const newNode = LinkedListNode({key, value});
+            object[key] = newNode;
+
+            linkedList.addHeadNode(newNode);
+            count += 1;
         }
 
-        this.head = currentNode;
-
-        if (!this.tail) this.tail = currentNode;
-
-        this.count += 1;
-    }
-
-    if (this.count > this.capacity) {
-        const { key, prev } = this.tail
-
-        if (prev) {
-            prev.next = null;
-            this.tail = prev;
+        if (count > capacity) {
+            const tailKey = linkedList.removeTail();
+            delete object[key];
+            count -= 1;
         }
+    };
 
-        delete this.hashMap[key];
-
-        this.count -= 1;
+    return {
+        get,
+        put,
     }
 };
+
