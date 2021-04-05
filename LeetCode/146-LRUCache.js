@@ -67,7 +67,6 @@ js map
 node ->next node2 ->next node3
      <-prev       <-prev
 */
-
 const LRUCache = function (capacity) {
     this.hashMap = {};
     this.capacity = capacity;
@@ -77,6 +76,7 @@ const LRUCache = function (capacity) {
 };
 
 LRUCache.prototype.get = function (key) {
+    // console.log(this.hashMap)
     const currentNode = this.hashMap[key];
     if (!currentNode) return -1;
 
@@ -99,9 +99,11 @@ LRUCache.prototype.get = function (key) {
 };
 
 LRUCache.prototype.put = function (key, value) {
+    // console.log(this.hashMap)
+
     const currentNode = this.hashMap[key];
     if (currentNode) {
-        this.hashMap[key] = value;
+        this.hashMap[key].value = value;
         this.get(key);
     } else {
         this.hashMap[key] = {
