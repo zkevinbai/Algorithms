@@ -67,7 +67,7 @@ js map
 node ->next node2 ->next node3
      <-prev       <-prev
 */
-const LinkedListNode = ({key, value}) => {
+const LinkedListNode = (key, value) => {
     return ({
         key,
         value,
@@ -76,7 +76,7 @@ const LinkedListNode = ({key, value}) => {
     })
 };
 
-const DoublyLinkedList = function () {
+const DoublyLinkedList = () => {
     let DummyHead = LinkedListNode();
     let DummyTail = LinkedListNode();
 
@@ -120,15 +120,14 @@ const DoublyLinkedList = function () {
 
 const LRUCache = (capacity) => {
     let object = {};
-    let linkedList = DoublyLinkedList();
-    let capacity = capacity;
+    const linkedList = DoublyLinkedList();
     let count = 0;
 
     const get = (key) => {
         const currentNode = object[key];
         if (!currentNode) return -1;
 
-        linkedlist.moveToHead(node);
+        linkedList.moveToHead(currentNode);
 
         return currentNode.value;
     };
@@ -137,13 +136,13 @@ const LRUCache = (capacity) => {
         const currentNode = object[key];
 
         if (currentNode) {
-            object[key].value = value;
-            linkedlist.moveToHead(node);
+            currentNode.value = value;
+            linkedList.moveToHead(currentNode);
         } else {
-            const newNode = LinkedListNode({key, value});
+            const newNode = LinkedListNode(key, value);
             object[key] = newNode;
 
-            linkedList.addHeadNode(newNode);
+            linkedList.insertHead(newNode);
             count += 1;
         }
 
@@ -160,3 +159,13 @@ const LRUCache = (capacity) => {
     }
 };
 
+const test = LRUCache(2);
+
+console.log(
+    test,
+    test.put(1,1),
+    test.put(2,2),
+    test.get(1),
+    // test.put(3,3),
+    // test.get(2)
+)
