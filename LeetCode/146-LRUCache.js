@@ -148,7 +148,7 @@ const LRUCache = (capacity) => {
 
         if (count > capacity) {
             const tailKey = linkedList.removeTail();
-            delete object[key];
+            delete object[tailKey];
             count -= 1;
         }
     };
@@ -159,13 +159,15 @@ const LRUCache = (capacity) => {
     }
 };
 
-const test = LRUCache(2);
+// const test = LRUCache(2);
 
-console.log(
-    test,
-    test.put(1,1),
-    test.put(2,2),
-    test.get(1),
-    // test.put(3,3),
-    // test.get(2)
-)
+// console.log(
+//     // test,
+//     test.put(1,1),
+//     test.put(2,2),
+//     test.get(1),
+//     test.put(3,3),
+//     test.get(1),
+//     test.get(2),
+//     test.get(3),
+// )
