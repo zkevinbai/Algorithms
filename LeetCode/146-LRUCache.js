@@ -124,6 +124,7 @@ const LRUCache = (capacity) => {
     let count = 0;
 
     const get = (key) => {
+        console.log(linkedList);
         const currentNode = object[key];
         if (!currentNode) return -1;
 
@@ -161,14 +162,34 @@ const LRUCache = (capacity) => {
 
 const test = LRUCache(2);
 
-console.log(
-    test.put(2,1),
-    test.put(3,2),
-    test.get(3),
-    test.get(2),
-    test.put(4,3),
-    test.get(2),
-    test.get(3),
-    test.get(4),
-)
+// console.log(
+//     test.put(2,1),
+//     test.put(3,2),
+//     test.get(3),
+//     test.get(2),
+//     test.put(4,3),
+//     test.get(2),
+//     test.get(3),
+//     test.get(4),
+// )
+
+// console.log(JSON.stringify(test.get(2), null, 1))
 // expected [null,null,null,2,1,null,1,-1,3]
+
+const testObject = {
+    a: {
+        b: {
+            c: 'c'
+		}
+	}
+};
+const pretty = JSON.stringify(testObject, null, 2)
+// console.log(testObject) // { a: { b: { c: 'c' } } }
+// console.log(pretty) // same as seen in code
+// {
+//     "a": {
+//         "b": {
+//             "c": "c"
+//         }
+//     }
+// }
