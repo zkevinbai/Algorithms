@@ -1,9 +1,9 @@
 /*
-1 algorithm
-2 find the bug / algorithm
-3 break down a webpage
+1 algorithm (find most frequent number)
+2 find the bug / algorithm (find intersection of two arrays)
+3 break down a webpage (high level web page structure / design)
 4 find the bug / async promises
-5 optimize web page
+5 optimize web page (talk about optimization)
 */
 
 // #4
