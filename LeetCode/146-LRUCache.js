@@ -67,6 +67,8 @@ js map
 node ->next node2 ->next node3
      <-prev       <-prev
 */
+
+
 const LinkedListNode = (key, value) => {
     return ({
         key,
@@ -193,3 +195,87 @@ const pretty = JSON.stringify(testObject, null, 2)
 //         }
 //     }
 // }
+class LinkedListNode {
+    constructor(key, value, next, prev) {
+        this.key = key;
+        this.value = value;
+        this.next = next || null;
+        this.prev = prev || null;
+    }
+};
+
+class DoublyLinkedList {
+    constructor() {
+        this.dummyHead = new LinkedListNode();
+        this.dummyTail = new LinkedListNode();
+
+        this.dummyHead.next = this.dummyTail;
+        this.dummyTail.prev = this.dummyHead;
+    }
+
+    insertHead = (node) => {
+        node.prev = this.dummyHead;
+        node.next = this.dummyHead.next;
+        this.dummyHead.next.prev = node;
+        this.dummyHead.next = node;
+    }
+
+    removeNode = (node) => {
+        const { next, prev } = node;
+
+        next.prev = prev;
+        prev.next = next;
+    }
+
+    moveToHead = (node) => {
+        this.removeNode(node);
+        this.insertHead(node);
+    }
+
+    removeTail = () => {
+        const tail = this.dummyTail.prev;
+
+        this.removeNode(tail);
+
+        return tail.key;
+    }
+};
+
+class LRUCache {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.count = 0;
+        this.cache = {};
+        this.linkedList = new DoublyLinkedList();
+    }
+
+    get = (key) => {
+        const currentNode = this.cache[key];
+        if (!currentNode) return -1;
+
+        this.linkedList.moveToHead(currentNode);
+
+        return currentNode.value;
+    };
+
+    put = (key, value) => {
+        const currentNode = this.cache[key];
+
+        if (currentNode) {
+            currentNode.value = value;
+            this.linkedList.moveToHead(currentNode);
+        } else {
+            const newNode = new LinkedListNode(key, value);
+            this.cache[key] = newNode;
+
+            this.linkedList.insertHead(newNode);
+            this.count += 1;
+        }
+
+        if (this.count > this.capacity) {
+            const tailKey = this.linkedList.removeTail();
+            delete this.cache[tailKey];
+            this.count -= 1;
+        }
+    };
+};
