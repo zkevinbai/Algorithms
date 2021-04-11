@@ -39,7 +39,6 @@ inorder is guaranteed to be the inorder traversal of the tree.
  * @return {TreeNode}
  */
 // var buildTree = function(preorder, inorder) {
-
 // };
 
 class TreeNode {
@@ -83,5 +82,5 @@ function buildTree(loadOrder, locOrder) {
         tree.insert(value)
     });
 
-    return tree;
+    return tree.root;
 }
