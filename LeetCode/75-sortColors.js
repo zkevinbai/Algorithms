@@ -49,7 +49,6 @@ can do 0s and 2s: get zeros from left, get 2s from right
 * will break if 0 is missing because we put 2s to right of 1s
 * will be fine if 1 is missing because we put 0s to left of 2s
 * will be fine if 2 is missing because we put 0s to left of 1s
-
 */
 
 const sortColors = function (arr) {
