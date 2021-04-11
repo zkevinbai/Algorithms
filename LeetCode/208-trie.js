@@ -29,12 +29,59 @@ trie.startsWith("app"); // return True
 trie.insert("app");
 trie.search("app");     // return True
 
-
 Constraints:
 
 1 <= word.length, prefix.length <= 2000
 word and prefix consist only of lowercase English letters.
 At most 3 * 104 calls in total will be made to insert, search, and startsWith.
+*/
+
+/*
+v2
+store prefixes in tree 
+*/
+
+class Trie {
+    constructor() {
+        this.words = {};
+        this.prefixes = {};
+    }
+
+    insert(word) {
+        this.words[word] = true;
+
+        let node = this.prefixes;
+        for (let c of word) {
+            node[c] = node[c] || {}; // very important to not overrride existing starts
+            node = node[c];
+        }
+    }
+
+    search(word) {
+        return !!this.words[word];
+    }
+
+    startsWith(word) {
+        let hasPrefix = true;
+
+        let node = this.prefixes;
+        for (let c of word) {
+            let nextLevel = node[c];
+            if (!nextLevel) {
+                hasPrefix = false;
+                break;
+            }
+            node = nextLevel;
+        }
+        // const pretty = JSON.stringify(this.prefixes, null, 2)
+        // if (word === 'app') { console.log('hello', node, hasPrefix, pretty) }
+
+        return hasPrefix;
+    }
+}
+/*
+v1 working
+keep prefixes in a separate object
 */
 
 /**
