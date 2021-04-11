@@ -36,24 +36,88 @@ Could you solve this problem without using the library's sort function?
 Could you come up with a one-pass algorithm using only O(1) constant space?
 */
 
+// approach 3 goldilocks
+/*
+1s are solved for free
 
-var sortColors = function (nums) {
-    //     // get zeroes / reds
-    //     let zeroCount = 0;
-    //     let oneCount = 0;
-    //     let twoCount = 0;
+can do 0s and 1s: get 0's from left, get 1s from 0's last spot or 0
+* will be fine if 0 is missing because we put 1s to left of 2s
+* will be fine if 1 is missing because we put 0s to left of 2s
+* will be fine if 2 is missing because we put 0s to left of 1s
 
-    //     nums.forEach((num) => {
-    //         if (num === 0) zeroCount += 1;
-    //         if (num === 1) oneCount += 1;
-    //         if (num === 2) twoCount += 1;
-    //     })
+can do 0s and 2s: get zeros from left, get 2s from right
+* will break if 0 is missing because we put 2s to right of 1s
+* will be fine if 1 is missing because we put 0s to left of 2s
+* will be fine if 2 is missing because we put 0s to left of 1s
 
-    //     // get twos / blues
+*/
 
-    //     const zeroes = new Array(zeroCount).fill(0);
-    //     const ones = new Array(oneCount).fill(1);
-    //     const twos = new Array(twoCount).fill(2);
+const sortColors = function (arr) {
+    // left and i match zeroes, starting from left
+    let left = 0 // 0 index is where the 0s begin
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == 0) {
+            [arr[left], arr[i]] = [arr[i], arr[left]];
+            left++ // just used this space, move up by one
+        }
+    }
 
-    // zeroes.concat(ones, twos);
+    // match mid and i to ones, starting where zeroes left off
+    // let mid = i
+    // for (let i = 0; i < arr.length; i++) {
+    //     if (arr[i] == 1) {
+    //         [arr[i], arr[mid]] = [arr[mid], arr[i]]
+    //         mid++
+    //     }
+    // }
+
+    // right and j match twos, starting from right
+    let right = arr.length - 1; // length - 1 index is where the 2s begin
+    for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] == 2) {
+            [arr[i], arr[right]] = [arr[right], arr[i]];
+            right-- // just used this space, move down by one
+        }
+    }
 };
+
+// approach 2, way too complex
+// const sortColors = (nums) => {
+//     const swap = (left, right) => {
+//         [nums[left], nums[right]] = [nums[right], nums[left]];
+//     }
+
+//     let l = 0;
+//     let r = nums.length - 1;
+
+//     let i = 0;
+
+//     while (l < r) {
+//         if (nums[i] === 0) {
+//             swap(i, l);
+//             l++
+//         } else if (nums[i] === 2) {
+//             swap(i, r)
+//             r--
+//         } else {
+//             i++
+//         }
+//     }
+// }
+// quicksort implementation, non-working
+// const compare = function (x, y) {
+//     if (x < y) return -1;
+//     else return 1;
+// };
+
+// var sortColors = function (nums) {
+//     nums.sort()
+//     if (nums.length < 2) return nums;
+
+//     let pivot = nums[0];
+//     let left = nums.slice(1).filter(el => compare(el, pivot) !== 1);
+//     let right = nums.slice(1).filter(el => compare(el, pivot) === 1);
+//     nums = sortColors(left).concat(pivot, sortColors(right))
+//     console.log(nums)
+//     return nums
+// };
