@@ -39,6 +39,9 @@ At most 3 * 104 calls in total will be made to insert, search, and startsWith.
 /*
 v2
 store prefixes in tree 
+
+you can choose to keep words in the tree as well (with a isWord boolean)
+But that seems unecessary as you can index into the words directly
 */
 
 class Trie {
