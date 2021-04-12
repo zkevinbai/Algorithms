@@ -55,7 +55,7 @@ const findLargestSquare = (num) => {
         square = number * number;
     }
 
-    if (square > num) return (number - 1) * (number - 1);
+    if (square > num) return (number - 1) * (number - 1); // input 4 should output 4, not 9
 
     return square;
 }
