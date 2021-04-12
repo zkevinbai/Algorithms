@@ -23,12 +23,60 @@ Constraints:
 1 <= n <= 104
 */
 
-const numSquares = (n) => {
-    for (let multiple = 1; multiple < n; multiple++) {
-        const squareRoot = Math.sqrt(n/multiple);
+/*
+the question is asking for the largest perfect squares that sum up to n
 
-        if (Number.isInteger(squareRoot)) return multiple;
+perfect squares to use
+1
+4
+9
+16
+25
+36
+49
+64
+81
+
+strategy, 
+    find the largest perfect square that is smaller than num
+    subtract that from num and keep going until num is 0
+
+    this does not work for a case like 12, where we would have 
+*/
+
+const findLargestSquare = (num) => {
+    if (num < 4) return 1;
+
+    let square = 1;
+    let number = 1;
+
+    while (square < num) {
+        number += 1;
+        square = number * number;
     }
 
-    return n;
+    if (square > num) return (number - 1) * (number - 1);
+
+    return square;
 }
+
+const numSquares = (num) => {
+    let perfectSquaresUsed = 0;
+
+    let n = num;
+
+    while (n > 0) {
+        const largestSquare = findLargestSquare(n);
+
+        console.log('largest', largestSquare)
+
+        perfectSquaresUsed += 1;
+        n -= largestSquare;
+        console.log(n)
+    }
+
+    return perfectSquaresUsed;
+}
+
+const test = 6;
+console.log(findLargestSquare(test));
