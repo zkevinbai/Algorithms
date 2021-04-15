@@ -1,3 +1,12 @@
+/*
+first problem
+
+implement a circular queue with the front, insert, and delete APIs
+
+discuss thread blocking and how to handle multiple simultaneous requests
+
+*/
+
 ```
 /*
 
@@ -8,6 +17,14 @@
 */
 
 ```
+/*
+second problem
+
+given a linked list with a random pointer pointing to another node in the list
+
+make a deep copy
+
+*/
 
 /*
 1 - create array representation of input linked list
@@ -140,6 +157,14 @@ const deepCopy = (head) => {
 */
 
 ```
+/*
+third problem
+
+given pairs of courses and prerequsites, determine if it is possible to take all classes
+one class can have multiple prerequsites
+[1, 0], [1, 2], [2, 4]
+
+*/
 
 /*
 
@@ -254,6 +279,13 @@ const canTakeCourse = (courses, requirementPairs) => {
 */
 
 ```
+/*
+fourth problem
+
+find the 10 most common words in a list of non normalized words with possible spaces
+tiebreak alphabetically
+
+*/
 
 /*
 
