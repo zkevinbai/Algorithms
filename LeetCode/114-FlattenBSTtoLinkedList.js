@@ -54,6 +54,7 @@ const TreeNode = (val = 0, left = undefined, right = undefined) => {
 }
 
 const flatten = (root) => {
+    if (!root || !root.val) return root;
     const newTree = TreeNode(root.val, null, null);
 
     let newTreeRef = newTree;
@@ -73,12 +74,12 @@ const flatten = (root) => {
     newTreeRef = newTree;
     let rootRef = root;
     while (newTreeRef.right) {
-        const [val, right] = newTreeRef;
-        rootRef.val = val;
+        rootRef.val = newTreeRef.val;
         rootRef.left = null;
-        rootRef.right = right;
+        rootRef.right = newTreeRef.right;
 
         newTreeRef = newTreeRef.right;
+        rootRef = rootRef.right;
     }
     // console.log(JSON.stringify(root, null, 2))
 };
