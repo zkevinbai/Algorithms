@@ -58,7 +58,6 @@ const flatten = (root) => {
     const newTree = TreeNode(root.val, null, null);
 
     let newTreeRef = newTree;
-
     let isFirstNode = true
 
     const preOrder = (node) => {
@@ -76,14 +75,22 @@ const flatten = (root) => {
     preOrder(root);
     // console.log(JSON.stringify(newTree, null, 2))
 
-    newTreeRef = newTree;
-    let rootRef = root;
-    while (newTreeRef.right) {
-        rootRef.val = newTreeRef.val;
-        rootRef.left = null;
-        rootRef.right = newTreeRef.right;
-
-        newTreeRef = newTreeRef.right;
-        rootRef = rootRef.right;
-    }
+    root.left = null;
+    root.right = newTree.right;
 };
+
+
+/*
+    unecessary flattening module
+
+    newTreeRef = newTree;
+        let rootRef = root;
+        while (newTreeRef.right) {
+            rootRef.val = newTreeRef.val;
+            rootRef.left = null;
+            rootRef.right = newTreeRef.right;
+
+            newTreeRef = newTreeRef.right;
+            rootRef = rootRef.right;
+        }
+*/
