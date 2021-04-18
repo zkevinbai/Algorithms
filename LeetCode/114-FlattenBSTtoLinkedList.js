@@ -44,17 +44,17 @@ Follow up: Can you flatten the tree in-place (with O(1) extra space)?
  */
 
 const TreeNode = (val = 0, left = undefined, right = undefined) => {
-
-    return ({
-        val,
-        left,
-        right
-    });
+    return (
+        {
+            val,
+            left,
+            right
+        }
+    );
 }
 
-var flatten = function (root) {
+const flatten = (root) => {
     const newTree = TreeNode(root.val, null, null);
-
 
     let newTreeRef = newTree;
 
@@ -70,5 +70,6 @@ var flatten = function (root) {
 
     preOrder(root);
 
-    return newTree;
+    root = newTree;
+    // console.log(JSON.stringify(root, null, 2))
 };
