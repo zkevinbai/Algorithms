@@ -70,6 +70,15 @@ const flatten = (root) => {
 
     preOrder(root);
 
-    root = newTree;
+    newTreeRef = newTree;
+    let rootRef = root;
+    while (newTreeRef.right) {
+        const [val, right] = newTreeRef;
+        rootRef.val = val;
+        rootRef.left = null;
+        rootRef.right = right;
+
+        newTreeRef = newTreeRef.right;
+    }
     // console.log(JSON.stringify(root, null, 2))
 };
