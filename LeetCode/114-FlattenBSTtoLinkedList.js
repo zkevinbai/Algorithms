@@ -54,13 +54,17 @@ const TreeNode = (val = 0, left = undefined, right = undefined) => {
 }
 
 const flatten = (root) => {
-    if (!root || !root.val) return root;
+    if (!root) return root;
     const newTree = TreeNode(root.val, null, null);
 
     let newTreeRef = newTree;
 
+    let isFirstNode = true
+
     const preOrder = (node) => {
-        if (node.val !== newTree.val) {
+        if (isFirstNode) {
+            isFirstNode = false;
+        } else {
             const newNode = TreeNode(node.val, null, null);;
             newTreeRef.right = newNode;
             newTreeRef = newNode;
@@ -70,6 +74,7 @@ const flatten = (root) => {
     };
 
     preOrder(root);
+    // console.log(JSON.stringify(newTree, null, 2))
 
     newTreeRef = newTree;
     let rootRef = root;
@@ -81,5 +86,4 @@ const flatten = (root) => {
         newTreeRef = newTreeRef.right;
         rootRef = rootRef.right;
     }
-    // console.log(JSON.stringify(root, null, 2))
 };
