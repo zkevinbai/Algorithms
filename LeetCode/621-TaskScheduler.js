@@ -57,6 +57,10 @@ groups should not be unique
 */
 
 const leastInterval = (tasks, n) => {
+    if (n === 0) {
+        return tasks.length;
+    }
+
     const groups = [];
     const taskCount = {};
 
@@ -69,10 +73,6 @@ const leastInterval = (tasks, n) => {
     });
 
     const uniqueTasks = Object.keys(taskCount);
-
-    if (uniqueTasks.length === 1) {
-        return tasks.length + ((tasks.length - 1) * n)
-    }
 
     let counter = tasks.length;
     // console.log(JSON.stringify(taskCount, null, 2))
