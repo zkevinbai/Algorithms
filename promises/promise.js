@@ -27,39 +27,51 @@ Goal - write the promise API
 class myPromise {
     constructor(
         asyncFunction,
-        resolved,
-        rejected,
     ) {
         try {
             asyncFunction(this.resolve, this.reject);
         } catch(error) {
             this.reject(error);
         }
-        this.pending = true;
-        this.resolved = resolved || false;
-        this.rejected = rejected || false;
+
+        this.resolved = null;
+        this.rejected = null;
+        
+        this.thenFuncs = [];
+        this.catchFunc = null;
     }
 
+    // (arg) => console.log(arg))
     resolve(resolved) {
-        this.success = resolved;
+        this.resolved = resolved;
+        try {
+            this.thenFuncs.forEach(
+                (func) => {
+                   const returnValue = func(this.resolved);
+                   this.resolved = returnValue;
+                } 
+            );
+        } catch (error) {
+            this.reject(error);
+        }
     }
 
     reject(rejected) {
-        this.pending = false;
         this.rejected = rejected;
+        if (this.catchFunc) {
+            this.catchFunc(this.rejected);
+        } else {
+            throw new Error(this.rejected);
+        }
     }
 
-    then(actionFunc) {
-        if (resolved) {
-            actionFunc(resolved);
-        } 
+    then(thenFunc) {
+        this.thenFuncs.push(thenFunc);
         return this;
     }
 
-    catch(actionFunc) {
-        if (rejected) {
-            actionFunc(rejected);
-        }
+    catch(catchFunc) {
+        this.catchFunc = catchFunc;
         return this;
     }
 }
@@ -78,11 +90,16 @@ const mymyPromise =
         }
     ) // now we have an instance of myPromise, with the asyncAction running in the background
     .then(
-        (arg) => console.log(arg))
-    ).this;
+        (arg) => {
+            console.log(arg); 
+            return arg;
+        } // responsibility of the thenfunc to provide the next resovled
+    ).then((arg) => arg++);
 
     // finished running, returning the same instance of myPromise
 
+
+    const test = new Promise(() => 
 
 
 // const PromiseInstance = (asyncFunction){
