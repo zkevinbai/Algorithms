@@ -21,6 +21,9 @@ Goal - write the promise API
             }, 300);
         }
     );
+
+
+    
 */
 
 
@@ -36,7 +39,7 @@ class myPromise {
 
         this.resolved = null;
         this.rejected = null;
-        
+
         this.thenFuncs = [];
         this.catchFunc = null;
     }
@@ -96,10 +99,7 @@ const mymyPromise =
         } // responsibility of the thenfunc to provide the next resovled
     ).then((arg) => arg++);
 
-    // finished running, returning the same instance of myPromise
 
-
-    const test = new Promise(() => 
 
 
 // const PromiseInstance = (asyncFunction){
