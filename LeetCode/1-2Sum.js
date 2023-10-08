@@ -44,3 +44,20 @@ var twoSum = function (nums, target) {
     return pairs;
 };
 
+// tested out the for .. in loop, less performant and clear than traditional loop
+// let twoSum = (nums, target) => {
+//     const potentials = {}
+
+//     for (idx in nums) {
+//         const number = nums[idx]
+//         const difference = target - number
+//         potentials[difference] = idx
+//     }
+
+//     for (i in nums) {
+//         const number = nums[i]
+//         if (potentials[number] !== undefined && potentials[number] !== i) {
+//            return([i, potentials[number]])
+//         }
+//     }
+// }
