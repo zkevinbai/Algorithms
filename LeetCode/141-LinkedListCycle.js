@@ -12,28 +12,28 @@
  */
 
 // o(n) runtime, o(n) space
-const hasCycle = (head) => {
-    const values = {};
+// const hasCycle = (head) => {
+//     const values = {};
 
-    let node = head;
+//     let node = head;
 
-    if (!node) return false;
-    if (!node.next) return false;
-    if (node.next.next === node) return true;
+//     if (!node) return false;
+//     if (!node.next) return false;
+//     if (node.next.next === node) return true;
 
-    while (node.next.next) {
-        if (values[node.next.val] === node.next.next.val) {
-            console.log(node.next.val)
-            return true;
-        }
+//     while (node.next.next) {
+//         if (values[node.next.val] === node.next.next.val) {
+//             console.log(node.next.val)
+//             return true;
+//         }
 
-        values[node.val] = node.next.val;
+//         values[node.val] = node.next.val;
 
-        node = node.next;
-    }
+//         node = node.next;
+//     }
 
-    return false
-};
+//     return false
+// };
 
 // o(n) runtime, o(1) space
 const hasCycle = (head) => {
@@ -54,21 +54,21 @@ const hasCycle = (head) => {
 };
 
 // o(n) runtime, o(1) space
-const hasCycle = (head) => {
-    if (!head) return false;
-    if (!head.next) return false;
+// const hasCycle = (head) => {
+//     if (!head) return false;
+//     if (!head.next) return false;
 
-    let slowPointer = head;
-    let fastPointer = head;
+//     let slowPointer = head;
+//     let fastPointer = head;
 
-    while (fastPointer.next && fastPointer.next.next) {
-        fastPointer = fastPointer.next.next;
-        slowPointer = slowPointer.next;
+//     while (fastPointer.next && fastPointer.next.next) {
+//         fastPointer = fastPointer.next.next;
+//         slowPointer = slowPointer.next;
 
-        if (fastPointer === slowPointer) {
-            return true;
-        }
-    }
+//         if (fastPointer === slowPointer) {
+//             return true;
+//         }
+//     }
 
-    return false
-};
+//     return false
+// };
