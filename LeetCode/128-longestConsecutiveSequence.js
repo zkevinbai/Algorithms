@@ -26,28 +26,43 @@ Constraints:
 */
 
 var longestConsecutive = function (nums) {
-    const sortedNums = nums.sort(function (a, b) { return a - b })
+    if (nums.length == 1) {
+        return 1
+    }
+
+
+    const uniqueSet = new Set(nums);
+    const uniqueArray = [...uniqueSet];
+    const sortedNums = uniqueArray.sort(function (a, b) { return a - b })
 
     let longest = 0
-    let currentLongest = 0
+    let currentLongest = 1
 
-    console.log(sortedNums)
+    // console.log(sortedNums)
+
+    const validNextNum = (curr, next) => {
+        if (typeof curr !== "number" || typeof next !== "number") {
+            return false
+        }
+
+        if (Math.abs(curr - next) === 1) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     for (let i = 0; i < sortedNums.length; i++) {
         let currentNum = sortedNums[i]
         let nextNum = sortedNums[i + 1]
 
-        console.log({ currentNum, nextNum })
-        console.log({ longest, currentLongest })
+        // console.log({currentNum, nextNum})
+        // console.log({longest, currentLongest})
 
-        if (nextNum && currentNum + 1 == nextNum) {
-            if (currentLongest == 0) {
-                currentLongest = 2
-            } else {
-                currentLongest += 1
-            }
+        if (validNextNum(currentNum, nextNum)) {
+            currentLongest += 1
         } else {
-            currentLongest = 0
+            currentLongest = 1
         }
 
         if (currentLongest > longest) {
