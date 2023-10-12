@@ -1,4 +1,7 @@
 /*
+
+https://leetcode.com/problems/top-k-frequent-elements/description/
+
 Given a non-empty array of integers, return the k most frequent elements.
 
 Example 1:
@@ -38,3 +41,30 @@ const kthMostFrequent = (nums, k) => {
 var topKFrequent = function (nums, k) {
     return kthMostFrequent(nums, k);
 };
+
+
+var topKFrequent = (nums, k) => {
+
+    const frequencies = {}
+
+    for (let i = 0; i < nums.length; i++) {
+        const number = nums[i]
+
+        if (!frequencies[number]) {
+            frequencies[number] = [number]
+        } else {
+            frequencies[number].push(number)
+        }
+    }
+
+    const frequencyArray = Object.keys(frequencies).sort(
+        (a, b) => frequencies[b].length - frequencies[a].length
+    )
+
+    // console.log(
+    //     frequencies,
+    //     frequencyArray
+    // )
+
+    return frequencyArray.slice(0, k)
+}
