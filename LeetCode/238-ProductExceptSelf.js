@@ -82,3 +82,29 @@ const productExceptSelf = (nums) => {
 // let demo = [1, 2, 3, 4];
 
 // console.log(productExceptSelf(demo));
+
+var productExcept = (nums) => {
+
+    const leftArray = Array(nums.length)
+    let runningProduct = 1
+
+    for (let i = 0; i < nums.length; i++) {
+        leftArray.push(runningProduct)
+        runningProduct *= nums[i]
+    }
+
+    const rightArray = Array(nums.length)
+
+    runningProduct = 1
+    for (let i = nums.length - 1; i > -1; i--) {
+        rightArray.push(runningProduct)
+        runningProduct *= nums[i]
+    }
+
+    const answerArray = Array(nums.length)
+    for (let i = 0; i < nums.length; i++) {
+        answerArray.push(leftArray[i] * rightArray[i])
+    }
+
+    return answerArray
+}
