@@ -28,6 +28,7 @@ s consists of only uppercase English letters.
 
  */
 
+
 const longestSubstring = function (string) {
     let longest = 1
     let currentLength = 1
@@ -60,16 +61,46 @@ const longestSubstring = function (string) {
 }
 
 var characterReplacement = function (s, k) {
-    if (s.length == 1) {
+    if (s.length === 1) {
         return 1
     }
 
+    if (k === 0) {
+        return longestSubstring(s)
+    }
+
     let startingIdx = 0
-    let startingLetter = s[0]
     let activeIdx = startingIdx
     let longestSubstringLength = 1
+    let currentSubstringLength = 1
+    let kcount = k
 
     while (activeIdx < s.length) {
+        const currentVal = s[0]
 
+        const nextIdx = activeIdx + 1
+        const nextVal = s[nextIdx]
+
+        if (nextVal) {
+            if (nextVal === currentVal) {
+                currentSubstringLength += 1
+            } else {
+                if (kcount > 0) {
+                    currentSubstringLength += 1
+                    kcount -= 1
+                    startingIdx = nextIdx
+                } else {
+                    if (currentSubstringLength > longestSubstringLength) {
+                        longestSubstringLength = currentSubstringLength
+                    }
+                    currentSubstringLength = 1
+                    kcount = k
+                    activeIdx = nextIdx
+                }
+            }
+        }
+        activeIdx += 1
     }
+
+    return longestSubstringLength
 };
