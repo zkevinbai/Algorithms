@@ -28,79 +28,105 @@ s consists of only uppercase English letters.
 
  */
 
-
-const longestSubstring = function (string) {
-    let longest = 1
-    let currentLength = 1
-
-    for (let i = 0; i < string.length; i++) {
-        const currVal = string[i]
-        const nextVal = string[i + 1]
-
-        // console.log({
-        //     currVal,
-        //     nextVal
-        // })
-
-        if (nextVal) {
-            if (currVal === nextVal) {
-                currentLength += 1
-                // if (currentLength > longest) {
-                //     longest = currentLength
-                // }
-            } else {
-                if (currentLength > longest) {
-                    longest = currentLength
-                }
-                currentLength = 1
-            }
-        }
-    }
-
-    return longest
-}
-
 var characterReplacement = function (s, k) {
-    if (s.length === 1) {
-        return 1
-    }
+    let left = 0;
+    let maxCount = 0;
+    const charCount = {};
 
-    if (k === 0) {
-        return longestSubstring(s)
-    }
+    for (let right = 0; right < s.length; right++) {
+        const char = s[right];
+        charCount[char] = (charCount[char] || 0) + 1;
 
-    let startingIdx = 0
-    let activeIdx = startingIdx
-    let longestSubstringLength = 1
-    let currentSubstringLength = 1
-    let kcount = k
+        maxCount = Math.max(maxCount, charCount[char]);
 
-    while (activeIdx < s.length) {
-        const currentVal = s[0]
-
-        const nextIdx = activeIdx + 1
-        const nextVal = s[nextIdx]
-
-        if (nextVal) {
-            if (nextVal === currentVal) {
-                currentSubstringLength += 1
-            } else {
-                if (kcount > 0) {
-                    currentSubstringLength += 1
-                    kcount -= 1
-                    startingIdx = nextIdx
-                } else {
-                    if (currentSubstringLength > longestSubstringLength) {
-                        longestSubstringLength = currentSubstringLength
-                    }
-                    currentSubstringLength = 1
-                    kcount = k
-                    activeIdx = nextIdx
-                }
-            }
+        if (right - left + 1 - maxCount > k) {
+            // Too many replacements needed, shrink the window from the left.
+            const leftChar = s[left];
+            charCount[leftChar]--;
+            left++;
         }
-        activeIdx += 1
     }
 
-    return longestSubstringLength
+    return s.length - left;
 };
+
+
+
+// const longestSubstring = function (string) {
+//     let longest = 1
+//     let currentLength = 1
+
+//     for (let i = 0; i < string.length; i++) {
+//         const currVal = string[i]
+//         const nextVal = string[i + 1]
+
+//         // console.log({
+//         //     currVal,
+//         //     nextVal
+//         // })
+
+//         if (nextVal) {
+//             if (currVal === nextVal) {
+//                 currentLength += 1
+//                 // if (currentLength > longest) {
+//                 //     longest = currentLength
+//                 // }
+//             } else {
+//                 if (currentLength > longest) {
+//                     longest = currentLength
+//                 }
+//                 currentLength = 1
+//             }
+//         }
+//     }
+
+//     return longest
+// }
+
+// var characterReplacement = function (s, k) {
+//     if (s.length === 1) {
+//         return 1
+//     }
+
+//     if (k === 0) {
+//         return longestSubstring(s)
+//     }
+
+//     let startingIdx = 0
+//     let activeIdx = startingIdx
+
+//     let longestSubstring = 1
+//     let currentLongest = 1
+//     let kcount = k
+
+//     while (activeIdx < s.length) {
+//         const currentVal = s[activeIdx]
+
+//         const nextIdx = activeIdx + 1
+//         const nextVal = s[nextIdx]
+
+//         if (nextVal === currentVal) {
+//             currentLongest += 1
+//         } else if (kcount > 0) {
+//             currentLongest += 1
+//             kcount -= 1
+//             startingIdx = nextIdx
+//         } else {
+//             if (currentLongest > longestSubstring) {
+//                 longestSubstring = currentLongest
+//             }
+//             currentLongest = 1
+//             kcount = k
+//             activeIdx = nextIdx
+//         }
+
+//         activeIdx += 1
+//     }
+
+//     return longestSubstring
+// };
+
+// s = "ABAB"
+// k = 2
+
+// characterReplacement(s, k)
