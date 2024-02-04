@@ -73,3 +73,34 @@ const lengthOfLongestSubstring = (string) => {
 
     return maxLength;
 };
+
+/*
+
+
+User
+Explain the following code to me, what is its big o 
+
+```
+python - brent
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if not len(s):
+            return 0
+        longest = 1
+        l = 0
+        r = 1
+        seen = set(s[l])
+        while r < len(s):
+            if s[r] not in seen:
+                longest = max(longest, r - l + 1)
+            else:
+                while s[r] in seen:
+                    seen.remove(s[l])
+                    l += 1
+            seen.add(s[r])
+            r += 1
+
+        return longest
+
+*/

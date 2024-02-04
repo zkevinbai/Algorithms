@@ -34,3 +34,21 @@ const isPalindrome = (number) => {
 
     return rev === number
 }
+
+/*
+
+smaller than 0 is nonpalindrome
+between 0 and 10 is palindrome
+convert string split reverse 
+
+left pointer starts at 0
+right pointer starts at length - 1
+
+as long as left pointer < right pointer
+
+1 2 3
+1 2
+
+*/
+
+
