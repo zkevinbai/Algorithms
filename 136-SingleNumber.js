@@ -1,3 +1,19 @@
+const singleNumber2024 = (nums) => {
+    const dictionary = {};
+
+    for (let i = 0; i < nums.length; i++) {
+        const number = nums[i];
+
+        dictionary[number] = (dictionary[number] || 0) + 1;
+    }
+
+    for (let key in dictionary) {
+        if (dictionary[key] === 1) {
+            return key;
+        }
+    }
+}
+
 var singleNumber = function (nums) {
     if (nums.length === 1) return nums[0];
 
