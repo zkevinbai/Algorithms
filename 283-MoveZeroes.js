@@ -1,5 +1,23 @@
+const moveZeroes = (nums) => {
+    let left = 0
+    let right = 0
+
+    // move everything non zero to the front
+    while (right < nums.length) {
+        if (nums[right] != 0) {
+            // swap non zero elements with the left pointer
+            let temp = nums[left]
+            nums[left] = nums[right]
+            nums[right] = temp
+            left ++
+        }
+
+        right ++
+    }
+}
+
 // Working solution
-var moveZeroes = function (nums) {
+var moveZeroes2019 = function (nums) {
     for (let index = nums.length - 1; index >= 0; index--) {
         if (nums[index] === 0) {
             nums.splice(index, 1);
