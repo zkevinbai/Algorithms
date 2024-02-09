@@ -1,4 +1,33 @@
-var majorityElement = function (nums) {
+const majorityElement = (nums) => {
+    if (nums.length === 1) return nums[0]
+
+    const numCount = {}
+    let highestCount = 0
+    let majorityValue = nums[0]
+
+    for (let i = 0; i < nums.length; i++) {
+        const num = nums[i]
+
+        if (numCount[num]) {
+            numCount[num]++
+        } else {
+            numCount[num] = 1
+        }
+
+        // console.log(numCount[num], highestCount)
+
+        if (numCount[num] > highestCount) {
+            highestCount = numCount[num]
+            majorityValue = num
+        }
+    }
+
+    // console.log(numCount)
+
+    return majorityValue
+}
+
+var majorityElement2019 = function (nums) {
     let counterObject = {};
 
     for (let i = 0; i < nums.length; i++) {
