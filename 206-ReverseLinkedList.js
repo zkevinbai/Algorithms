@@ -30,4 +30,18 @@ const reverseList = function (head) {
 //     value: 2
 // }
 
+const reverseList2024 = (head) => {
+    let prev = null;
+    let curr = head;
+    let next = null;
 
+    while (curr) {
+        next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+    };
+
+
+    return prev;
+}
