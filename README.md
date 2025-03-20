@@ -1,4 +1,4 @@
-# LeetCode Solutions
+# Algorithms and Data Structures
 
 This repository contains my solutions to LeetCode problems, organized by difficulty and topic. It includes both **Python** solutions for new problems and **JavaScript** solutions for previous problems.
 
