@@ -3,21 +3,10 @@
 This repository contains my solutions to LeetCode problems, organized by difficulty and topic. It includes both **Python** solutions for new problems and **JavaScript** solutions for previous problems.
 
 ## File Structure
-
+```
 leetcode-solutions/
 │
 ├── README.md                     # Overview of the repo
-├── AlgorithmVisualizations/       # Visual aids for algorithm concepts
-│   ├── 166-ReverseLinkedList.numbers
-│   └── 22-GenerateAllValidParenthesis.numbers
-├── CodeSignal/                   # CodeSignal problems and solutions
-│   ├── array
-│   ├── assessments
-│   ├── hashTable
-│   ├── heap
-│   ├── linkedList
-│   ├── records-codesignal
-│   └── tree
 ├── leetcode_javascript/           # Old JavaScript LeetCode solutions
 │   ├── 0-workspace.js
 │   ├── 1-2Sum.js
@@ -35,3 +24,15 @@ leetcode-solutions/
     ├── iterativeSubsets.js
     ├── promises
     └── test.js
+    ├── AlgorithmVisualizations/       # Visual aids for algorithm concepts
+    │   ├── 166-ReverseLinkedList.numbers
+    │   └── 22-GenerateAllValidParenthesis.numbers
+    ├── CodeSignal/                   # CodeSignal problems and solutions
+    │   ├── array
+    │   ├── assessments
+    │   ├── hashTable
+    │   ├── heap
+    │   ├── linkedList
+    │   ├── records-codesignal
+    │   └── tree
+```
