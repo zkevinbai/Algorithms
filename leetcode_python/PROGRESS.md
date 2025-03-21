@@ -1,5 +1,7 @@
 ### **Array and Hashing Problems Completed**
 
+20 March 2025 Thursday
+
 1. **Contains Duplicate**  
    - **Problem**: Determine if any value appears at least twice in the array.  
    - **Solution**: Used a set to track unique elements as we iterate through the array.
