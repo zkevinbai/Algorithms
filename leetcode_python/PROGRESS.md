@@ -1,4 +1,6 @@
-### **Array and Hashing Problems Completed**
+# **Algorithm Problems Completed**
+
+## **Array and Hashing Problems Completed**
 
 20 March 2025 Thursday
 
@@ -38,7 +40,7 @@
    - **Problem**: Find the length of the longest consecutive elements sequence.  
    - **Solution**: Used a hash set to track elements and iterated over the set, finding sequences efficiently in O(n) time.
 
-### **Set Problems Completed**
+## **Set Problems Completed**
 
 21 March 2025 Friday
 
