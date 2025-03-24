@@ -15,6 +15,7 @@ class Solution(object):
 
             for pile in piles:
                 totalTime += (pile + mid - 1) // mid
+                # totalTime += math.ceil(pile / mid)
 
             if totalTime > h:
                 left = mid + 1
