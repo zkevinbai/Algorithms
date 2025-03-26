@@ -13,3 +13,22 @@ class Solution(object):
             anagrams[sorted_word].append(word)
 
         return list(anagrams.values())
+
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagrams = {}
+
+        for word in strs:
+            count = [0] * 26
+            for c in word:
+                count[ord(c) - ord('a')] += 1
+
+            key = tuple(count)
+
+            if key not in anagrams:
+                anagrams[key] = [word]
+            else:
+                anagrams[tuple(count)].append(word)
+
+        return list(anagrams.values())
