@@ -7,27 +7,22 @@ class Solution(object):
 
         stack = []
 
-        for token in tokens:
-            if token in ['+', '-', '*', '/']:
-                b = stack.pop()
-                a = stack.pop()
+        for t in tokens:
+            if t in ['+', '-', '*', '/']:
+                b, a = stack.pop(), stack.pop()
+                # keep in mind that the first pop is the second operand
+                # print(a, b)
 
-                if token == '+':
+                if t == '+':
                     stack.append(a + b)
-
-                elif token == '-':
+                elif t == '-':
                     stack.append(a - b)
-
-                elif token == '*':
+                elif t == '*':
                     stack.append(a * b)
-
-                elif token == '/':
-                    if a * b < 0 and a % b != 0:
-                        stack.append(a // b + 1)
-                    else:
-                        stack.append(a // b)
-
+                elif t == '/':
+                    stack.append(int(a / b))
             else:
-                stack.append(int(token))
+                stack.append(int(t))
 
-        return stack.pop()
+
+        return stack[0]
