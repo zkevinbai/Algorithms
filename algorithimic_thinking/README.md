@@ -12,8 +12,10 @@ Specifically:
 - Communicate decisions the way a senior systems engineer would
 - Avoid trivia, LeetCode reflexes, or over-design
 
-Success is **not** finding the “right” algorithm.
+Success is **not** finding the "right" algorithm.
 Success is making good decisions under ambiguity and defending them clearly.
+
+> **For AI Assistants:** See [AGENTS.md](./AGENTS.md) for instructions on how to teach using this curriculum.
 
 ---
 
