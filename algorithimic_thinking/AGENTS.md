@@ -234,6 +234,7 @@ A successful session means the user can:
 5. **Address Confusion Immediately** - If they're confused, stop and clarify
 6. **Build Decision Frameworks** - Help them know when to use what
 7. **Reference Files Strategically** - Use topic files for content, CURRICULUM.md for methodology, CHEATSHEET.md for summaries
+8. **Minimum in Cheatsheet** - Only add the minimum amount needed to CHEATSHEET.md - keep it concise and scannable
 
 ---
 

@@ -32,4 +32,32 @@ Recent only? → Sliding Window
 
 ---
 
-*Add new topics below as you learn them*
+## Deduplication at Scale
+
+**Problem:** Ensure each unique event is processed once in high-throughput system  
+**Why naive fails:** Hashmap memory grows unbounded → OOM
+
+### Solutions
+
+| Approach | Memory | False Positives | Use When |
+|----------|--------|----------------|----------|
+| Hash Set | Unbounded | 0% | Bounded event space |
+| Bloom Filter | Fixed | >0% (tunable) | Unbounded space, false positives OK |
+| Counting Bloom Filter | Fixed | >0% (tunable) | Unbounded space + need to forget events |
+| Hybrid (Bloom + Exact) | Fixed + Bounded | 0% | Unbounded space + need exact |
+
+### Decision Framework
+```
+Bounded event space? → Hash Set
+Unbounded + false positives OK? → Bloom Filter
+Unbounded + need to forget? → Counting Bloom Filter
+Unbounded + need exact? → Hybrid (Bloom Filter + Redis/DB)
+```
+
+### Key Reminders
+- **Bloom Filter**: Fixed bit array → bounded memory, false positives increase as it fills
+- **Counting Bloom Filter**: Counters instead of bits → supports deletion
+- **Hybrid**: Bloom Filter (fast) + Exact Store (slow) → only ~1% hit exact store
+- **False positives OK, false negatives bad**: Better to reject valid than process duplicate
+
+---
