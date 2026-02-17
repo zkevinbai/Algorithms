@@ -94,3 +94,37 @@ Distributed system? → Token Bucket + Redis
 - **Token vs Leaky**: Token allows bursts and rejects immediately; Leaky queues and processes smoothly
 
 ---
+
+## 4. Incremental Aggregation
+
+**Problem:** Compute metrics over dataset that updates continuously  
+**Why naive fails:** Full recompute is O(n) per query → too slow at scale
+
+### Solutions
+
+| Approach | Memory | Update | Query | Use When |
+|----------|--------|--------|-------|----------|
+| Full Recompute | O(n) | O(1) insert | O(n) | Nothing (too slow) |
+| Incremental State | O(1) | O(1) | O(1) | Simple aggregates (sum, count, avg, min, max) |
+| Materialized View | O(view_size) | O(1) to O(k) | O(1) | Complex metrics (with appropriate state) |
+| Delta-Based | O(n + deltas) | O(1) append | O(1) | Need corrections/late-arriving data |
+| Sketch-Based | O(sketch_size) | O(1) | O(1) | Very large datasets, approximate OK |
+
+### Decision Framework
+```
+Simple aggregates (sum, count, avg)? → Incremental State
+Complex metrics (percentiles, median)?
+  → Small dataset (< 1M)? → Materialized View (exact, full sorted data)
+  → Huge dataset (billions)? → Sketch-Based (approximate, bounded)
+  → Medium dataset? → Materialized View (sorted samples, approximate)
+Need corrections/late-arriving data? → Delta-Based
+```
+
+### Key Reminders
+- **Incremental State**: Maintain sum, count, etc. → O(1) memory, fast updates
+- **Materialized View**: Precomputed aggregates stored separately → fast queries, but need to maintain
+- **Delta-Based**: Store changes in log → can replay for corrections/late data
+- **Sketch-Based**: T-Digest/KLL for percentiles → bounded memory, approximate results
+- **Median/Percentiles**: Require distribution info → can't use simple aggregates, need sorted data or sketches
+
+---
