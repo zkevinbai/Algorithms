@@ -6,12 +6,15 @@ This document provides executable instructions for AI assistants teaching algori
 
 ## Quick Start
 
-When a user asks to learn a topic:
+When a user asks to learn a topic **OR references a topic file** (e.g., `@algorithimic_thinking/06_materialized_views.md`):
 
 1. **Read this file first** (you're doing it!)
 2. **Read CURRICULUM.md** to understand the teaching methodology
 3. **Read the relevant topic file** (e.g., `01_top_k_in_stream.md`)
-4. **Follow the session structure below**
+4. **Automatically follow the 3-phase session structure** (Problem Framing → Active Learning → Decision Framework)
+5. **No need for user to explicitly mention CURRICULUM.md** - it's implied when teaching a topic
+
+**Note:** If a user references a topic file, assume they want to learn it using the curriculum methodology. You don't need to ask - just start teaching following the 3-phase structure.
 
 ---
 
