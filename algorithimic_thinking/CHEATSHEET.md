@@ -199,3 +199,126 @@ Simple queries, infrequent updates? → Full Recompute (if small enough)
 - **Financial/correctness critical**: Use Hybrid - periodic recompute catches incremental errors
 
 ---
+
+## 7. Sliding Window Metrics
+
+**Problem:** Compute metrics (count, sum, avg, etc.) over the last N minutes of events  
+**Why naive fails:** Store-every-event → memory = events in window → no infinite storage; high event rate blows up
+
+### Solutions
+
+| Approach | Memory | Accuracy | Use When |
+|----------|--------|----------|----------|
+| Fixed Window (buckets) | O(buckets) | Exact per bucket, discrete boundaries | Simple, boundaries OK, high event rate |
+| Circular Buffer (slices) | O(slices) | Approximate (slice granularity) | Sliding + bounded memory; tune granularity vs memory |
+| Store Events (queue + evict) | O(events in window) | Exact, true sliding | Low event rate, need exact + true sliding |
+| Probabilistic (sketch + decay) | O(sketch_size) | Approximate | Very high event rate, approximate OK |
+
+### Decision Framework
+```
+Discrete boundaries OK + high event rate? → Fixed Window
+Sliding + bounded memory + approximate OK? → Circular Buffer (slices)
+Low event rate + exact + true sliding? → Store Events (queue, incremental eviction)
+Very high rate + approximate OK? → Probabilistic (sketch + time decay)
+```
+
+### Key Reminders
+- **Fixed window**: More granularity = more buckets → limit is bucket count; use when event rate is high (e.g. 100k req/s → 60 buckets for 1 min, not 6M events)
+- **Circular buffer**: Bounded slices; finer granularity = more slices = more memory
+- **Store events**: True sliding + exact, but memory = event rate × window → fails at high rate
+- **No infinite storage** → trade off: granularity vs memory (fixed/circular) or exact vs event rate (store events vs approximate)
+
+---
+
+## 8. Event Time vs Processing Time
+
+**Problem:** Events arrive out of order; need to choose which time to trust for windows/ordering  
+**Why naive fails:** Processing-time-only is fast but wrong for analytics/billing; event-time-only is correct but unbounded wait/memory
+
+### Solutions
+
+| Approach | Latency | Correctness | Use When |
+|----------|---------|-------------|----------|
+| Processing time | Low | Low (wrong for real time) | Real-time dashboards, approximate OK |
+| Event time only | High (buffer) | High | Late events rare, latency less critical |
+| Event time + watermarks | Medium (bounded) | High (on-time events) | Analytics, billing, compliance |
+| Hybrid (event + proc fallback) | Low–Medium | Medium (mixed) | Missing/very late event times |
+| Reprocessing (two views) | Low + High | High (corrected view) | Need both fast preview and correct report |
+
+### Decision Framework
+```
+Correctness of "when it happened" doesn't matter? → Processing time
+Correctness matters:
+  → Bounded delay OK (e.g. 5–15 min)? → Event time + watermarks
+  → Need fast + correct? → Reprocessing (real-time + corrected)
+  → Messy/missing event times? → Hybrid
+  → Late events rare? → Event time only
+```
+
+### Key Reminders
+- **Processing time**: Fast, simple, wrong for analytics/billing
+- **Watermarks**: "No events with event time < T will arrive" → close windows, handle late separately
+- **Reprocessing**: Two pipelines — processing time (fresh) + event time (correct)
+
+---
+
+## 9. Dependency Resolution
+
+**Problem:** Tasks depend on other tasks; determine execution order and what to recompute on change  
+**Why naive fails:** Full recompute every time = O(all tasks) → too expensive at scale
+
+### Solutions
+
+| Approach | Change detection | Correctness | Use When |
+|----------|------------------|-------------|----------|
+| Full Recompute | N/A | Always correct | Small graphs, never (baseline) |
+| Dirty Tracking | Mark + propagate | Only if marking correct | Explicit "this changed" (events, UI) |
+| Make-like (timestamps) | Input newer than output? | Can miss or over-rebuild | File-based builds, simple env |
+| Content Hash (Bazel-like) | Input hash ≠ stored hash | Accurate | Builds/pipelines, correctness + cache matter |
+
+### Decision Framework
+```
+Small graph, few changes? → Full Recompute (or still avoid; use dirty/hash)
+File-based, simple? → Make-like (accept timestamp quirks)
+Need accuracy + cache? → Content Hash
+Have explicit change events? → Dirty Tracking
+```
+
+### Key Reminders
+- **Topological order**: Run only after dependencies — required for correct outputs
+- **Parallel**: Tasks with no dependency between them can run in parallel (same "level" in topo order)
+- **Dirty wrong** → stale outputs; full recompute is the fix after you discover it
+- **Make**: Cheap (stat) but timestamps lie; content hash: accurate but hash + storage cost
+
+---
+
+## 10. Change Propagation
+
+**Problem:** A value changes; many downstream values depend on it → propagate efficiently  
+**Why naive fails:** Direct push to all dependents = O(dependents) per change, slow + tight coupling
+
+### Solutions
+
+| Approach | Propagation | Consistency | Use When |
+|----------|-------------|-------------|----------|
+| Direct Push | O(dependents) | Strong (sync) or eventual | Few dependents, need immediate |
+| Event-Driven (Pub/Sub) | O(1) publish | Eventual | Many dependents, distributed, decoupling |
+| Pull-Based (Lazy) | None | Strong on read | Expensive compute, infrequent reads |
+| Incremental (Graph) | O(V+E) | Strong if sync | Complex DAG, minimize recompute |
+| Batch | Per batch | Eventual | High change rate, latency OK |
+
+### Decision Framework
+```
+Few dependents + immediate? → Direct Push
+Many / distributed / decouple? → Event-Driven
+Heavy compute, few reads? → Pull-based (lazy)
+Complex DAG, minimal work? → Incremental
+High change rate, latency OK? → Batch
+```
+
+### Key Reminders
+- **Blast radius**: One change → how many updates? Minimize via event-driven or pull
+- **Event-driven**: Decouples source from dependents; trade ordering + eventual consistency
+- **Pull-based**: No propagation; pay on read; cache + invalidation brings back propagation concerns
+
+---
