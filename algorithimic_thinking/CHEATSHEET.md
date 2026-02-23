@@ -322,3 +322,105 @@ High change rate, latency OK? → Batch
 - **Pull-based**: No propagation; pay on read; cache + invalidation brings back propagation concerns
 
 ---
+
+## 11. Approximate Counting
+
+**Problem:** Count item frequencies with bounded memory; item space large or unbounded  
+**Why naive fails:** Hash map = one entry per unique item → unbounded memory → OOM
+
+### Solutions
+
+| Approach | Memory | Bias | Query Any? | Use When |
+|----------|--------|------|------------|----------|
+| Exact Hash Map | O(unique) | None | ✅ | Small/bounded item space only |
+| Count-Min Sketch | Fixed (w×d) | Overestimates | ✅ | Unbounded space, "never underestimate" OK |
+| Count Sketch | Fixed (w×d) | Unbiased | ✅ | Unbounded space, want unbiased estimate |
+| HyperLogLog | O(log log n) | ~Unbiased | N/A (distinct only) | Distinct count only, not frequency |
+| Space-Saving | O(K+ε) | None (tracked) | ❌ (top-K only) | Heavy hitters / top-K with exact counts |
+
+### Decision Framework
+```
+Counting what?
+  → Distinct count only (how many unique)? → HyperLogLog
+  → Per-item frequency?
+      → Need exact for top-K / heavy hitters? → Space-Saving
+      → Need to query any item later?
+          → Overestimate OK (e.g. safety)? → Count-Min Sketch
+          → Unbiased estimate? → Count Sketch
+      → Item space small? → Exact Hash Map
+```
+
+### Key Reminders
+- **CMS**: Min over rows → never underestimates; error grows with stream size (tune or window/reset)
+- **Count Sketch**: Signed hashes + median → unbiased; can underestimate
+- **Space-Saving**: Bounded (item, count) slots; evict min → exact counts for tracked items only
+- **HyperLogLog**: Cardinality only — "how many distinct," not "how many times"
+
+---
+
+## 12. Ranking Under Uncertainty
+
+**Problem:** Rank items when signals are noisy, incomplete, or changing over time  
+**Why naive fails:** Simple score aggregation → unstable rankings, can't handle missing signals, small signal changes cause large rank swings
+
+### Solutions
+
+| Approach | Stability | Best For |
+|----------|-----------|----------|
+| Simple Aggregation | Low (noise-sensitive) | Low noise, simple case |
+| Bayesian | High (prior smooths) | Noisy/sparse signals, need stability |
+| Confidence-Weighted | High (conservative) | Interpretable, conservative ranking |
+| Time-Decay | Medium (recent stable) | Drift, trending, "what's hot now" |
+| Multi-Armed Bandit | Medium (exploration) | Learning from feedback, explore vs exploit |
+
+### Decision Framework
+```
+Noisy/sparse signals + stability? → Bayesian (prior + posterior)
+Conservative + interpretable? → Confidence-Weighted (e.g. lower bound)
+Signals change fast (trending)? → Time-Decay
+Learning from feedback? → Multi-Armed Bandit
+Simple, low noise? → Simple aggregation
+```
+
+### Key Reminders
+- **Bayesian**: Same prior for every item; prior dominates when data is sparse, data dominates when data is abundant
+- **Confidence-Weighted**: Rank by conservative estimate (e.g. lower bound) so uncertain items don't shoot to top
+- **Time-Decay**: Weight recent signals more; tune decay rate (too fast = jittery, too slow = stale)
+- **Bandit**: Balance exploit (show best) vs explore (learn); requires user feedback
+
+---
+
+## 13. Batch vs Real-Time
+
+**Problem:** Same data processing (aggregation, transformation, analysis) — choose batch or streaming (or both)  
+**Why naive fails:** Only batch → high latency, stale data for use cases that need freshness; only real-time → unnecessary cost when results only needed periodically
+
+### Solutions
+
+| Approach | Latency | Cost | Complexity | Use When |
+|----------|---------|------|------------|----------|
+| Pure Batch | Hours–days | Low | Low | Periodic reports, ETL, exact + staleness OK |
+| Pure Streaming | Seconds–minutes | High | High | Real-time dashboards, alerts, need freshness |
+| Lambda | Batch: hours; Stream: sec | Very High | Very High | Need both correctness (batch) + real-time view |
+| Kappa | Real-time: sec; Reprocess: hours | High | High | Single pipeline; reprocess history through same stream |
+| Hybrid | Recent: sec; Historical: hours | Medium | Medium | Large history (batch) + fresh recent (stream); query combines |
+
+### Decision Framework
+```
+Latency requirement?
+  → Hours/days OK + exact? → Pure Batch
+  → Seconds/minutes? → Pure Streaming (or Hybrid/Lambda)
+Need both real-time + exact?
+  → Lambda (batch = truth, stream = fresh) or Kappa (one pipeline, reprocess for exact)
+Large historical + fresh recent? → Hybrid (batch historical + stream recent, query-layer merge)
+Start simple: Batch first; add streaming when latency requirement emerges
+```
+
+### Key Reminders
+- **Batch**: Simple, cheap, exact — but stale until run completes
+- **Streaming**: Fresh, low latency — but complex, expensive, may be approximate
+- **Lambda**: Two pipelines (batch + speed) + merge; double cost/complexity; batch corrects stream
+- **Kappa**: One streaming pipeline; reprocess history through same pipeline for exact (no separate batch)
+- **Lambda (architecture)** ≠ **Lambda (AWS/serverless functions)** — same name, different concepts
+
+---
