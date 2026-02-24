@@ -2,6 +2,8 @@
 
 Quick reference - updated as topics are covered.
 
+**Decision Framework** in each section = quick decision flow for that topic (use branching flow when it helps).
+
 ---
 
 ## 1. Top-K in a Stream
@@ -19,10 +21,11 @@ Quick reference - updated as topics are covered.
 
 ### Decision Framework
 ```
-Exact counts for top-K? → Space-Saving
-Query arbitrary items? → Count-Min Sketch
-Both? → Hybrid
-Recent only? → Sliding Window
+Only care about recent window? → Sliding Window
+Need top-K over full stream (so far)?
+├─ Only need exact counts for top-K (no "query any item")? → Space-Saving
+├─ Need to query arbitrary items (huge space)? → Count-Min Sketch
+└─ Need both exact top-K and query-any? → Hybrid (Space-Saving + Count-Min)
 ```
 
 ### Key Reminders
@@ -48,10 +51,13 @@ Recent only? → Sliding Window
 
 ### Decision Framework
 ```
-Bounded event space? → Hash Set
-Unbounded + false positives OK? → Bloom Filter
-Unbounded + need to forget? → Counting Bloom Filter
-Unbounded + need exact? → Hybrid (Bloom Filter + Redis/DB)
+Is event space bounded (small, known)?
+├─ Yes → Hash Set
+└─ No (unbounded) → Need to forget events (e.g. time window)?
+                    ├─ Yes → Counting Bloom Filter
+                    └─ No → Need exact (zero false positives)?
+                             ├─ Yes → Hybrid (Bloom Filter + Redis/DB)
+                             └─ No (false positives OK) → Bloom Filter
 ```
 
 ### Key Reminders
@@ -79,12 +85,14 @@ Unbounded + need exact? → Hybrid (Bloom Filter + Redis/DB)
 
 ### Decision Framework
 ```
-Simple + acceptable bursts? → Fixed Window
-Exact + low request rate? → Sliding Window Log
-Approximate OK + bounded memory? → Sliding Window Counter
-High rate + smooth limiting? → Token Bucket
-Smooth output rate (can queue)? → Leaky Bucket
 Distributed system? → Token Bucket + Redis
+Otherwise (single-node / algorithm)?
+├─ Simple + 2× bursts at boundary OK? → Fixed Window
+├─ Exact + low request rate? → Sliding Window Log
+├─ Approximate OK + bounded memory? → Sliding Window Counter
+└─ Need smooth limiting (no boundary burst)?
+    ├─ Allow bursts when tokens available? → Token Bucket
+    └─ Smooth output rate (queue + drain)? → Leaky Bucket
 ```
 
 ### Key Reminders
@@ -112,12 +120,12 @@ Distributed system? → Token Bucket + Redis
 
 ### Decision Framework
 ```
-Simple aggregates (sum, count, avg)? → Incremental State
+Need corrections / late-arriving data? → Delta-Based
+Simple aggregates (sum, count, avg, min, max)? → Incremental State
 Complex metrics (percentiles, median)?
-  → Small dataset (< 1M)? → Materialized View (exact, full sorted data)
-  → Huge dataset (billions)? → Sketch-Based (approximate, bounded)
-  → Medium dataset? → Materialized View (sorted samples, approximate)
-Need corrections/late-arriving data? → Delta-Based
+├─ Small dataset (< 1M)? → Materialized View (exact, full sorted data)
+├─ Huge dataset (billions)? → Sketch-Based (approximate, bounded)
+└─ Medium dataset? → Materialized View (sorted samples, approximate)
 ```
 
 ### Key Reminders
@@ -146,12 +154,13 @@ Need corrections/late-arriving data? → Delta-Based
 
 ### Decision Framework
 ```
-Read-heavy + staleness OK? → TTL
+Read-heavy + staleness acceptable? → TTL
+Need exact freshness + low write rate? → Write-Through
 Write-heavy + need freshness?
-  → High write rate? → Event-Driven (or Hybrid for safety)
-  → Low write rate? → Write-Through
-Need resilience (handle lost events)? → Hybrid
-Need exact freshness, low write rate? → Write-Through
+├─ High write rate? → Event-Driven (or Hybrid for safety)
+├─ Low write rate? → Write-Through
+└─ Need resilience (handle lost events)? → Hybrid (TTL + Event)
+High write rate + can accept async delay? → Write-Behind
 ```
 
 ### Key Reminders
@@ -181,13 +190,12 @@ Need exact freshness, low write rate? → Write-Through
 
 ### Decision Framework
 ```
-Need real-time freshness?
-  → Have stream infrastructure? → Stream Processing
-  → Traditional app/database? → Hybrid (Incremental + Periodic)
-  → Need correctness guarantee? → Hybrid (safety net)
-
 Staleness acceptable (hours/days)? → Periodic Batch Recompute
-Simple queries, infrequent updates? → Full Recompute (if small enough)
+Small dataset + simple queries + infrequent updates? → Full Recompute
+Need real-time freshness?
+├─ Have stream infrastructure? → Stream Processing
+├─ Traditional app/database? → Hybrid (Incremental + Periodic)
+└─ Correctness critical (financial etc.)? → Hybrid (incremental + periodic safety net)
 ```
 
 ### Key Reminders
@@ -216,10 +224,11 @@ Simple queries, infrequent updates? → Full Recompute (if small enough)
 
 ### Decision Framework
 ```
-Discrete boundaries OK + high event rate? → Fixed Window
-Sliding + bounded memory + approximate OK? → Circular Buffer (slices)
-Low event rate + exact + true sliding? → Store Events (queue, incremental eviction)
-Very high rate + approximate OK? → Probabilistic (sketch + time decay)
+Discrete window boundaries OK + high event rate? → Fixed Window (buckets)
+Need true sliding + bounded memory?
+├─ Approximate OK (slice granularity)? → Circular Buffer (slices)
+└─ Exact needed + low event rate? → Store Events (queue + evict)
+Very high event rate + approximate OK? → Probabilistic (sketch + time decay)
 ```
 
 ### Key Reminders
@@ -247,12 +256,12 @@ Very high rate + approximate OK? → Probabilistic (sketch + time decay)
 
 ### Decision Framework
 ```
-Correctness of "when it happened" doesn't matter? → Processing time
-Correctness matters:
-  → Bounded delay OK (e.g. 5–15 min)? → Event time + watermarks
-  → Need fast + correct? → Reprocessing (real-time + corrected)
-  → Messy/missing event times? → Hybrid
-  → Late events rare? → Event time only
+Correctness of "when it happened" doesn't matter (dashboards, approx)? → Processing time
+Correctness matters (analytics, billing)?
+├─ Bounded delay OK (e.g. 5–15 min)? → Event time + watermarks
+├─ Need both fast preview and correct report? → Reprocessing (two views)
+├─ Messy or missing event times? → Hybrid (event + proc fallback)
+└─ Late events rare, latency less critical? → Event time only
 ```
 
 ### Key Reminders
@@ -278,10 +287,11 @@ Correctness matters:
 
 ### Decision Framework
 ```
-Small graph, few changes? → Full Recompute (or still avoid; use dirty/hash)
-File-based, simple? → Make-like (accept timestamp quirks)
-Need accuracy + cache? → Content Hash
-Have explicit change events? → Dirty Tracking
+What's the context?
+├─ File-based builds, simple env? → Make-like (timestamps; accept quirks)
+├─ Explicit "this changed" events (UI, triggers)? → Dirty Tracking
+├─ Need accuracy + cache (builds, pipelines)? → Content Hash (Bazel-like)
+└─ Small graph, few changes? → Full Recompute (baseline)
 ```
 
 ### Key Reminders
@@ -309,11 +319,12 @@ Have explicit change events? → Dirty Tracking
 
 ### Decision Framework
 ```
-Few dependents + immediate? → Direct Push
-Many / distributed / decouple? → Event-Driven
-Heavy compute, few reads? → Pull-based (lazy)
-Complex DAG, minimal work? → Incremental
-High change rate, latency OK? → Batch
+What's the constraint?
+├─ Few dependents + immediate? → Direct Push
+├─ Many / distributed / decouple? → Event-Driven (Pub/Sub)
+├─ Heavy compute per update, infrequent reads? → Pull-based (lazy)
+├─ Complex DAG, minimize recompute? → Incremental (graph)
+└─ High change rate, latency OK? → Batch
 ```
 
 ### Key Reminders
@@ -341,13 +352,13 @@ High change rate, latency OK? → Batch
 ### Decision Framework
 ```
 Counting what?
-  → Distinct count only (how many unique)? → HyperLogLog
-  → Per-item frequency?
-      → Need exact for top-K / heavy hitters? → Space-Saving
-      → Need to query any item later?
-          → Overestimate OK (e.g. safety)? → Count-Min Sketch
-          → Unbiased estimate? → Count Sketch
-      → Item space small? → Exact Hash Map
+├─ Distinct count only (how many unique)? → HyperLogLog
+└─ Per-item frequency?
+    ├─ Item space small/bounded? → Exact Hash Map
+    ├─ Need exact for top-K / heavy hitters? → Space-Saving
+    └─ Need to query any item later?
+        ├─ Overestimate OK (e.g. safety)? → Count-Min Sketch
+        └─ Unbiased estimate? → Count Sketch
 ```
 
 ### Key Reminders
@@ -375,11 +386,12 @@ Counting what?
 
 ### Decision Framework
 ```
-Noisy/sparse signals + stability? → Bayesian (prior + posterior)
-Conservative + interpretable? → Confidence-Weighted (e.g. lower bound)
-Signals change fast (trending)? → Time-Decay
-Learning from feedback? → Multi-Armed Bandit
-Simple, low noise? → Simple aggregation
+What's the need?
+├─ Simple case, low noise? → Simple aggregation
+├─ Noisy/sparse signals, need stability? → Bayesian (prior + posterior)
+├─ Conservative, interpretable? → Confidence-Weighted (e.g. lower bound)
+├─ Signals drift / trending? → Time-Decay
+└─ Learning from feedback (explore vs exploit)? → Multi-Armed Bandit
 ```
 
 ### Key Reminders
@@ -408,12 +420,13 @@ Simple, low noise? → Simple aggregation
 ### Decision Framework
 ```
 Latency requirement?
-  → Hours/days OK + exact? → Pure Batch
-  → Seconds/minutes? → Pure Streaming (or Hybrid/Lambda)
-Need both real-time + exact?
-  → Lambda (batch = truth, stream = fresh) or Kappa (one pipeline, reprocess for exact)
-Large historical + fresh recent? → Hybrid (batch historical + stream recent, query-layer merge)
-Start simple: Batch first; add streaming when latency requirement emerges
+├─ Hours/days OK + exact? → Pure Batch
+├─ Seconds/minutes (real-time)? → Pure Streaming or Hybrid
+└─ Need both real-time view and exact correctness?
+    ├─ Two pipelines OK (batch = truth, stream = fresh)? → Lambda
+    └─ Single pipeline, reprocess for exact? → Kappa
+Large historical data + fresh recent? → Hybrid (batch historical + stream recent, query merge)
+Start simple: Batch first; add streaming when latency requirement appears
 ```
 
 ### Key Reminders
@@ -422,5 +435,107 @@ Start simple: Batch first; add streaming when latency requirement emerges
 - **Lambda**: Two pipelines (batch + speed) + merge; double cost/complexity; batch corrects stream
 - **Kappa**: One streaming pipeline; reprocess history through same pipeline for exact (no separate batch)
 - **Lambda (architecture)** ≠ **Lambda (AWS/serverless functions)** — same name, different concepts
+
+---
+
+## 14. Hot Keys & Skew
+
+**Problem:** One key (or few keys) gets disproportionate traffic → hot spot, load imbalance, single point of failure  
+**Why naive fails:** Hash-to-shard or over-provision → one shard overloaded or wasted capacity + SPOF
+
+### Decision Framework
+```
+Is the hot key mostly READS?
+├─ Yes → Can you tolerate stale reads?
+│         ├─ Yes → Local caching (simpler) or Replication (fresher)
+│         └─ No  → Replication (tighter consistency)
+└─ No (writes matter a lot) → Key splitting (or hybrid: cache + split)
+
+Can you change how keys are designed? → Add randomness / composite keys to prevent future hot keys.
+```
+
+### Key Reminders
+- **Key splitting**: One logical key → many virtual keys → load spread; adds routing + aggregation
+- **Replication / caching**: Help read load only; writes still hit primary/hot shard
+- **Write-heavy hot key**: Key splitting (or hybrid: cache reads + split writes)
+- **Preventive**: Key design (e.g. user_id + shard_id, or time bucket) to avoid hot spots
+
+---
+
+## 15. Graceful Degradation
+
+**Problem:** System can't keep up with load → what do we do?  
+**Why naive fails:** Process everything or queue everything → system collapses (OOM, timeouts); queue lost when process dies
+
+### Solutions
+
+| Strategy | User impact | Data loss | Memory | Cascading risk | Use when |
+|----------|-------------|-----------|--------|----------------|----------|
+| Reject requests | Errors | High | Low | Low | Simple fail-fast; last resort |
+| Queue + backpressure | High latency | Low (done later) | High (queue) | High if long queue | Short bursts; bounded delay OK |
+| Load shedding | Some errors (low-pri) | Medium (low-pri dropped) | Normal | Low | Clear priorities; protect critical |
+| Approximate processing | Degraded quality | Low (served, less accurate) | Normal | Low | Throughput > exactness |
+| Rate limiting | Some errors (over limit) | High (rejected) | Normal | Low | Prevent overload; fair cap |
+
+### Decision Framework
+```
+Can you prevent overload before it happens?
+├─ Yes → RATE LIMITING (cap incoming load)
+└─ No → Do you have clear priorities (critical vs best-effort)?
+         ├─ Yes → LOAD SHEDDING (drop low-priority; protect critical)
+         └─ No → Can you absorb short bursts with a bounded queue?
+                  ├─ Yes → QUEUE + BACKPRESSURE (bounded queue; reject when full)
+                  └─ No → Can you serve with lower quality instead of rejecting?
+                           ├─ Yes → APPROXIMATE PROCESSING (sampling, cache, sketches)
+                           └─ No → REJECT REQUESTS (fail fast; 503/429)
+```
+
+**One-line:** Prevent → Rate limiting | Prioritize → Load shedding | Smooth bursts → Queue + backpressure | Trade quality → Approximate | Simple/last resort → Reject
+
+### Key Reminders
+- **Reject**: Stops collapse, no unbounded queue; user sees errors
+- **Queue + backpressure**: Bounded queue only; when full, reject (backpressure)
+- **Load shedding**: Priority queue or drop low-pri so critical requests succeed
+- **Approximate**: Keep serving with lower accuracy when exact would overload
+- **Rate limiting**: Tiered limits (e.g. reserved capacity for critical) when you have priorities
+- **Combine**: Rate limit at edge → bounded queue → load shed when full → reject as last resort
+
+---
+
+## 16. Partial Failure
+
+**Problem:** Some components fail, others don't; system must keep operating.  
+**Why naive fails:** "Nothing fails" is false; "stop on any failure" → system down whenever any component fails
+
+### Solutions
+
+| Approach | Availability | Consistency | Use When |
+|----------|-------------|-------------|----------|
+| Fail-Stop | Low (stops on any failure) | Strong (all-or-nothing) | Critical tx; accept downtime |
+| Best-Effort | High (continues with failures) | Eventual or weak | Max availability, inconsistency OK |
+| Quorum-Based | Medium (majority healthy) | Strong (majority consensus) | Strong consistency + fault tolerance |
+| Retry + Backoff | High (eventually succeeds) | Eventual (when recovers) | Transient failures (blips, restarts) |
+| Circuit Breaker | High (fails fast, recovers) | Eventual (when closed) | Avoid hammering broken dependency |
+
+### Decision Framework
+```
+Need strong consistency (all-or-nothing)?
+├─ Yes → Can you afford downtime on any failure?
+│         ├─ Yes → Fail-Stop
+│         └─ No  → Quorum-Based (available if majority healthy)
+└─ No (tolerate inconsistency) →
+      Failure likely transient? → Retry + exponential backoff
+      Avoid hammering broken dependency? → Circuit Breaker
+      Just keep serving with what works? → Best-Effort
+```
+
+**One-line:** Strong + accept downtime → Fail-Stop | Strong + stay up → Quorum | Transient → Retry+backoff | Don't hammer failed dep → Circuit Breaker | Max availability → Best-Effort
+
+### Key Reminders
+- **Fail-Stop**: Simple, consistent; system down on any failure
+- **Quorum-Based**: Majority must agree; handles minority failures, split-brain risk on partition
+- **Circuit Breaker**: Open = stop sending; half-open = test; close = resume (fails fast, auto-recovers)
+- **Retry + backoff**: For transient failures; add jitter to avoid thundering herd
+- **Hybrid**: Circuit breaker + retry + quorum for critical ops (common in practice)
 
 ---
